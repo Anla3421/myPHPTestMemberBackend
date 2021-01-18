@@ -19,6 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('name')->unique();
             $table->string('password');
             $table->enum('gender',['male','female']);
+            $table->string('level');
+            $table->enum('position',['user','administrator']);
             $table->string('remember_check')->nullable();
             $table->string('cellphone')->nullable();
             $table->rememberToken(); //Adds a nullable remember_token VARCHAR(100) equivalent column.

@@ -18,7 +18,7 @@
     {{-- <form action="{{'catch'}}" method="POST"> --}}
         {{-- @csrf --}}
         {{-- 加以上物件可解決419的問題(跨站攻擊 csrf) --}}
-      <nav class="navbar navbar-dark bg-dark">
+      {{-- <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="/">Home</a>
         @auth
         <a class="navbar-brand" href="userlist">User List</a>
@@ -26,15 +26,53 @@
         @else
         <a class="navbar-brand" href="login">Login</a>    
         @endauth
-      </nav>       
-        <div class="form-group">
+      </nav> --}}
+      <div class="container-fluild">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="/">Home</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/userlist">Userlist <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+              </li>
+            </ul>
+            @auth
+            <a class="navbar-brand" href="logout">Logout</a>
+            @else
+            <a class="navbar-brand" href="login">Login</a>    
+            @endauth
+          </div>
+        </nav>       
+      </div>
       @section('body')
+      <div class="container" style="padding:120px">
       <form action="{{'catch'}}" method="POST">
         @csrf
           <label for="exampleInputEmail1">Name</label>             
-          <input type="name" class="form-control" id="name" name="name" aria-describedby="emailHelp" width="10" maxlength="10">
+          <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp" width="5" size="5" maxlength="10">
           <large id="emailHelp" class="form-text text-muted">請輸入使用者名稱及密碼.</large>
-        </div>
+        
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
           <input type="password" class="form-control" id="password" name="password" size="18">
@@ -47,7 +85,7 @@
 
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
         @foreach ($errors->all() as $error)
-        
+      </div>
         <div>{{ $error }} </div>
         <script>
           alert('名稱或是密碼錯誤，請確認後再次輸入。');
@@ -56,7 +94,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" style="position:relative; left:15px; top: 0px; " >Submit</button>
       </form>
       @show
       @yield('js')

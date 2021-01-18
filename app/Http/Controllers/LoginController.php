@@ -21,8 +21,10 @@ class LoginController extends Controller {
 
 	//Userlist跳轉&讀取DB
 	public function userlist(Request $request){
-		$data=User::paginate(20);
+		$data=User::paginate(10);
 		// $data->setPath('userlist/2');
+		// echo "<pre>";
+		// print_r($data->all());
 		return view('userlist',['data'=>$data]);
 	}
 	

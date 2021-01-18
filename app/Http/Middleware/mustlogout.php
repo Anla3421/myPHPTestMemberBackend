@@ -26,7 +26,7 @@ class mustlogout
 			return back();
 		}else{
             $response = $next($request);
-            echo 'Auth status: no'; 
+            // echo 'Auth status: no'; 
             return $next($request);; //Auth check false, do nothting
 		}
     }
