@@ -16,7 +16,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'account','name', 'password','remember_check','remember_token','gender','cellphone', 'email'
+        'account','name', 'password','remember_check','remember_token','gender','cellphone', 'email',
+        'level','position'
     ];
     // public $timestamps=false;
 
@@ -42,8 +43,10 @@ class User extends Authenticatable
 		$this->account=$needtochange['account'];
 		$this->name=$needtochange['name'];
 		$this->password=$needtochange['password'];
-		$this->remember_check=$needtochange['remember_check'];
-		$this->gender=$needtochange['gender'];
-		$this->cellphone=$needtochange['cellphone'];
+        $this->gender=$needtochange['gender'];
+        $this->level=$needtochange['level'];
+        $this->position=$needtochange['position'];
+        $this->cellphone=$needtochange['cellphone'];
+        $this->remember_check=$needtochange['remember_check'];
     }
 }

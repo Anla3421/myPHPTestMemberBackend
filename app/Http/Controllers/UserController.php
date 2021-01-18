@@ -42,7 +42,7 @@ class UserController extends Controller
     *搜尋頁面
     */
     public function query(Request $request){
-		$data=User::paginate(20);
+		$data=User::paginate(2);
 		$query=User::query();
 		// var_dump($request->input('name')!=null);
 		if(trim($request->input('name')!=null)){
@@ -54,13 +54,19 @@ class UserController extends Controller
 		if(trim($request->input('cellphone')!=null)){
 			$query->where('cellphone',$request->cellphone);
 		}
-		$data=$query->paginate(20);
+		$data=$query->paginate(2);
+		// $data->setPath('userlist/'); //自定義分頁的網址=userlist/?page=N
+		// $data->setPath('query?name='+$request->name+'&gender='+$request->gender+'&cellphone='+$request->cellphone+'&');
+		// http://test777.ukyo.idv.tw/query?name=bbbbb&gender=female&cellphone=095465465
+		// echo "<pre>";
+		// print_r($data->all());
+		
 		return view('userlist',['data'=>$data]);
+		
     
         
 		// foreach ($data as $newdata) { //撈取User::paginate裡面DB所有的name
-		// 	echo "<pre>";
-		// print_r($newdata->name);
+		
 		// }
 
 		// $array=$data->toarray();
@@ -69,7 +75,7 @@ class UserController extends Controller
 		// 	print_r($value['name']);
 		// }
 
-		// var_dump($arr);
+		// var_dump($data);
 		// $aa='data'->$name;
 		// echo $name;
     }
@@ -78,11 +84,13 @@ class UserController extends Controller
      * CRUD:Create User (Ajax to controller(DB))
      */
     public function create(Request $request){
-		User::Create([
+		$a=User::Create([
 			'account'=>$request['account'],
 			'name'=>$request['name'],
 			'password'=>Hash::make($request['password']),
 			'gender'=>$request['gender'],
+			'level'=>$request['level'],
+			'position'=>$request['position'],
 			'remember_check' =>$request['remember_check'],
             'cellphone' => $request['cellphone'],
 		]);
@@ -107,13 +115,16 @@ class UserController extends Controller
 			'name'=>$request['name'],
 			'password'=>Hash::make($request['password']),
 			'gender'=>$request['gender'],
+			'level'=>$request['level'],
+			'position'=>$request['position'],
+			'cellphone' => $request['cellphone'],
 			'remember_check' =>$request['remember_check'],
-            'cellphone' => $request['cellphone'],
 		]);
 		$user->save();
 		// echo "<pre>";
 		// var_dump($user);
 		// print_r($user['account']);
+		// print_r($user);
 		// var_dump($user[$id]);
 		return response()->json([
 			'status'=>200,
