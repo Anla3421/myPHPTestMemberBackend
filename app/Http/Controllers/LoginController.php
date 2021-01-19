@@ -18,14 +18,7 @@ class LoginController extends Controller {
 		return view('login');
 	}
 
-	//Userlist跳轉&讀取DB
-	public function userlist(Request $request) {
-		$data = User::paginate(10);
-		// $data->setPath('userlist/2');
-		// echo "<pre>";
-		// print_r($data->all());
-		return view('userlist', ['data' => $data]);
-	}
+
 
 	//使用者登出
 	public function logout(Request $request) {
@@ -38,6 +31,13 @@ class LoginController extends Controller {
 
 	}
 
+
+
+
+
+
+
+	
 	// public function login(){
 	//     if(Auth::check()){
 	//         echo 'Auth status: yes';

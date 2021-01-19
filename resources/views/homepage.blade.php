@@ -9,5 +9,5 @@
     <br><br><br>
     <h3>Login Sucess!</h3>
         <br><br><br>
-        <h5><br>this is section practice page.</h5>
+        <h5><br>shopping page.</h5>
 @endsection
