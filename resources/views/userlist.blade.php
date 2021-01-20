@@ -6,7 +6,7 @@
 @endsection
 @section('body')
 <br>
-<div class="container">
+<div class="container-fluid">
     <form action="{{url('query')}}" method="GET" class="form-inline">
         <div  class="form-group col-3">
             <label for="exampleInputEmail1">Input Name</label>

@@ -47,12 +47,12 @@ Route::get('query', 'UserController@query')->name('query');
 /**
  * 商品調整相關
  */
-Route::middleware('mustlogin')->get('addclassify', function () {
-    echo 'Under construction...';
-});
-Route::middleware('mustlogin')->get('addgoods', function () {
-    echo 'Under construction......';
-});
+Route::middleware('mustlogin')->get('addclassify', 'MallController@addclassify')->name('mallclassify');
+Route::middleware('mustlogin')->post('addclassify', 'MallController@classifycreate')->name('mallclassify.create');
+Route::middleware('mustlogin')->get('addgoods', 'MallController@addgoods')->name('mallgoods');
+// Route::middleware('mustlogin')->get('addgoods', function () {
+//     echo 'under contract...';
+// });
 
 
 
@@ -89,24 +89,24 @@ Route::middleware('mustlogin')->get('addgoods', function () {
  * 
  * test
  */
-Route::get('/test', 'LoginController@ajaxcrud');
+// Route::get('/test', 'LoginController@ajaxcrud');
 
-Route::get('/JQtest', function () {
-    return view('test.JQuerytest');
-});
-Route::get('welcome', function () {
-    return view('test.welcome');
-});
-Route::get('hello/{name}', function ($name) {
-    return 'Hello ' . $name;
-});
-Route::middleware('after')->get('/after', function (){
-    echo 'in Route';
-});
+// Route::get('/JQtest', function () {
+//     return view('test.JQuerytest');
+// });
+// Route::get('welcome', function () {
+//     return view('test.welcome');
+// });
+// Route::get('hello/{name}', function ($name) {
+//     return 'Hello ' . $name;
+// });
+// Route::middleware('after')->get('/after', function (){
+//     echo 'in Route';
+// });
 
-Route::get('/111', function () {
-    return view('test.CRUDindex');
-});
+// Route::get('/111', function () {
+//     return view('test.CRUDindex');
+// });
 /** 
  * 已登入
  */
