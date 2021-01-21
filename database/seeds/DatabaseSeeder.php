@@ -70,7 +70,7 @@ class DatabaseSeeder extends Seeder
             'id' =>'1',
             'pid'=>'1',
             'title'=>'A牌西裝',
-            'depiction'=>'特殊剪裁',
+            'description'=>'特殊剪裁',
             'top'=>'1',
             'price'=>'10000',
             'finalprice'=>'5000',

@@ -6,7 +6,8 @@
 @endsection
 @section('body')
 <div class="container-fluid">
-    <form action="{{url('addclassify')}}" method="POST" class="form-inline">
+    {{-- <form action="{{url('addgoods')}}" method="POST" class="form-inline"> --}}
+    <form class="form-inline">
         @csrf
         {{-- <div  class="form-group col-5">
             <label for="exampleInputEmail1">ID</label>
@@ -16,11 +17,13 @@
             <label for="exampleInputEmail1">Title</label>
             <input type="text" class="form-control m-1" name="title" aria-describedby="emailHelp" width="10" maxlength="10" value="<?php if (isset($_GET['cellphone'])) {print $_GET['cellphone'];}?>" />
         </div> --}}
+        {{-- {{dd($mergedata)}} --}}
         <div class="form-group col-3">
             <label for="exampleFormControlSelect1">Classify</label>
-                <select class="form-control m-1 gender" name="gender">
+                <select class="form-control m-1 Classify" id="Classifyselect" name="Classifyselect">
+                    <option value=""></option>
                     @foreach ($mergedata as $item)
-                    <option value={{$item->id}} >{{$item->title}}</option>
+                    <option value={{$item->title}}>{{$item->title}}</option>
                     @endforeach
                 </select>
                 <small id="emailHelp" class="form-text text-muted">請先選擇商品分類</small>
@@ -58,7 +61,7 @@
                 <td>{{$view->pid}}</td>
                 <td>{{$view->classify}}</td>
                 <td>{{$view->title}}</td>
-                <td>{{$view->depiction}}</td>
+                <td>{{$view->description}}</td>
                 <td>
                     @if ($view->top==1)
                     是
@@ -129,7 +132,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">折扣完價格</label>
-                        <input type="text" class="form-control" id="finalprice" name="finalprice">
+                        <input type="text" class="form-control" id="finalprice" name="finalprice" >
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">數量</label>
@@ -152,60 +155,109 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">detailid</label>
-                        <input type="text" class="form-control" id="detailid" name="detailid">
+                        <input type="text" class="form-control" id="did" name="did">
                     </div>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button id="createuser" type="button" class="btn btn-primary create">Create user</button>
+                    <button id="create_goods" type="button" class="btn btn-primary create">Create user</button>
                     <button id="updateuser" type="button" class="btn btn-primary update">Update user</button>
                     <button id="deleteuser" type="button" class="btn btn-primary create">Delete user</button>
 </form>
 @stop
-{{-- @section('js2')
+@section('js')  
 <script>
-     $("#create_classify").on('click', function() { //創建新使用者之資料給controller
+//     $( document ).ready(function(){
+//     $('#Classifyselect').on('change', function(){
+//     $('.Classifyselect').attr('value')
+//     })
+// })
+
+    $("#create_modal").on('click', function(mergedata) { //打開選單
+    $("#exampleModalLabel").text('Create Merchandise!!!');
+    // $("input").val('');
+    $("#classify").val($("#Classifyselect").val());
+    
+    $("#pid").val(123),
+    $("#classify").val("汽車"),
+    $("#title").val(123),
+    $("#description").val(123),
+    $("#top").val(0),
+    $("#price").val(100),
+    // $("#finalprice").val(123),
+    $("#amount").val(155),
+    $("#discount").val(60),
+    $("#kid").val(3213),
+    $("#type").val(0),
+    $("#did").val(1546),
+    
+    $("#deleteuser").hide();
+    $("#updateuser").hide();
+    $("#createuser").show();
+
+});
+     $("#create_goods").on('click', function() { //創建新使用者之資料給controller
+     
+     
+     var $price=$("#price").val();
+     var $discount=0.01*$("#discount").val();
+     var $finalprice=$price*$discount;
+     $('#finalprice').val($finalprice);
+    //  var $discount=$("#discount").text();
+     console.log($finalprice);
         $.ajax({
-                // url:"http://test777.ukyo.idv.tw/userlist",
-                url: "/addclassify", //for localhost test
+                url: "/addgoods", //for localhost test
                 type: "POST",
                 data: {
-                    id:$("#id").val(),
-                    title:$("title").val(),
+                    pid:$("#pid").val(),
+                    classify:$("#classify").val(),
+                    title:$("#title").val(),
+                    description:$("#description").val(),
+                    top:$("#top").val(),
+                    price:$("#price").val(),
+                    finalprice:$('#finalprice').val(),
+                    amount:$("#amount").val(),
+                    discount:$("#discount").val(),
+                    kid:$("#kid").val(),
+                    type:$("#type").val(),
+                    did:$("#did").val(),
                 },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
+            })
+            .fail(function() {
+                alert('請確認輸入的資訊是否有缺項');
             })
             .done(function(data) { //回傳創建結果
                 console.log(data);
                 if (data.status == 200) {
                     alert('Create complete!');
-                    location.reload();
+                    // location.reload();
                 }
             })
     });
 
-    function deleteuser(data) { //use confirm to delete users
-        if (confirm("確認要刪除此使用者" + data.pid + "?")) {
-            $.ajax({
-                // url: "http://test777.ukyo.idv.tw/userlist/d/" + data.id,
-                url: "/userlist/d/" + data.id, //for localhost test
-                type: "POST",
-                success: function(data) {
-                    console.log(data);
-                    alert('Delete Complete!');
-                    location.reload();
-                },
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            })
-        }
-    }
+    // function deleteuser(data) { //use confirm to delete users
+    //     if (confirm("確認要刪除此使用者" + data.pid + "?")) {
+    //         $.ajax({
+    //             // url: "http://test777.ukyo.idv.tw/userlist/d/" + data.id,
+    //             url: "/userlist/d/" + data.id, //for localhost test
+    //             type: "POST",
+    //             success: function(data) {
+    //                 console.log(data);
+    //                 alert('Delete Complete!');
+    //                 location.reload();
+    //             },
+    //             headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             }
+    //         })
+    //     }
+    // }
     
-    </script>
-    @endsection --}}
+</script>
+@endsection
 
 

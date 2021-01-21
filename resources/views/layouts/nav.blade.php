@@ -102,7 +102,7 @@
                   <a class="dropdown-item" href="/addclassify">新增分類</a>
                   <a class="dropdown-item" href="/addgoods">新增商品</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Something else here</a>
+                  <a class="dropdown-item" href="#">Nothing else here</a>
                 </div>
               </li>
               <li class="nav-item">

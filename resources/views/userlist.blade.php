@@ -172,7 +172,7 @@ $(document).ready(function() {
 });
 
 
-$("#create_modal").on('click', function() { //打開選單
+    $("#create_modal").on('click', function($data) { //打開選單
     $("#exampleModalLabel").html('Create User!!!');
     $("input").val('');
     $("#deleteuser").hide();

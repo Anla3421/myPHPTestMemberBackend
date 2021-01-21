@@ -50,6 +50,7 @@ Route::get('query', 'UserController@query')->name('query');
 Route::middleware('mustlogin')->get('addclassify', 'MallController@addclassify')->name('mallclassify');
 Route::middleware('mustlogin')->post('addclassify', 'MallController@classifycreate')->name('mallclassify.create');
 Route::middleware('mustlogin')->get('addgoods', 'MallController@addgoods')->name('mallgoods');
+Route::middleware('mustlogin')->post('addgoods', 'MallController@goodscreate')->name('mallgoods.create');
 // Route::middleware('mustlogin')->get('addgoods', function () {
 //     echo 'under contract...';
 // });
@@ -90,6 +91,10 @@ Route::middleware('mustlogin')->get('addgoods', 'MallController@addgoods')->name
  * test
  */
 // Route::get('/test', 'LoginController@ajaxcrud');
+Route::get('/test', function () {
+        return view('test.selectinputmodal');
+    });
+
 
 // Route::get('/JQtest', function () {
 //     return view('test.JQuerytest');
