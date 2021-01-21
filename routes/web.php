@@ -51,6 +51,8 @@ Route::middleware('mustlogin')->get('addclassify', 'MallController@addclassify')
 Route::middleware('mustlogin')->post('addclassify', 'MallController@classifycreate')->name('mallclassify.create');
 Route::middleware('mustlogin')->get('addgoods', 'MallController@addgoods')->name('mallgoods');
 Route::middleware('mustlogin')->post('addgoods', 'MallController@goodscreate')->name('mallgoods.create');
+Route::middleware('mustlogin')->post('addgoods/d/{id}', 'MallController@goodsdelete')->name('mallgoods.delete');
+Route::middleware('mustlogin')->post('addgoods/re/{id}', 'MallController@goodsrelease')->name('mallgoods.release');
 // Route::middleware('mustlogin')->get('addgoods', function () {
 //     echo 'under contract...';
 // });

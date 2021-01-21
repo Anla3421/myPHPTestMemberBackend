@@ -42,19 +42,23 @@
                 <th scope="col">標題</th>
                 <th scope="col">敘述</th>
                 <th scope="col">是否置頂</th>
-                <th scope="col">單價</th>
-                <th scope="col">折扣完價格</th>
                 <th scope="col">數量</th>
+                <th scope="col">單價</th>
                 <th scope="col">折扣%數</th>
+                <th scope="col">折扣完價格</th>
                 <th scope="col">關鍵字id</th>
                 <th scope="col">價格類型</th>
                 <th scope="col">detailid</th>
                 <th scope="col">Created_at</th>
                 <th scope="col">Updated_at</th>
+                <th scope="col">上/下架</th>
+                <th scope="col">刪除</th>
+                
             </tr>
         </thead>
         <tbody>
-            {{-- {{dd($data)}} --}}
+            
+            {{-- {{print_r($data->toarray())}} --}}
             @foreach ($data as $view)
             <tr>
                 <td>{{$view->id}}</td>
@@ -69,10 +73,10 @@
                     否
                     @endif
                 </td>
-                <td>{{$view->price}}</td>
-                <td>{{$view->finalprice}}</td>
                 <td>{{$view->amount}}</td>
+                <td>{{$view->price}}</td>
                 <td>{{$view->discount}}</td>
+                <td>{{$view->finalprice}}</td>
                 <td>{{$view->kid}}</td>
                 <td>
                     @if ($view->type==1)
@@ -84,6 +88,21 @@
                 <td>{{$view->did}}</td>
                 <td>{{$view->created_at}}</td>
                 <td>{{$view->updated_at}}</td>
+                    @if ($view->release==1)
+                        <td>
+                            <button type="button" id="release_modal" class="btn btn-secondary" value="1" onclick="releaseitem({{json_encode($view)}})">下架</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-secondary" data-toggle="" data-target="" disabled>刪除</button>
+                        </td>  
+                    @else
+                        <td>
+                            <button type="button" id="release_modal" class="btn btn-secondary" value="0" onclick="releaseitem({{json_encode($view)}})">上架</button>
+                        </td>
+                        <td>
+                            <button type="button" id="delete_modal" class="btn btn-secondary" data-toggle="" data-target="" onclick="deleteitem({{json_encode($view)}})">刪除</button>
+                        </td>  
+                    @endif
             </tr>
             @endforeach
         </tbody>
@@ -127,20 +146,20 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">單價</label>
-                        <input type="text" class="form-control" id="price" name="price">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">折扣完價格</label>
-                        <input type="text" class="form-control" id="finalprice" name="finalprice" >
-                    </div>
-                    <div class="form-group">
                         <label for="exampleFormControlInput1">數量</label>
                         <input type="text" class="form-control" id="amount" name="amount">
                     </div>
                     <div class="form-group">
+                        <label for="exampleFormControlInput1">單價</label>
+                        <input type="text" class="form-control" id="price" name="price">
+                    </div>
+                    <div class="form-group">
                         <label for="exampleFormControlInput1">折扣%數</label>
                         <input type="text" class="form-control" id="discount" name="discount">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">折扣完價格</label>
+                        <input type="text" class="form-control" id="finalprice" name="finalprice" readonly>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">關鍵字id</label>
@@ -161,42 +180,35 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button id="create_goods" type="button" class="btn btn-primary create">Create user</button>
+                    <button id="create_goods" type="button" class="btn btn-primary create">Create!</button>
                     <button id="updateuser" type="button" class="btn btn-primary update">Update user</button>
                     <button id="deleteuser" type="button" class="btn btn-primary create">Delete user</button>
 </form>
 @stop
 @section('js')
 <script>
-//     $( document ).ready(function(){
-//     $('#Classifyselect').on('change', function(){
-//     $('.Classifyselect').attr('value')
-//     })
-// })
-
     $("#create_modal").on('click', function(mergedata) { //打開選單
     $("#exampleModalLabel").text('Create Merchandise!!!');
     // $("input").val('');
     $("#classify").val($("#Classifyselect").val());
 
-    $("#pid").val(123),
-    $("#classify").val("汽車"),
-    $("#title").val(123),
-    $("#description").val(123),
-    $("#top").val(0),
-    $("#price").val(100),
-    // $("#finalprice").val(123),
-    $("#amount").val(155),
-    $("#discount").val(60),
-    $("#kid").val(3213),
-    $("#type").val(0),
-    $("#did").val(1546),
+    // $("#pid").val(123), //dummy data for test
+    // $("#classify").val("汽車"),
+    // $("#title").val(123),
+    // $("#description").val(123),
+    // $("#top").val(0),
+    // $("#price").val(100),
+    // // $('#finalprice').val(),
+    // $("#amount").val(155),
+    // $("#discount").val(60),
+    // $("#kid").val(3213),
+    // $("#type").val(0),
+    // $("#did").val(1546),
 
     $("#deleteuser").hide();
     $("#updateuser").hide();
     $("#createuser").show();
-
-    $("#price,#discount").on('blur',function(){
+    $("#price,#discount").on('keyup',function(){
 
         if($("#price").val()>0 && $("#discount").val()>0){
           var discount =  $("#discount").val() *0.01;
@@ -204,19 +216,8 @@
         }
     });
 
-
-
-
 });
      $("#create_goods").on('click', function() { //創建新使用者之資料給controller
-
-
-     var $price=$("#price").val();
-     var $discount=0.01*$("#discount").val();
-     var $finalprice=$price*$discount;
-     $('#finalprice').val($finalprice);
-    //  var $discount=$("#discount").text();
-     console.log($finalprice);
         $.ajax({
                 url: "/addgoods", //for localhost test
                 type: "POST",
@@ -245,28 +246,51 @@
                 console.log(data);
                 if (data.status == 200) {
                     alert('Create complete!');
-                    // location.reload();
+                    location.reload();
                 }
             })
     });
 
-    // function deleteuser(data) { //use confirm to delete users
-    //     if (confirm("確認要刪除此使用者" + data.pid + "?")) {
-    //         $.ajax({
-    //             // url: "http://test777.ukyo.idv.tw/userlist/d/" + data.id,
-    //             url: "/userlist/d/" + data.id, //for localhost test
-    //             type: "POST",
-    //             success: function(data) {
-    //                 console.log(data);
-    //                 alert('Delete Complete!');
-    //                 location.reload();
-    //             },
-    //             headers: {
-    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //             }
-    //         })
+    function deleteitem(data) { //use confirm to delete users
+        if (confirm("確認要刪除此商品" + data.title + "?")) {
+            $.ajax({
+                url: "/addgoods/d/" + data.id, //for localhost test
+                type: "POST",
+                success: function(data) {
+                    console.log(data);
+                    alert('Delete Complete!');
+                    location.reload();
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            })
+        }
+    }
+
+    function releaseitem(data) { //use confirm to delete users
+    //     console.log($("button").text()=="0")
+    //     console.log($("button").text())
+    // if($("#releaseitem").attr('value')=="0"){
+    //     var $text="上架";
+    //     }else{
+    //     var $text="下架"    ;
     //     }
-    // }
+        if (confirm("確認要上/下架此商品" + data.title + "?")) {
+            $.ajax({
+                url: "/addgoods/re/" + data.id, //for localhost test
+                type: "POST",
+                success: function(data) {
+                    console.log(data);
+                    alert('Operation Complete!');
+                    // location.reload();
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            })
+        }
+    }
 
 </script>
 @endsection
