@@ -72,6 +72,32 @@ class MallController extends Controller
 		]);
 	}
 
+	public function goodsdelete(Request $request, $id){
+		$goods=shop::find($id);
+		$goods->delete();
+		return response()->json([
+			'status' => 200,
+			'msg' => 'create success',
+		]);
+	}
+
+	public function goodsrelease(Request $request, $id){
+		$goods=shop::find($id);
+		// $goods->release
+				echo "<pre>";
+		print_r($goods->release);
+		if ($goods->release==0){
+			$goods->release=1;
+			$goods->save();
+		}else{
+			$goods->release=0;
+			$goods->save();
+		}
+		return response()->json([
+			'status' => 200,
+			'msg' => 'create success',
+		]);
+	}
 }
 
 // DB::table('users')->where('name', $request->only('name'))->update([
