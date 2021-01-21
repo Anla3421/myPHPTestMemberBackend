@@ -166,7 +166,7 @@
                     <button id="deleteuser" type="button" class="btn btn-primary create">Delete user</button>
 </form>
 @stop
-@section('js')  
+@section('js')
 <script>
 //     $( document ).ready(function(){
 //     $('#Classifyselect').on('change', function(){
@@ -178,7 +178,7 @@
     $("#exampleModalLabel").text('Create Merchandise!!!');
     // $("input").val('');
     $("#classify").val($("#Classifyselect").val());
-    
+
     $("#pid").val(123),
     $("#classify").val("汽車"),
     $("#title").val(123),
@@ -191,15 +191,26 @@
     $("#kid").val(3213),
     $("#type").val(0),
     $("#did").val(1546),
-    
+
     $("#deleteuser").hide();
     $("#updateuser").hide();
     $("#createuser").show();
 
+    $("#price,#discount").on('blur',function(){
+
+        if($("#price").val()>0 && $("#discount").val()>0){
+          var discount =  $("#discount").val() *0.01;
+            $("#finalprice").val($("#price").val() * discount);
+        }
+    });
+
+
+
+
 });
      $("#create_goods").on('click', function() { //創建新使用者之資料給controller
-     
-     
+
+
      var $price=$("#price").val();
      var $discount=0.01*$("#discount").val();
      var $finalprice=$price*$discount;
@@ -256,7 +267,7 @@
     //         })
     //     }
     // }
-    
+
 </script>
 @endsection
 
