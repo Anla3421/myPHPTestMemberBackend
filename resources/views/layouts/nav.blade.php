@@ -100,9 +100,10 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="/addclassify">新增分類</a>
-                  <a class="dropdown-item" href="/addgoods">新增商品</a>
+                  <a class="dropdown-item" href="/addkeyword">新增關鍵字</a>
+                  <a class="dropdown-item" href="/addphoto">新增照片</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Nothing else here</a>
+                  <a class="dropdown-item" href="/addgoods">新增商品</a>
                 </div>
               </li>
               <li class="nav-item">

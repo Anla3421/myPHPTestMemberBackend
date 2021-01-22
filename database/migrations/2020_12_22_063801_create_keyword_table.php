@@ -12,7 +12,7 @@ class CreateKeywordTable extends Migration {
 	 */
 	public function up() {
 		Schema::create('keyword', function (Blueprint $table) {
-			$table->id();
+			$table->increments('kid');
 			$table->string('title');
 			$table->string('icon')->comment('icon');
 			$table->timestamps();

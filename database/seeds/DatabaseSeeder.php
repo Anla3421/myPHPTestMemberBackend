@@ -125,17 +125,32 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('keyword')->insert([
-            'id' =>'1',
+            'kid' =>'1',
             'title'=>'特賣',
             'icon'=>'icon',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
+        DB::table('keyword')->insert([
+            'kid' =>'2',
+            'title'=>'優惠',
+            'icon'=>'icon2',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
         DB::table('photo')->insert([
-            'id' =>'1',
+            'pid' =>'1',
             'shop_id'=>'1',
             'title'=>'photo',
             'path'=>'C:\phptest',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('photo')->insert([
+            'pid' =>'2',
+            'shop_id'=>'2',
+            'title'=>'photo2',
+            'path'=>'C:\phptest\2',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);

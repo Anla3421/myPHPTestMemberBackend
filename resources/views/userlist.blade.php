@@ -214,7 +214,7 @@ function update(data) { //打開選單後顯示原本的資料
     $("#deleteuser").hide();
     $("#updateuser").show();
     $("#createuser").hide();
-    $('#uid').val(data.id);
+    $('#uid').val(data.id); //撈給下面url用
     $('#exampleModalLabel').text('Update User...');
     $('#account').val(data.account);
     $("#name").val(data.name);

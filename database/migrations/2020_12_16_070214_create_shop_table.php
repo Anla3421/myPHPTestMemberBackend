@@ -25,7 +25,7 @@ class CreateShopTable extends Migration {
 			$table->integer('kid')->comment('關鍵字id');
 			$table->integer('type')->comment('1 統一價格,0:分種類價格');
 			$table->integer('did')->default(0)->comment('detailid');
-			$table->boolean('release')->comment('是否上架');
+			$table->boolean('release')->default(0)->comment('是否上架');
 			$table->timestamps();
 		});
 	}

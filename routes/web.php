@@ -49,10 +49,17 @@ Route::get('query', 'UserController@query')->name('query');
  */
 Route::middleware('mustlogin')->get('addclassify', 'MallController@addclassify')->name('mallclassify');
 Route::middleware('mustlogin')->post('addclassify', 'MallController@classifycreate')->name('mallclassify.create');
+
+Route::middleware('mustlogin')->get('addkeyword', 'MallController@addkeyword')->name('mallkeyword');
+Route::middleware('mustlogin')->post('addkeyword', 'MallController@keywordcreate')->name('mallkeyword.create');
+
+
+
 Route::middleware('mustlogin')->get('addgoods', 'MallController@addgoods')->name('mallgoods');
 Route::middleware('mustlogin')->post('addgoods', 'MallController@goodscreate')->name('mallgoods.create');
 Route::middleware('mustlogin')->post('addgoods/d/{id}', 'MallController@goodsdelete')->name('mallgoods.delete');
 Route::middleware('mustlogin')->post('addgoods/re/{id}', 'MallController@goodsrelease')->name('mallgoods.release');
+Route::middleware('mustlogin')->post('addgoods/{id}', 'MallController@goodsupdate')->name('mallgoods.update');
 // Route::middleware('mustlogin')->get('addgoods', function () {
 //     echo 'under contract...';
 // });

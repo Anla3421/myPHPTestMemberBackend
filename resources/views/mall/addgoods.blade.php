@@ -31,6 +31,7 @@
         <div>
             {{-- <button type="submit" class="btn btn-primary">新增商品內容</button> --}}
             <button type="button" class="btn btn-primary" id="create_modal" data-toggle="modal" data-target="#exampleModal">創建新商品</button>
+            {{-- <button type="button" class="btn btn-primary" id="update_modal" data-toggle="modal" data-target="#exampleModal" disabled="true">修改商品</button> --}}
         </div>
     </form>
     <table class="table">
@@ -52,6 +53,7 @@
                 <th scope="col">Created_at</th>
                 <th scope="col">Updated_at</th>
                 <th scope="col">上/下架</th>
+                <th scope="col">修改</th>
                 <th scope="col">刪除</th>
                 
             </tr>
@@ -60,50 +62,61 @@
             
             {{-- {{print_r($data->toarray())}} --}}
             @foreach ($data as $view)
-            <tr>
-                <td>{{$view->id}}</td>
-                <td>{{$view->pid}}</td>
-                <td>{{$view->classify}}</td>
-                <td>{{$view->title}}</td>
-                <td>{{$view->description}}</td>
-                <td>
-                    @if ($view->top==1)
-                    是
-                    @else
-                    否
-                    @endif
-                </td>
-                <td>{{$view->amount}}</td>
-                <td>{{$view->price}}</td>
-                <td>{{$view->discount}}</td>
-                <td>{{$view->finalprice}}</td>
-                <td>{{$view->kid}}</td>
-                <td>
-                    @if ($view->type==1)
-                    統一價格
-                    @else
-                    分種類價格
-                    @endif
-                </td>
-                <td>{{$view->did}}</td>
-                <td>{{$view->created_at}}</td>
-                <td>{{$view->updated_at}}</td>
-                    @if ($view->release==1)
-                        <td>
-                            <button type="button" id="release_modal" class="btn btn-secondary" value="1" onclick="releaseitem({{json_encode($view)}})">下架</button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-secondary" data-toggle="" data-target="" disabled>刪除</button>
-                        </td>  
-                    @else
-                        <td>
-                            <button type="button" id="release_modal" class="btn btn-secondary" value="0" onclick="releaseitem({{json_encode($view)}})">上架</button>
-                        </td>
-                        <td>
-                            <button type="button" id="delete_modal" class="btn btn-secondary" data-toggle="" data-target="" onclick="deleteitem({{json_encode($view)}})">刪除</button>
-                        </td>  
-                    @endif
-            </tr>
+            @if ($view->release==1)
+                <tr class="alert alert-success" role="alert">
+            @else
+                <tr>
+            @endif
+                    <td>{{$view->id}}</td>
+                    <td>{{$view->pid}}</td>
+                    <td>{{$view->classify}}</td>
+                    <td>{{$view->title}}</td>
+                    <td>{{$view->description}}</td>
+                    <td>
+                        @if ($view->top==1)
+                        是
+                        @else
+                        否
+                        @endif
+                    </td>
+                    <td>{{$view->amount}}</td>
+                    <td>{{$view->price}}</td>
+                    <td>{{$view->discount}}</td>
+                    <td>{{$view->finalprice}}</td>
+                    <td>{{$view->kid}}</td>
+                    <td>
+                        @if ($view->type==1)
+                        統一價格
+                        @else
+                        分種類價格
+                        @endif
+                    </td>
+                    <td>{{$view->did}}</td>
+                    <td>{{$view->created_at}}</td>
+                    <td>{{$view->updated_at}}</td>
+
+                        @if ($view->release==1)
+                            <td>
+                                <button type="button" id="release_modal" class="btn btn-warning" value="1" onclick="releaseitem({{json_encode($view)}})">下架</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-secondary" data-toggle="" data-target="" disabled>修改</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-secondary" data-toggle="" data-target="" disabled>刪除</button>
+                            </td>  
+                        @else
+                            <td>
+                                <button type="button" id="release_modal" class="btn btn-success" value="0" onclick="releaseitem({{json_encode($view)}})">上架</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-secondary" id="update_modal" data-toggle="modal" data-target="#exampleModal" onclick="updateitem({{json_encode($view)}})">修改</button>
+                            </td>
+                            <td>
+                                <button type="button" id="delete_modal" class="btn btn-danger" data-toggle="" data-target="" onclick="deleteitem({{json_encode($view)}})">刪除</button>
+                            </td>  
+                        @endif
+                </tr>
             @endforeach
         </tbody>
     </table>
@@ -181,42 +194,45 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button id="create_goods" type="button" class="btn btn-primary create">Create!</button>
-                    <button id="updateuser" type="button" class="btn btn-primary update">Update user</button>
-                    <button id="deleteuser" type="button" class="btn btn-primary create">Delete user</button>
+                    <button id="update_goods" type="button" class="btn btn-primary update">Update user</button>
+                    <button id="delete_goods" type="button" class="btn btn-primary create">Delete user</button>
 </form>
 @stop
 @section('js')
 <script>
-    $("#create_modal").on('click', function(mergedata) { //打開選單
-    $("#exampleModalLabel").text('Create Merchandise!!!');
-    // $("input").val('');
-    $("#classify").val($("#Classifyselect").val());
-
-    // $("#pid").val(123), //dummy data for test
-    // $("#classify").val("汽車"),
-    // $("#title").val(123),
-    // $("#description").val(123),
-    // $("#top").val(0),
-    // $("#price").val(100),
-    // // $('#finalprice').val(),
-    // $("#amount").val(155),
-    // $("#discount").val(60),
-    // $("#kid").val(3213),
-    // $("#type").val(0),
-    // $("#did").val(1546),
-
-    $("#deleteuser").hide();
-    $("#updateuser").hide();
-    $("#createuser").show();
-    $("#price,#discount").on('keyup',function(){
-
+    $(document).ready(function() {
+        $("#price,#discount").on('keyup',function(){
         if($("#price").val()>0 && $("#discount").val()>0){
-          var discount =  $("#discount").val() *0.01;
+        var discount =  $("#discount").val() *0.01;
             $("#finalprice").val($("#price").val() * discount);
         }
+        });
     });
 
-});
+    $("#create_modal").on('click', function(mergedata) { //打開選單
+        $("#exampleModalLabel").text('Create Merchandise!!!');
+        // $("input").val('');
+        $("#classify").val($("#Classifyselect").val());
+
+        //dummy data for test
+        // $("#pid").val(123), 
+        // $("#classify").val("汽車"),
+        // $("#title").val(123),
+        // $("#description").val(123),
+        // $("#top").val(0),
+        // $("#price").val(100),
+        // // $('#finalprice').val(),
+        // $("#amount").val(155),
+        // $("#discount").val(60),
+        // $("#kid").val(3213),
+        // $("#type").val(0),
+        // $("#did").val(1546),
+
+        $("#delete_goods").hide();
+        $("#update_goods").hide();
+        $("#create_goods").show();
+    });
+
      $("#create_goods").on('click', function() { //創建新使用者之資料給controller
         $.ajax({
                 url: "/addgoods", //for localhost test
@@ -227,10 +243,10 @@
                     title:$("#title").val(),
                     description:$("#description").val(),
                     top:$("#top").val(),
-                    price:$("#price").val(),
-                    finalprice:$('#finalprice').val(),
                     amount:$("#amount").val(),
+                    price:$("#price").val(),
                     discount:$("#discount").val(),
+                    finalprice:$('#finalprice').val(),
                     kid:$("#kid").val(),
                     type:$("#type").val(),
                     did:$("#did").val(),
@@ -246,6 +262,62 @@
                 console.log(data);
                 if (data.status == 200) {
                     alert('Create complete!');
+                    location.reload();
+                }
+            })
+    });
+
+    function updateitem(data) { //打開選單後顯示原本的資料
+        console.log(data);
+        $("#delete_goods").hide();
+        $("#update_goods").show();
+        $("#create_goods").hide();
+
+        $('#uid').val(data.id); //撈給下面url用
+        $("#pid").val(data.pid);
+        $("#classify").val(data.classify); //只顯示不能改
+        $("#title").val(data.title);
+        $("#description").val(data.description);
+        $("#top").val(data.top);
+        $("#amount").val(data.amount);
+        $("#price").val(data.price);
+        $("#discount").val(data.discount);
+        $('#finalprice').val(data.finalprice); //只顯示不能改
+        $("#kid").val(data.kid);
+        $("#type").val(data.type);
+        $("#did").val(data.did);
+    }
+
+    $("#update_goods").on('click',function(){
+        $id=$('#uid').val();
+        $.ajax({
+            url:"/addgoods/"+ $id,
+            type:"POST",
+            data:{
+                pid:$("#pid").val(),
+                //classify不可從這邊修改
+                title:$("#title").val(),
+                description:$("#description").val(),
+                top:$("#top").val(),
+                amount:$("#amount").val(),
+                price:$("#price").val(),
+                discount:$("#discount").val(),
+                finalprice:$('#finalprice').val(),
+                kid:$("#kid").val(),
+                type:$("#type").val(),
+                did:$("#did").val(),
+            },
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+        })
+            .fail(function(){
+                alert("??????");
+            })
+            .done(function(data){
+                console.log(data);
+                if (data.status==200){
+                    alert("Update Success");
                     location.reload();
                 }
             })
@@ -283,7 +355,7 @@
                 success: function(data) {
                     console.log(data);
                     alert('Operation Complete!');
-                    // location.reload();
+                    location.reload();
                 },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

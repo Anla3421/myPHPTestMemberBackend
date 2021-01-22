@@ -17,7 +17,7 @@ class MallController extends Controller
 	}
 
 	public function classifycreate(Request $request) {
-		// $a = DB::insert('insert into classify (title,created_at,updated_at) values (?,?,?)', [$request['title'],carbon::now(),carbon::now()]);
+		// $a = DB::insert('insert into classify (title,created_at,updated_at) values (?,?,?)', [$request['title'],carbon::now()
 		$a=Classify::create([
 			'title'=>$request->title,
 		]);
@@ -43,7 +43,7 @@ class MallController extends Controller
 	}
 
 	public function goodscreate(Request $request) {
-		// $a = DB::insert('insert into classify (title,created_at,updated_at) values (?,?,?)', [$request['title'],carbon::now(),carbon::now()]);
+		// $a = DB::insert('insert into classify (title,created_at,updated_at) values (?,?,?)', [$request['title'],carbon::now()
 		$a=shop::create([
 			'pid'=>$request->pid,
 			'classify'=>$request->classify,
@@ -73,8 +73,8 @@ class MallController extends Controller
 	}
 
 	public function goodsdelete(Request $request, $id){
-		$goods=shop::find($id);
-		$goods->delete();
+		$goodsdel=shop::find($id);
+		$goodsdel->delete();
 		return response()->json([
 			'status' => 200,
 			'msg' => 'create success',
@@ -82,21 +82,60 @@ class MallController extends Controller
 	}
 
 	public function goodsrelease(Request $request, $id){
-		$goods=shop::find($id);
+		$goodsrel=shop::find($id);
 		// $goods->release
-				echo "<pre>";
-		print_r($goods->release);
-		if ($goods->release==0){
-			$goods->release=1;
-			$goods->save();
+		// 		echo "<pre>";
+		// print_r($goods->release);
+		if ($goodsrel->release==0){
+			$goodsrel->release=1;
+			$goodsrel->save();
 		}else{
-			$goods->release=0;
-			$goods->save();
+			$goodsrel->release=0;
+			$goodsrel->save();
 		}
 		return response()->json([
 			'status' => 200,
 			'msg' => 'create success',
 		]);
+	}
+
+	public function goodsupdate(Request $request,$id){
+		$goodsupdate=shop::find($id);
+		$goodsupdate->updateinfo2([
+			'pid'=>$request['pid'],
+			'title'=>$request['title'],
+			'description'=>$request['description'],
+			'top'=>$request['top'],
+			'amount'=>$request['amount'],
+			'price'=>$request['price'],
+			'discount'=>$request['discount'],
+			'finalprice'=>$request['finalprice'],
+			'kid'=>$request['kid'],
+			'type'=>$request['type'],
+			'did'=>$request['did'],
+		]);
+		$goodsupdate->save();
+		// echo "<pre>";
+		// print_r($request['title']);
+		// print_r($goodsupdate->title);
+		// print_r($goodsupdate);
+		return response()->json([
+			'status' => 200,
+			'msg' => 'create success',
+		]);
+	}
+
+	public function addkeyword(Request $request) {
+		$data = DB::table('keyword')->simplePaginate(20);
+		return view('mall.addkeyword', ['data' => $data]);
+	}
+
+	public function keywordcreate(Request $request) {
+		keyword::create([
+			'title'=>$request->title,
+			'icon'=>$request->icon,
+		]);
+		return redirect()->intended('addkeyword');
 	}
 }
 
