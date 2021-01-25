@@ -17,14 +17,14 @@
             <input type="text" class="form-control m-1" name="icon" maxlength="10" value="<?php if (isset($_GET['icon'])) {print $_GET['icon'];}?>" />
         </div>
         <div>
-            <button type="submit" class="btn btn-primary">新增</button>
+            <button type="submit" class="btn btn-primary">新增關鍵字</button>
         </div>
     </form>
 
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">ID</th>
+                <th scope="col">kID</th>
                 <th scope="col">Title</th>
                 <th scope="col">Icon</th>
                 <th scope="col">Created_at</th>
@@ -35,7 +35,7 @@
             {{-- {{dd($data)}} --}}
             @foreach ($data as $view)
             <tr>
-                <td>{{$view->id}}</td>
+                <td>{{$view->kid}}</td>
                 <td>{{$view->title}}</td>
                 <td>{{$view->icon}}</td>
                 <td>{{$view->created_at}}</td>

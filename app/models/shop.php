@@ -22,4 +22,14 @@ class shop extends Model
         $this->type=$needtochange['type'];
         $this->did=$needtochange['did'];
     }
+
+    public function shoptoclassify(){
+        return $this->hasOne('App\models\classify', 'id', 'classify'); //hasOne('App\Phone', 'foreign_key', 'local_key');
+    }
+    public function shoptokeyword(){
+        return $this->hasOne('App\models\keyword', 'kid', 'kid');
+    }
+    public function shoptophoto(){
+        return $this->hasOne('App\models\photo', 'pid', 'pid');
+    }
 }

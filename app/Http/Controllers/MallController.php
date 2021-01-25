@@ -8,6 +8,8 @@ use App\User; //for test
 use Carbon\Carbon;
 use App\models\classify;
 use App\models\shop;
+use App\models\keyword;
+use App\models\photo;
 
 class MallController extends Controller
 {
@@ -36,7 +38,8 @@ class MallController extends Controller
 	}
 
     public function addgoods(Request $request) {
-		$data = DB::table('shop')->simplePaginate(20);
+		// $data = DB::table('shop')->simplePaginate(20);
+		$data = shop::Paginate(20);
 		$mergedata = classify::get();
 
 		return view('mall.addgoods', ['data' => $data],['mergedata'=>$mergedata]);
@@ -137,6 +140,38 @@ class MallController extends Controller
 		]);
 		return redirect()->intended('addkeyword');
 	}
+
+	public function addphoto(Request $request) {
+		$data = photo::Paginate(20);
+		return view('mall.addphoto', ['data' => $data]);
+	}
+
+	public function photocreate(Request $request) {
+		photo::create([
+			'shop_id'=>$request->shop_id,
+			'title'=>$request->title,
+			'path'=>$request->path,
+		]);
+		return redirect()->intended('addphoto');
+	}
+
+
+
+	/**
+	 * //關聯測試
+	 */
+	// public function test(){ 
+	// 	$shop=shop::get();
+	// 	$classify=classify::get();
+	// 	foreach ($shop as $value){
+	// 		echo "<pre>";
+	// 		print_r($value->shoptoclassify->title);
+	// 	}
+
+	// 	$a=shop::find(1)->shoptoclassify->title;
+	// 	echo "<pre>";
+	// 	print_r($a);
+	// }
 }
 
 // DB::table('users')->where('name', $request->only('name'))->update([

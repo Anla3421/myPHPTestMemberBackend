@@ -53,7 +53,8 @@ Route::middleware('mustlogin')->post('addclassify', 'MallController@classifycrea
 Route::middleware('mustlogin')->get('addkeyword', 'MallController@addkeyword')->name('mallkeyword');
 Route::middleware('mustlogin')->post('addkeyword', 'MallController@keywordcreate')->name('mallkeyword.create');
 
-
+Route::middleware('mustlogin')->get('addphoto','MallController@addphoto')->name('mallphoto');
+Route::middleware('mustlogin')->post('addphoto','MallController@photocreate')->name('mallphoto.create');
 
 Route::middleware('mustlogin')->get('addgoods', 'MallController@addgoods')->name('mallgoods');
 Route::middleware('mustlogin')->post('addgoods', 'MallController@goodscreate')->name('mallgoods.create');
@@ -103,6 +104,7 @@ Route::middleware('mustlogin')->post('addgoods/{id}', 'MallController@goodsupdat
 Route::get('/test', function () {
         return view('test.selectinputmodal');
     });
+Route::get('/test2', 'MallController@test');
 
 
 // Route::get('/JQtest', function () {
