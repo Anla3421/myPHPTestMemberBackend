@@ -118,9 +118,9 @@ class MallController extends Controller
 			'did'=>$request['did'],
 		]);
 		$goodsupdate->save();
-		// echo "<pre>";
-		// print_r($request['title']);
-		// print_r($goodsupdate->title);
+		echo "<pre>";
+		print_r($request['description']);
+		print_r($goodsupdate->description);
 		// print_r($goodsupdate);
 		return response()->json([
 			'status' => 200,

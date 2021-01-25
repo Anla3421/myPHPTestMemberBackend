@@ -60,7 +60,7 @@
         </thead>
         <tbody>
             
-            {{-- {{print_r($data->toarray())}} --}}
+            {{-- {{print_r($data[0]->description)}} --}}
             @foreach ($data as $view)
             @if ($view->release==1)
                 <tr class="alert alert-success" role="alert">
@@ -99,7 +99,6 @@
                     <td>{{$view->did}}</td>
                     <td>{{$view->created_at}}</td>
                     <td>{{$view->updated_at}}</td>
-
                         @if ($view->release==1)
                             <td>
                                 <button type="button" id="release_modal" class="btn btn-warning" value="1" onclick="releaseitem({{json_encode($view)}})">下架</button>
@@ -154,7 +153,16 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">敘述</label>
-                        <input type="text" class="form-control" id="description" name="description">
+                        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+                        {{-- 敘述--}}
+                        <textarea type="text/javascript" class="form-control" id="description" name="description">{{$data[0]->description}}</textarea> 
+                        {{-- 用關聯矩陣 --}}
+                        <script type="text/javascript">
+                            CKEDITOR.replace('description', {
+                                filebrowserUploadUrl: "{{route('CKE.upload', ['_token' => csrf_token() ])}}",
+                                filebrowserUploadMethod: 'form'
+                            });
+                        </script>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">是否置頂</label>
@@ -274,6 +282,7 @@
 
     function updateitem(data) { //打開選單後顯示原本的資料
         console.log(data);
+        $("#exampleModalLabel").text('Update Merchandise!!!');
         $("#delete_goods").hide();
         $("#update_goods").show();
         $("#create_goods").hide();
@@ -282,7 +291,7 @@
         $("#pid").val(data.pid);
         $("#classify").val(data.classify); //只顯示不能改
         $("#title").val(data.title);
-        $("#description").val(data.description);
+        $("#description").text(data.description); //////////////////////////////////
         $("#top").val(data.top);
         $("#amount").val(data.amount);
         $("#price").val(data.price);
@@ -302,7 +311,7 @@
                 pid:$("#pid").val(),
                 //classify不可從這邊修改
                 title:$("#title").val(),
-                description:$("#description").val(),
+                description:$("#description").html(),
                 top:$("#top").val(),
                 amount:$("#amount").val(),
                 price:$("#price").val(),
@@ -323,7 +332,7 @@
                 console.log(data);
                 if (data.status==200){
                     alert("Update Success");
-                    location.reload();
+                    // location.reload();
                 }
             })
     });
