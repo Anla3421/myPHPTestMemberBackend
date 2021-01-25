@@ -27,7 +27,7 @@ Route::get('logout', 'LoginController@logout')->name('logout');
 
 Route::middleware('mustlogout')->get('login', 'LoginController@loginpage')->name('login');
 Route::middleware('mustlogin')->get('/', 'LoginController@homepage')->name('homepage');
-Route::middleware('mustlogin')->get('userlist', 'LoginController@userlist')->name('userlist');
+Route::middleware('mustlogin')->get('userlist', 'UserController@userlist')->name('userlist');
 /**
  * CRUD
  */
@@ -44,6 +44,25 @@ Route::middleware('mustlogin')->post('userlist/d/{id}', 'UserController@delete')
  */
 Route::get('query', 'UserController@query')->name('query');
 
+/**
+ * 商品調整相關
+ */
+Route::middleware('mustlogin')->get('addclassify', 'MallController@addclassify')->name('mallclassify');
+Route::middleware('mustlogin')->post('addclassify', 'MallController@classifycreate')->name('mallclassify.create');
+
+Route::middleware('mustlogin')->get('addkeyword', 'MallController@addkeyword')->name('mallkeyword');
+Route::middleware('mustlogin')->post('addkeyword', 'MallController@keywordcreate')->name('mallkeyword.create');
+
+
+
+Route::middleware('mustlogin')->get('addgoods', 'MallController@addgoods')->name('mallgoods');
+Route::middleware('mustlogin')->post('addgoods', 'MallController@goodscreate')->name('mallgoods.create');
+Route::middleware('mustlogin')->post('addgoods/d/{id}', 'MallController@goodsdelete')->name('mallgoods.delete');
+Route::middleware('mustlogin')->post('addgoods/re/{id}', 'MallController@goodsrelease')->name('mallgoods.release');
+Route::middleware('mustlogin')->post('addgoods/{id}', 'MallController@goodsupdate')->name('mallgoods.update');
+// Route::middleware('mustlogin')->get('addgoods', function () {
+//     echo 'under contract...';
+// });
 
 
 
@@ -69,13 +88,7 @@ Route::get('query', 'UserController@query')->name('query');
 // Route::middleware('before')->get('/before', function (){
 //     echo 'in Route';
 // });
-Route::middleware('after')->get('/after', function (){
-    echo 'in Route';
-});
 
-Route::get('/111', function () {
-    return view('CRUDindex');
-});
 // Route::resource('crudtest', 'CRUDtestcontroller');
 // Route::get('users', function () {
 //     return dd(App\User::paginate());
@@ -86,18 +99,28 @@ Route::get('/111', function () {
  * 
  * test
  */
-Route::get('/test', 'LoginController@ajaxcrud');
+// Route::get('/test', 'LoginController@ajaxcrud');
+Route::get('/test', function () {
+        return view('test.selectinputmodal');
+    });
 
-Route::get('/JQtest', function () {
-    return view('JQuerytest');
-});
-Route::get('welcome', function () {
-    return view('welcome');
-});
-Route::get('hello/{name}', function ($name) {
-    return 'Hello ' . $name;
-});
 
+// Route::get('/JQtest', function () {
+//     return view('test.JQuerytest');
+// });
+// Route::get('welcome', function () {
+//     return view('test.welcome');
+// });
+// Route::get('hello/{name}', function ($name) {
+//     return 'Hello ' . $name;
+// });
+// Route::middleware('after')->get('/after', function (){
+//     echo 'in Route';
+// });
+
+// Route::get('/111', function () {
+//     return view('test.CRUDindex');
+// });
 /** 
  * 已登入
  */
