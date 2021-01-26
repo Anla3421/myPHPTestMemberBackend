@@ -155,13 +155,13 @@
                         <label for="exampleFormControlSelect1">敘述</label>
                         <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
                         {{-- 敘述--}}
-                        <textarea type="text/javascript" class="form-control" id="description" name="description">{{$data[0]->description}}</textarea> 
+                        <textarea type="text/javascript" class="form-control" id="description" name="description"></textarea> 
                         {{-- 用關聯矩陣 --}}
                         <script type="text/javascript">
-                            CKEDITOR.replace('description', {
-                                filebrowserUploadUrl: "{{route('CKE.upload', ['_token' => csrf_token() ])}}",
-                                filebrowserUploadMethod: 'form'
-                            });
+                            // CKEDITOR.replace('description', {
+                            //     filebrowserUploadUrl: "{{route('CKE.upload', ['_token' => csrf_token() ])}}",
+                            //     filebrowserUploadMethod: 'form'
+                            // });
                         </script>
                     </div>
                     <div class="form-group">
@@ -213,6 +213,7 @@
 @stop
 @section('js')
 <script>
+    var editor1, html = '';
     $(document).ready(function() {
         $("#price,#discount").on('keyup',function(){
         if($("#price").val()>0 && $("#discount").val()>0){
@@ -220,6 +221,43 @@
             $("#finalprice").val($("#price").val() * discount);
         }
         });
+
+        var editor1, html = '';
+        // function createEditor() {
+        // if (editor1)
+        //     return;
+
+        // // Create a new editor instance inside the <div id="editor"> element,
+        // // setting its value to html.
+        // var config = {};
+        // editor1 = CKEDITOR.appendTo('editor1', config, html);
+
+        // // Update button states.
+        // document.getElementById('remove').style.display = '';
+        // document.getElementById('create').style.display = 'none';
+        // }
+
+        // function removeEditor() {
+        // if (!editor1)
+        //     return;
+
+        // // Retrieve the editor content. In an Ajax application this data would be
+        // // sent to the server or used in any other way.
+        // html = editor1.getData();
+
+        // // Update <div> with "Edited Content".
+        // document.getElementById('editorcontent1').innerHTML = html;
+        // // Show <div> with "Edited Content".
+        // document.getElementById('content1').style.display = '';
+        // // Update button states.
+        // document.getElementById('remove').style.display = 'none';
+        // document.getElementById('create').style.display = '';
+
+        // // Destroy the editor.
+        // editor1.destroy();
+        // editor1 = null;
+        // }
+
     });
 
     $("#create_modal").on('click', function(mergedata) { //打開選單
@@ -282,16 +320,22 @@
 
     function updateitem(data) { //打開選單後顯示原本的資料
         console.log(data);
+
         $("#exampleModalLabel").text('Update Merchandise!!!');
         $("#delete_goods").hide();
         $("#update_goods").show();
         $("#create_goods").hide();
 
+        CKEDITOR.replace('description', {
+                                filebrowserUploadUrl: "{{route('CKE.upload', ['_token' => csrf_token() ])}}",
+                                filebrowserUploadMethod: 'form'
+                            });
+
         $('#uid').val(data.id); //撈給下面url用
         $("#pid").val(data.pid);
         $("#classify").val(data.classify); //只顯示不能改
         $("#title").val(data.title);
-        $("#description").text(data.description); //////////////////////////////////
+        $("#description").html(data.description); //////////////////////////////////
         $("#top").val(data.top);
         $("#amount").val(data.amount);
         $("#price").val(data.price);
@@ -300,6 +344,8 @@
         $("#kid").val(data.kid);
         $("#type").val(data.type);
         $("#did").val(data.did);
+
+
     }
 
     $("#update_goods").on('click',function(){

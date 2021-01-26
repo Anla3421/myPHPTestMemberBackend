@@ -119,8 +119,8 @@ class MallController extends Controller
 		]);
 		$goodsupdate->save();
 		echo "<pre>";
-		print_r($request['description']);
-		print_r($goodsupdate->description);
+		print_r($request['description']."old<br>");
+		print_r($goodsupdate->description."new");
 		// print_r($goodsupdate);
 		return response()->json([
 			'status' => 200,
