@@ -76,6 +76,13 @@
                     {{--關聯取代--}}
                     <td>{{$view->title}}</td>
                     <td>{{$view->description}}</td>
+                        {{-- 用關聯矩陣 --}}
+                        {{-- <script type="text/javascript">
+                        CKEDITOR.replace('description', {
+                        filebrowserUploadUrl: "{{route('CKE.upload', ['_token' => csrf_token() ])}}",
+                        filebrowserUploadMethod: 'form'
+                        });
+                        </script> --}}
                     <td>
                         @if ($view->top==1)
                         是
@@ -157,12 +164,12 @@
                         {{-- 敘述--}}
                         <textarea type="text/javascript" class="form-control" id="description" name="description"></textarea> 
                         {{-- 用關聯矩陣 --}}
-                        <script type="text/javascript">
-                            // CKEDITOR.replace('description', {
-                            //     filebrowserUploadUrl: "{{route('CKE.upload', ['_token' => csrf_token() ])}}",
-                            //     filebrowserUploadMethod: 'form'
-                            // });
-                        </script>
+                        {{-- <script type="text/javascript">
+                        CKEDITOR.replace('description', {
+                        filebrowserUploadUrl: "{{route('CKE.upload', ['_token' => csrf_token() ])}}",
+                        filebrowserUploadMethod: 'form'
+                        });
+                        </script> --}}
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">是否置頂</label>
@@ -205,7 +212,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="modal_close" type="button" class="btn btn-secondary" data-dismiss="modal" value="1" onclick="destroy()">Close</button>
                     <button id="create_goods" type="button" class="btn btn-primary create">Create!</button>
                     <button id="update_goods" type="button" class="btn btn-primary update">Update user</button>
                     <button id="delete_goods" type="button" class="btn btn-primary create">Delete user</button>
@@ -221,50 +228,31 @@
             $("#finalprice").val($("#price").val() * discount);
         }
         });
-
-        var editor1, html = '';
-        // function createEditor() {
-        // if (editor1)
-        //     return;
-
-        // // Create a new editor instance inside the <div id="editor"> element,
-        // // setting its value to html.
-        // var config = {};
-        // editor1 = CKEDITOR.appendTo('editor1', config, html);
-
-        // // Update button states.
-        // document.getElementById('remove').style.display = '';
-        // document.getElementById('create').style.display = 'none';
-        // }
-
-        // function removeEditor() {
-        // if (!editor1)
-        //     return;
-
-        // // Retrieve the editor content. In an Ajax application this data would be
-        // // sent to the server or used in any other way.
-        // html = editor1.getData();
-
-        // // Update <div> with "Edited Content".
-        // document.getElementById('editorcontent1').innerHTML = html;
-        // // Show <div> with "Edited Content".
-        // document.getElementById('content1').style.display = '';
-        // // Update button states.
-        // document.getElementById('remove').style.display = 'none';
-        // document.getElementById('create').style.display = '';
-
-        // // Destroy the editor.
-        // editor1.destroy();
-        // editor1 = null;
-        // }
-
     });
+
+    function destroy(){
+        console.log($("#modal_close").val());
+        if ($("#modal_close").val()==1){
+            CKEDITOR.instances.description.destroy();
+            $("#modal_close").val(0);
+            console.log($("#modal_close").val());
+        }
+        
+        
+        //CKeditor:
+        // crete CKEDITOR.replace to replace target
+        // getdata() and turn html(?) to use
+        // destroy CKEDITOR
+    }
 
     $("#create_modal").on('click', function(mergedata) { //打開選單
         $("#exampleModalLabel").text('Create Merchandise!!!');
         // $("input").val('');
         $("#classify").val($("#Classifyselect").val());
-
+        CKFinder.setupCKEditor();
+        CKEDITOR.replace('description', {});
+        $("#modal_close").val(1);
+        console.log($("#modal_close").val());
         //dummy data for test
         // $("#pid").val(123), 
         // $("#classify").val("汽車"),
@@ -272,7 +260,7 @@
         // $("#description").val(123),
         // $("#top").val(0),
         // $("#price").val(100),
-        // // $('#finalprice').val(),
+        // $('#finalprice').val(),
         // $("#amount").val(155),
         // $("#discount").val(60),
         // $("#kid").val(3213),
@@ -285,6 +273,10 @@
     });
 
      $("#create_goods").on('click', function() { //創建新使用者之資料給controller
+        $("#description").html(CKEDITOR.instances.description.getData());
+        CKEDITOR.instances.description.destroy();
+        $("#modal_close").val(0);
+        console.log($("#modal_close").val());
         $.ajax({
                 url: "/addgoods", //for localhost test
                 type: "POST",
@@ -292,7 +284,7 @@
                     pid:$("#pid").val(),
                     classify:$("#classify").val(),
                     title:$("#title").val(),
-                    description:$("#description").val(),
+                    description:$("#description").html(),
                     top:$("#top").val(),
                     amount:$("#amount").val(),
                     price:$("#price").val(),
@@ -325,11 +317,10 @@
         $("#delete_goods").hide();
         $("#update_goods").show();
         $("#create_goods").hide();
-
-        CKEDITOR.replace('description', {
-                                filebrowserUploadUrl: "{{route('CKE.upload', ['_token' => csrf_token() ])}}",
-                                filebrowserUploadMethod: 'form'
-                            });
+        CKFinder.setupCKEditor();
+        CKEDITOR.replace('description', {});
+        $("#modal_close").val(1);
+        console.log($("#modal_close").val());
 
         $('#uid').val(data.id); //撈給下面url用
         $("#pid").val(data.pid);
@@ -349,6 +340,12 @@
     }
 
     $("#update_goods").on('click',function(){
+        console.log(CKEDITOR.instances.description.getData());
+        $("#description").html(CKEDITOR.instances.description.getData());
+        console.log($("#description"));
+        CKEDITOR.instances.description.destroy();
+        $("#modal_close").val(0);
+        console.log($("#modal_close").val());
         $id=$('#uid').val();
         $.ajax({
             url:"/addgoods/"+ $id,
@@ -378,7 +375,7 @@
                 console.log(data);
                 if (data.status==200){
                     alert("Update Success");
-                    // location.reload();
+                    location.reload();
                 }
             })
     });

@@ -9,10 +9,7 @@
 
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script>
-    CKEDITOR.replace( 'summary-ckeditor',{
-        filebrowerUploadUrl:"{{route('CKE.upload',['_token'=>csrf_token()])}}",
-        filebrowerUploadMethod:'form'
-    });
+    CKEDITOR.replace( 'summary-ckeditor',{});
     
 </script> 
 @endsection
