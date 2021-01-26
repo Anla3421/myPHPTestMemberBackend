@@ -11,20 +11,19 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 Route::resource('cke', 'CKEcontroller');
-Route::post('ckeditor/image_upload','CKEcontroller@upload')->name('CKE.upload');
-
+Route::post('ckeditor/image_upload', 'CKEcontroller@upload')->name('CKE.upload');
+Route::post('ckeditor/image_upload', 'CKEcontroller@uploadTextArea')->name('CKE1.upload');
 
 /**
  * 登入帳密之驗證
  */
 Route::post('catch', 'UserController@catch')->name('catch');
 
-
 /*
 //已有驗證機制
-*/
+ */
 Route::get('logout', 'LoginController@logout')->name('logout');
 
 Route::middleware('mustlogout')->get('login', 'LoginController@loginpage')->name('login');
@@ -37,9 +36,8 @@ Route::middleware('mustlogin')->post('userlist', 'UserController@create')->name(
 Route::middleware('mustlogin')->put('userlist/{id}', 'UserController@update')->name('userlist.update');
 Route::middleware('mustlogin')->post('userlist/d/{id}', 'UserController@delete')->name('userlist.delete');
 /**
- * 
+ *
  */
-
 
 /**
  * 搜尋功能
@@ -55,8 +53,8 @@ Route::middleware('mustlogin')->post('addclassify', 'MallController@classifycrea
 Route::middleware('mustlogin')->get('addkeyword', 'MallController@addkeyword')->name('mallkeyword');
 Route::middleware('mustlogin')->post('addkeyword', 'MallController@keywordcreate')->name('mallkeyword.create');
 
-Route::middleware('mustlogin')->get('addphoto','MallController@addphoto')->name('mallphoto');
-Route::middleware('mustlogin')->post('addphoto','MallController@photocreate')->name('mallphoto.create');
+Route::middleware('mustlogin')->get('addphoto', 'MallController@addphoto')->name('mallphoto');
+Route::middleware('mustlogin')->post('addphoto', 'MallController@photocreate')->name('mallphoto.create');
 
 Route::middleware('mustlogin')->get('addgoods', 'MallController@addgoods')->name('mallgoods');
 Route::middleware('mustlogin')->post('addgoods', 'MallController@goodscreate')->name('mallgoods.create');
@@ -67,26 +65,15 @@ Route::middleware('mustlogin')->post('addgoods/{id}', 'MallController@goodsupdat
 //     echo 'under contract...';
 // });
 
-
-
-
-
-
-
-
-
-
-
+Route::middleware('mustlogin')->get('newaddgoods', 'NewMallController@Index')->name('mallgoods');
 
 // Route::group(['middleware' => [ ],'prefix'=>'user'], function () {
-    //首頁
+//首頁
 // Route::get('/','UserController@index');
-    //搜尋
+//搜尋
 // Route::get('/search','UserController@search');
 
 // });
-
-
 
 // Route::middleware('before')->get('/before', function (){
 //     echo 'in Route';
@@ -99,15 +86,14 @@ Route::middleware('mustlogin')->post('addgoods/{id}', 'MallController@goodsupdat
 // Route::get('user', 'LoginController@query');
 
 /**
- * 
+ *
  * test
  */
 // Route::get('/test', 'LoginController@ajaxcrud');
 Route::get('/test', function () {
-        return view('test.selectinputmodal');
-    });
+	return view('test.selectinputmodal');
+});
 Route::get('/test2', 'MallController@test');
-
 
 // Route::get('/JQtest', function () {
 //     return view('test.JQuerytest');
@@ -125,12 +111,18 @@ Route::get('/test2', 'MallController@test');
 // Route::get('/111', function () {
 //     return view('test.CRUDindex');
 // });
-/** 
+/**
  * 已登入
  */
 
-    /**
-     * UserList USE UserController
-     */
+/**
+ * UserList USE UserController
+ */
 
 // Route::post('userlist', 'LoginController@query')->name('postuserlist');
+//
+Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')
+	->name('ckfinder_connector');
+
+Route::any('/ckfinder/browser', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')
+	->name('ckfinder_browser');
