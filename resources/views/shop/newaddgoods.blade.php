@@ -10,7 +10,7 @@
 <form action = "">
     <div class="container" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-                <div  >
+                <div>
                     Input or select your information
                     <br><br>
                     <input type="hidden" name="uid" id="uid" value="">

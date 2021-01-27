@@ -6,7 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
     {{-- for Ajax提交(? --}}
-    <title>login test</title>
+    
+    
+    <title>@section('title')
+      login        
+      @show
+    </title>
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 <script type="text/javascript" src="/js/ckfinder/ckfinder.js"></script>
 <script>CKFinder.config( { connectorPath: '/ckfinder/connector' } );</script>
@@ -108,6 +114,7 @@
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="/addgoods">商品管理&快速新增</a>
                   <a class="dropdown-item" href="/newaddgoods">新增商品(全版)</a>
+                  <a class="dropdown-item" href="/newaddgoods4">商品樣板(測試中)</a>
 
                 </div>
               </li>

@@ -70,7 +70,12 @@ class DatabaseSeeder extends Seeder
             'id' =>'1',
             'pid'=>'1',
             'title'=>'A牌西裝',
-            'description'=>'特殊剪裁',
+            'description'=>'<ul>
+            <li>
+            <h1><em><strong>好山好水好西裝</strong></em><img alt="" src="http://test777.ukyo.idv.tw/userfiles/files/1.jpg" style="height:416px; width:625px" /></h1>
+            </li>
+        </ul>
+        ',
             'top'=>'1',
             'price'=>'10000',
             'finalprice'=>'5000',
@@ -142,7 +147,7 @@ class DatabaseSeeder extends Seeder
             'pid' =>'1',
             'shop_id'=>'1',
             'title'=>'photo',
-            'path'=>'C:\phptest',
+            'path'=>'/userfiles/files/1.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
@@ -150,7 +155,23 @@ class DatabaseSeeder extends Seeder
             'pid' =>'2',
             'shop_id'=>'2',
             'title'=>'photo2',
-            'path'=>'C:\phptest\2',
+            'path'=>'/userfiles/files/2.jpg',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('photo')->insert([
+            'pid' =>'3',
+            'shop_id'=>'3',
+            'title'=>'photo3',
+            'path'=>'/userfiles/files/3.PNG',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('photo')->insert([
+            'pid' =>'4',
+            'shop_id'=>'4',
+            'title'=>'photo4',
+            'path'=>'/userfiles/files/4.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);

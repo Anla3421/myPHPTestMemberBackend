@@ -39,7 +39,7 @@ class MallController extends Controller {
 		$data = shop::Paginate(20);
 		$mergedata = classify::get();
 		$photo =photo::where('pic_id',$reques->id);
-		$class=cassily::find($request->shop_id)->get(),
+		// $class=cassily::find($request->shop_id)->get(),
 		$breads = [
 			0=>[
 				'url'=>'http..',

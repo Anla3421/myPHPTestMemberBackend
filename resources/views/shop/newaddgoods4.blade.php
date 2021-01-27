@@ -1,4 +1,8 @@
 @extends('layouts.nav')
+
+@section('title')
+商品樣板(測試中)
+@stop
 @section('style')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 {{-- csrf for Ajax method post --}}
@@ -61,28 +65,34 @@
 </style>
 @endsection
 @section('body')
+@include('ckfinder::setup')
 
-<router-link to="/">go to home</router-link>
-<router-link to="/login">go to login</router-link>
+{{-- 麵包屑nav --}}
+<nav aria-label="breadcrumb" > 
+  <ol class="breadcrumb col-2 alert-light">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
+  </ol>
+</nav>
 
-<nav class="menu">
-    <ul>
-      <li><a href="{{url('/')}}">Home</a></li>
-      <li><a href="#">{{$shop->classify}}</a></li>
-      <li><a href="{{url('shop/$shop->id')}}">{{$shop->title}}</a></li>
-    </ul>
-  </nav>
+{{-- {{dd($shop[0])}} --}}
+<div name="title" id="title"> {{$shop[0]->title}}</div>
+
+<del name="price" id="price">定價：{{$shop[0]->price}}</del>
+<div name="finalprice" id="finalprice">折扣後售價：{{$shop[0]->finalprice}}</div>
+
+<div>欲購數量：</div>
+<select name="amount" id="amount">
+  @for ($i = 1; $i < 11; $i++)
+    <option value =$i>{{$i}}</option>
+  @endfor
+</select>
 
 <div class="swiper-container gallery-top swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
     <div class="swiper-wrapper">
-        @foreach ($photo as $pic)
-      <div class="swiper-slide" style="background-image:url({{url('$pic->path')}})"></div>
-            
-        @endforeach
-      {{-- <div class="swiper-slide" style="background-image:url(/userfiles/files/1.jpg)"></div>
-      <div class="swiper-slide" style="background-image:url(/userfiles/files/2.jpg)"></div>
-      <div class="swiper-slide" style="background-image:url(./userfiles/files/3.PNG)"></div>
-      <div class="swiper-slide" style="background-image:url(/userfiles/files/4.jpg)"></div> --}}
+      @foreach ($data as $pic)
+        <div class="swiper-slide" style="background-image:url({{url($pic->path)}})"></div>
+      @endforeach
     </div>
     <!-- Add Arrows -->
     <div class="swiper-button-next swiper-button-white"></div>
@@ -90,31 +100,23 @@
 </div>
   <div class="swiper-container gallery-thumbs swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events swiper-container-free-mode swiper-container-thumbs">
     <div class="swiper-wrapper">
-      <div class="swiper-slide" style="background-image:url(/userfiles/files/1.jpg)"></div>
-      <div class="swiper-slide" style="background-image:url(./userfiles/files/2.jpg)"></div>
-      <div class="swiper-slide" style="background-image:url(./userfiles/files/3.PNG)"></div>
-      <div class="swiper-slide" style="background-image:url(/userfiles/files/4.jpg)"></div>
+      @foreach ($data as $pic)
+        <div class="swiper-slide" style="background-image:url({{url($pic->path)}})"></div>
+      @endforeach
     </div>
   </div>
-            <div class="title"> $shop->title</div>
 
-            <select name="amount" id="amount">
-                @php for ($i=1; $i <20 ; $i++) { 
-                    <option value =$i>$i </option>
-                }
-                @endphp
-
-            </select>
-            
-
-            <div class="price">$shop->price</div>
-            
-            <div class="container">
-                {{$shop->description ||html()}}
-
-
-            </div>
-  
+<div>產品敘述：</div>
+{{-- <div name="description" id="description">
+    {{$shop[0]->description ||html()}}
+    
+</div> --}}
+<textarea type="text/javascript" class="form-control" id="description" name="description" readonly>{{$shop[0]->description}}</textarea>
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script type="text/javascript">
+    CKFinder.setupCKEditor();
+    CKEDITOR.inline('description',{});
+</script>
 
 
 <!-- Swiper JS -->

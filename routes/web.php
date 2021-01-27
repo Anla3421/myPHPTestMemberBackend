@@ -61,11 +61,13 @@ Route::middleware('mustlogin')->post('addgoods', 'MallController@goodscreate')->
 Route::middleware('mustlogin')->post('addgoods/d/{id}', 'MallController@goodsdelete')->name('mallgoods.delete');
 Route::middleware('mustlogin')->post('addgoods/re/{id}', 'MallController@goodsrelease')->name('mallgoods.release');
 Route::middleware('mustlogin')->post('addgoods/{id}', 'MallController@goodsupdate')->name('mallgoods.update');
+
 // Route::middleware('mustlogin')->get('addgoods', function () {
 //     echo 'under contract...';
 // });
 
-Route::middleware('mustlogin')->get('newaddgoods', 'NewMallController@Index')->name('mallgoods');
+Route::middleware('mustlogin')->get('newaddgoods', 'ShopController@Index')->name('newaddgoods');
+Route::get('newaddgoods4', 'ShopController@fullgoods');
 
 
 // Route::resource('crudtest', 'CRUDtestcontroller');
@@ -96,9 +98,7 @@ Route::get('newaddgoods2', function () {
 Route::get('newaddgoods3', function () {
 	return view('mall.newaddgoods3');
 });
-Route::get('newaddgoods4', function () {
-	return view('mall.newaddgoods4');
-});
+
 Route::get('swiper', function () {
 	return view('test.swiper');
 });
