@@ -67,17 +67,6 @@ Route::middleware('mustlogin')->post('addgoods/{id}', 'MallController@goodsupdat
 
 Route::middleware('mustlogin')->get('newaddgoods', 'NewMallController@Index')->name('mallgoods');
 
-// Route::group(['middleware' => [ ],'prefix'=>'user'], function () {
-//首頁
-// Route::get('/','UserController@index');
-//搜尋
-// Route::get('/search','UserController@search');
-
-// });
-
-// Route::middleware('before')->get('/before', function (){
-//     echo 'in Route';
-// });
 
 // Route::resource('crudtest', 'CRUDtestcontroller');
 // Route::get('users', function () {
@@ -95,6 +84,24 @@ Route::get('/test', function () {
 });
 Route::get('/test2', 'MallController@test');
 
+Route::get('copy', function () {
+	return view('test.copy');
+});
+Route::get('copy2', function () {
+	return view('test.copy2');
+});
+Route::get('newaddgoods2', function () {
+	return view('mall.newaddgoods2');
+});
+Route::get('newaddgoods3', function () {
+	return view('mall.newaddgoods3');
+});
+Route::get('newaddgoods4', function () {
+	return view('mall.newaddgoods4');
+});
+Route::get('swiper', function () {
+	return view('test.swiper');
+});
 // Route::get('/JQtest', function () {
 //     return view('test.JQuerytest');
 // });
@@ -104,23 +111,14 @@ Route::get('/test2', 'MallController@test');
 // Route::get('hello/{name}', function ($name) {
 //     return 'Hello ' . $name;
 // });
+
+// Route::middleware('before')->get('/before', function (){
+//     echo 'in Route';
+// });
 // Route::middleware('after')->get('/after', function (){
 //     echo 'in Route';
 // });
 
-// Route::get('/111', function () {
-//     return view('test.CRUDindex');
-// });
-/**
- * 已登入
- */
-
-/**
- * UserList USE UserController
- */
-
-// Route::post('userlist', 'LoginController@query')->name('postuserlist');
-//
 Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')
 	->name('ckfinder_connector');
 

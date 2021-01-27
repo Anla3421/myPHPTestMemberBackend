@@ -38,8 +38,21 @@ class MallController extends Controller {
 		// $data = DB::table('shop')->simplePaginate(20);
 		$data = shop::Paginate(20);
 		$mergedata = classify::get();
+		$photo =photo::where('pic_id',$reques->id);
+		$class=cassily::find($request->shop_id)->get(),
+		$breads = [
+			0=>[
+				'url'=>'http..',
+				'title'=>$class->title,
+			],
+			1=>[
+				'url'=>$request->url() ."/".$requset->id,
+				'title'=>$shop->title,
+			]
 
-		return view('mall.addgoods', ['data' => $data], ['mergedata' => $mergedata]);
+		];
+
+		return view('mall.addgoods', ['data' => $data,'photo'=>$photo], ['mergedata' => $mergedata]);
 	}
 
 	public function goodscreate(Request $request) {

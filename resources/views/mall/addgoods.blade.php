@@ -68,11 +68,11 @@
                 <tr>
             @endif
                     <td>{{$view->id}}</td>
-                    {{-- <td>{{$view->pid}}</td> --}}
-                    <td>{{$view->shoptophoto->title}}</td>
-                    {{-- <td>{{$view->classify}}</td> --}} 
+                    <td>{{$view->pid}}</td>
+                    {{-- <td>{{$view->shoptophoto->title}}</td> --}}
+                    <td>{{$view->classify}}</td> 
                     {{-- 一般使用 --}}
-                    <td>{{$view->shoptoclassify->title}}</td> 
+                    {{-- <td>{{$view->shoptoclassify->title}}</td>  --}}
                     {{--關聯取代--}}
                     <td>{{$view->title}}</td>
                     <td>{{$view->description}}</td>
@@ -94,8 +94,8 @@
                     <td>{{$view->price}}</td>
                     <td>{{$view->discount}}</td>
                     <td>{{$view->finalprice}}</td>
-                    {{-- <td>{{$view->kid}}</td> --}}
-                    <td>{{$view->shoptokeyword->title}}</td>
+                    <td>{{$view->kid}}</td>
+                    {{-- <td>{{$view->shoptokeyword->title}}</td> --}}
                     <td>
                         @if ($view->type==1)
                         統一價格
