@@ -17,7 +17,7 @@ class ShopController extends Controller
 		$shop=shop::simplepaginate();
 		// echo "<pre>";
 		// print_r($data);
-		return view('shop.newaddgoods4', ['data' => $photo],['shop'=>$shop]);
+		return view('shop.goodstemplate', ['data' => $photo],['shop'=>$shop]);
 
 }
 }

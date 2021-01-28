@@ -14,54 +14,54 @@
     </title>
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-<script type="text/javascript" src="/js/ckfinder/ckfinder.js"></script>
-<script>CKFinder.config( { connectorPath: '/ckfinder/connector' } );</script>
+    <script type="text/javascript" src="/js/ckfinder/ckfinder.js"></script>
+    <script>CKFinder.config( { connectorPath: '/ckfinder/connector' } );</script>
 
     {{-- bootstrap樣板必要元素 --}}
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-  body {
-    font-family: "Lato", sans-serif;
-  }
+    body {
+      font-family: "Lato", sans-serif;
+    }
 
-  .sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: rgb(31, 31, 31);
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-  }
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: rgb(31, 31, 31);
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    }
 
-  .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-  }
+    .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
 
-  .sidenav a:hover {
-    color: #f1f1f1;
-  }
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
 
-  .sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-  }
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
 
-  @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-  }
+    @media screen and (max-height: 450px) {
+      .sidenav {padding-top: 15px;}
+      .sidenav a {font-size: 18px;}
+    }
   </style>
     @yield('style')
 </head>
@@ -114,7 +114,7 @@
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="/addgoods">商品管理&快速新增</a>
                   <a class="dropdown-item" href="/newaddgoods">新增商品(全版)</a>
-                  <a class="dropdown-item" href="/newaddgoods4">商品樣板(測試中)</a>
+                  <a class="dropdown-item" href="/goodstemplate">商品樣板(測試中)</a>
 
                 </div>
               </li>

@@ -67,7 +67,8 @@ Route::middleware('mustlogin')->post('addgoods/{id}', 'MallController@goodsupdat
 // });
 
 Route::middleware('mustlogin')->get('newaddgoods', 'ShopController@Index')->name('newaddgoods');
-Route::get('newaddgoods4', 'ShopController@fullgoods');
+
+Route::middleware('mustlogin')->get('goodstemplate', 'ShopController@fullgoods')->name('goodstemplate');
 
 
 // Route::resource('crudtest', 'CRUDtestcontroller');

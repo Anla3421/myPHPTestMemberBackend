@@ -16,7 +16,7 @@ class CreateShopTable extends Migration {
 			$table->integer('pid')->nullable()->comment('圖片id');
 			$table->string('title')->comment('標題');
 			$table->string('classify')->comment('分類');
-			$table->char('description')->comment('敘述');
+			$table->longText('description')->comment('敘述');
 			$table->boolean('top')->comment('是否置頂');
 			$table->decimal('price', 10, 2)->comment('單價');
 			$table->decimal('finalprice', 10, 2)->comment('折扣完價格');

@@ -31,7 +31,7 @@
 
   /* 下方縮圖頁大小 */
   .swiper-container {
-    width: 30%;
+    width: 80%;
     height: 15px;
     margin-left: auto;
     margin-right: auto;
@@ -44,14 +44,14 @@
   
   /* 上方展示頁大小 */
   .gallery-top { 
-    height: 30%;
-    width: 30%;
+    height: 80%;
+    width: 80%;
   }
 
   .gallery-thumbs {
-    height: 20%;
+    height: 50%;
     box-sizing: border-box;
-    padding: 10px 0;
+    padding: 10px 10;
   }
 
   .gallery-thumbs .swiper-slide {
@@ -74,50 +74,72 @@
     <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
   </ol>
 </nav>
+{{-- aside --}}
 
-{{-- {{dd($shop[0])}} --}}
-<div name="title" id="title"> {{$shop[0]->title}}</div>
 
-<del name="price" id="price">定價：{{$shop[0]->price}}</del>
-<div name="finalprice" id="finalprice">折扣後售價：{{$shop[0]->finalprice}}</div>
-
-<div>欲購數量：</div>
-<select name="amount" id="amount">
-  @for ($i = 1; $i < 11; $i++)
-    <option value =$i>{{$i}}</option>
-  @endfor
-</select>
-
-<div class="swiper-container gallery-top swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
-    <div class="swiper-wrapper">
-      @foreach ($data as $pic)
-        <div class="swiper-slide" style="background-image:url({{url($pic->path)}})"></div>
-      @endforeach
+<div class="row">
+  <div class="col-1">
+    <aside>
+      <div name="title" id="title">推薦給您：</div>
+        <ul>
+          @foreach ($shop as $aside)
+            {{-- <li>{{$aside->classify}}</li> --}}
+            <li>{{$aside->shoptoclassify->title}}</li>
+          @endforeach
+        </ul>
+    </aside>
+  </div>
+  <div class="col-6">
+    <div class="swiper-container swiper gallery-top swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
+      <div class="swiper-wrapper">
+        @foreach ($data as $pic)
+          <div class="swiper-slide" style="background-image:url({{url($pic->path)}})"></div>
+        @endforeach
+      </div>
+<!-- Add Arrows -->
+  <div class="swiper-button-next swiper-button-white"></div>
+  <div class="swiper-button-prev swiper-button-white"></div>
     </div>
-    <!-- Add Arrows -->
-    <div class="swiper-button-next swiper-button-white"></div>
-    <div class="swiper-button-prev swiper-button-white"></div>
-</div>
   <div class="swiper-container gallery-thumbs swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events swiper-container-free-mode swiper-container-thumbs">
     <div class="swiper-wrapper">
       @foreach ($data as $pic)
         <div class="swiper-slide" style="background-image:url({{url($pic->path)}})"></div>
       @endforeach
-    </div>
+   </div>
   </div>
+</div>
+{{-- {{dd($shop[0])}} --}}
+  <div class="col-5">
+  <div name="title" id="title"><h1><strong>{{$shop[0]->title}}</strong></h1></div>
+  {{-- <div name="kid" id="kid"> {{$shop[0]->kid}}</div> --}}
+  <div name="kid" id="kid"><h3>{{$shop[0]->shoptokeyword->title}}</h3></div>
+  <del name="price" id="price">定價：{{$shop[0]->price}}</del>
+  <div name="finalprice" id="finalprice"><h5><strong>折扣後售價：{{$shop[0]->finalprice}}</strong></h5></div>
 
+    <div>欲購數量：
+      <select name="amount" id="amount">
+        @for ($i = 1; $i < 11; $i++)
+          <option value =$i>{{$i}}</option>
+        @endfor
+      </select>
+    </div>
+      <div name="did" id="did"> {{$shop[0]->did}}</div>
+      <button id="buy_goods" type="button" class="btn btn-primary" onclick="">直接購買</button>
+      <button id="addcart_goods" type="button" class="btn btn-secondary" onclick="">加入購物車</button>
+  </div>
+</div>
+<br><br><br><br><br>
 <div>產品敘述：</div>
-{{-- <div name="description" id="description">
+<div name="description" id="description">
     {{$shop[0]->description ||html()}}
-    
-</div> --}}
-<textarea type="text/javascript" class="form-control" id="description" name="description" readonly>{{$shop[0]->description}}</textarea>
-<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-<script type="text/javascript">
-    CKFinder.setupCKEditor();
-    CKEDITOR.inline('description',{});
-</script>
-
+</div>
+{{-- <textarea type="text/javascript" class="form-control" id="description" name="description" readonly>{{$shop[0]->description}}</textarea>
+  <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script type="text/javascript">
+        CKEDITOR.disableAutoInline = true;
+        CKFinder.setupCKEditor();
+        CKEDITOR.inline('description',{});
+    </script> --}}
 
 <!-- Swiper JS -->
 <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>

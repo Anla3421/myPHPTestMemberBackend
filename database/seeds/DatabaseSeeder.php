@@ -70,11 +70,23 @@ class DatabaseSeeder extends Seeder
             'id' =>'1',
             'pid'=>'1',
             'title'=>'A牌西裝',
-            'description'=>'<ul>
-            <li>
-            <h1><em><strong>好山好水好西裝</strong></em><img alt="" src="http://test777.ukyo.idv.tw/userfiles/files/1.jpg" style="height:416px; width:625px" /></h1>
-            </li>
-        </ul>
+            'description'=>'&lt;ul&gt;
+            &lt;li&gt;
+            &lt;h1&gt;&lt;em&gt;&lt;strong&gt;好山好水好西裝&lt;/strong&gt;&lt;/em&gt;&lt;/h1&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+            &lt;h1&gt;1&lt;/h1&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+            &lt;h1&gt;2&lt;/h1&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+            &lt;h1&gt;3&lt;/h1&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+            &lt;h1&gt;&lt;em&gt;&lt;strong&gt;&lt;img alt="" src="http://test777.ukyo.idv.tw/userfiles/files/1.jpg" style="height:416px; width:625px" /&gt;&lt;/strong&gt;&lt;/em&gt;&lt;/h1&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
         ',
             'top'=>'1',
             'price'=>'10000',
@@ -147,7 +159,7 @@ class DatabaseSeeder extends Seeder
             'pid' =>'1',
             'shop_id'=>'1',
             'title'=>'photo',
-            'path'=>'/userfiles/files/1.jpg',
+            'path'=>'/userfiles/files/shoe1.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
@@ -155,7 +167,7 @@ class DatabaseSeeder extends Seeder
             'pid' =>'2',
             'shop_id'=>'2',
             'title'=>'photo2',
-            'path'=>'/userfiles/files/2.jpg',
+            'path'=>'/userfiles/files/shoe2.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
@@ -163,7 +175,7 @@ class DatabaseSeeder extends Seeder
             'pid' =>'3',
             'shop_id'=>'3',
             'title'=>'photo3',
-            'path'=>'/userfiles/files/3.PNG',
+            'path'=>'/userfiles/files/shoe3.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
@@ -171,7 +183,7 @@ class DatabaseSeeder extends Seeder
             'pid' =>'4',
             'shop_id'=>'4',
             'title'=>'photo4',
-            'path'=>'/userfiles/files/4.jpg',
+            'path'=>'/userfiles/files/shoe4.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
