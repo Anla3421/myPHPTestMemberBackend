@@ -41,9 +41,9 @@
     background-size: cover;
     background-position: center;
   }
-  
+
   /* 上方展示頁大小 */
-  .gallery-top { 
+  .gallery-top {
     height: 80%;
     width: 80%;
   }
@@ -68,7 +68,8 @@
 @include('ckfinder::setup')
 
 {{-- 麵包屑nav --}}
-<nav aria-label="breadcrumb" > 
+<div class="container-fluild">
+<nav aria-label="breadcrumb" >
   <ol class="breadcrumb col-2 alert-light">
     <li class="breadcrumb-item"><a href="/">Home</a></li>
     <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
@@ -89,11 +90,13 @@
         </ul>
     </aside>
   </div>
+
+
   <div class="col-6">
     <div class="swiper-container swiper gallery-top swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
       <div class="swiper-wrapper">
         @foreach ($data as $pic)
-          <div class="swiper-slide" style="background-image:url({{url($pic->path)}})"></div>
+          <div  class="swiper-slide" style="  height: 600px; background-image:url({{url($pic->path)}})"></div>
         @endforeach
       </div>
 <!-- Add Arrows -->
@@ -103,11 +106,12 @@
   <div class="swiper-container gallery-thumbs swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events swiper-container-free-mode swiper-container-thumbs">
     <div class="swiper-wrapper">
       @foreach ($data as $pic)
-        <div class="swiper-slide" style="background-image:url({{url($pic->path)}})"></div>
+        <div class="swiper-slide" style="width: 100px ;height: 200px; background-image:url({{url($pic->path)}})"></div>
       @endforeach
    </div>
   </div>
-</div>
+  </div>
+
 {{-- {{dd($shop[0])}} --}}
   <div class="col-5">
   <div name="title" id="title"><h1><strong>{{$shop[0]->title}}</strong></h1></div>
@@ -128,10 +132,15 @@
       <button id="addcart_goods" type="button" class="btn btn-secondary" onclick="">加入購物車</button>
   </div>
 </div>
+</div>
 <br><br><br><br><br>
+    <hr>
+
+  <div class="container" style="padding-top: 50px">
 <div>產品敘述：</div>
 <div name="description" id="description">
-    {{$shop[0]->description ||html()}}
+    {{!!$shop[0]->description !!}}
+</div>
 </div>
 {{-- <textarea type="text/javascript" class="form-control" id="description" name="description" readonly>{{$shop[0]->description}}</textarea>
   <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
