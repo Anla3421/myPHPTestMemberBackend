@@ -70,23 +70,23 @@ class DatabaseSeeder extends Seeder
             'id' =>'1',
             'pid'=>'1',
             'title'=>'A牌西裝',
-            'description'=>'&lt;ul&gt;
-            &lt;li&gt;
-            &lt;h1&gt;&lt;em&gt;&lt;strong&gt;好山好水好西裝&lt;/strong&gt;&lt;/em&gt;&lt;/h1&gt;
-            &lt;/li&gt;
-            &lt;li&gt;
-            &lt;h1&gt;1&lt;/h1&gt;
-            &lt;/li&gt;
-            &lt;li&gt;
-            &lt;h1&gt;2&lt;/h1&gt;
-            &lt;/li&gt;
-            &lt;li&gt;
-            &lt;h1&gt;3&lt;/h1&gt;
-            &lt;/li&gt;
-            &lt;li&gt;
-            &lt;h1&gt;&lt;em&gt;&lt;strong&gt;&lt;img alt="" src="http://test777.ukyo.idv.tw/userfiles/files/1.jpg" style="height:416px; width:625px" /&gt;&lt;/strong&gt;&lt;/em&gt;&lt;/h1&gt;
-            &lt;/li&gt;
-        &lt;/ul&gt;
+            'description'=>'<ul>
+            <li>
+            <h1><em><strong>好山好水好西裝</strong></em></h1>
+            </li>
+            <li>
+            <h1>1</h1>
+            </li>
+            <li>
+            <h1>2</h1>
+            </li>
+            <li>
+            <h1>3</h1>
+            </li>
+            <li>
+            <h1><em><strong><img alt="" src="http://test777.ukyo.idv.tw/userfiles/files/1.jpg" style="height:416px; width:625px" /></strong></em></h1>
+            </li>
+        </ul>
         ',
             'top'=>'1',
             'price'=>'10000',

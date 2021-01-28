@@ -1,7 +1,7 @@
 @extends('layouts.nav')
 
 @section('title')
-商品樣板(測試中)
+商品模板
 @stop
 @section('style')
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -139,7 +139,7 @@
   <div class="container" style="padding-top: 50px">
 <div>產品敘述：</div>
 <div name="description" id="description">
-    {{!!$shop[0]->description !!}}
+    {!!$shop[0]->description !!}
 </div>
 </div>
 {{-- <textarea type="text/javascript" class="form-control" id="description" name="description" readonly>{{$shop[0]->description}}</textarea>
@@ -181,8 +181,6 @@
 @stop
 @section('js')
 <script>
-
-
 
 
 

@@ -113,8 +113,8 @@
                   <a class="dropdown-item" href="/addphoto">新增照片</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="/addgoods">商品管理&快速新增</a>
-                  <a class="dropdown-item" href="/newaddgoods">新增商品(全版)</a>
-                  <a class="dropdown-item" href="/goodstemplate">商品樣板(測試中)</a>
+                  <a class="dropdown-item" href="/addgoodsfull">新增商品(全版模式)</a>
+                  <a class="dropdown-item" href="/goodstemplate">商品模板</a>
 
                 </div>
               </li>

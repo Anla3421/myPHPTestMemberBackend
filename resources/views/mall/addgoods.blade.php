@@ -41,7 +41,7 @@
                 <th scope="col">圖片id</th>
                 <th scope="col">分類</th>
                 <th scope="col">標題</th>
-                <th scope="col">敘述</th>
+                <th scope="col">敘述(點下方進入全版修改)</th>
                 <th scope="col">是否置頂</th>
                 <th scope="col">數量</th>
                 <th scope="col">單價</th>
@@ -53,7 +53,7 @@
                 <th scope="col">Created_at</th>
                 <th scope="col">Updated_at</th>
                 <th scope="col">上/下架</th>
-                <th scope="col">修改</th>
+                <th scope="col">快速修改</th>
                 <th scope="col">刪除</th>
                 
             </tr>
@@ -75,8 +75,8 @@
                     {{-- <td>{{$view->shoptoclassify->title}}</td>  --}}
                     {{--關聯取代--}}
                     <td>{{$view->title}}</td>
-                    <td>{{$view->description}}</td>
-                        {{-- 用關聯矩陣 --}}
+                    <td><a href="updategoodsfull/{{$view->id}}">{{$view->description}}</a></td>
+                        {{-- 用關聯矩陣 --'updategoodsfull/' {{url('addclassify')}} }}
                         {{-- <script type="text/javascript">
                         CKEDITOR.replace('description', {
                         filebrowserUploadUrl: "{{route('CKE.upload', ['_token' => csrf_token() ])}}",
@@ -220,7 +220,7 @@
 @stop
 @section('js')
 <script>
-    var editor1, html = '';
+    var editor1, val = '';
     $(document).ready(function() {
         $("#price,#discount").on('keyup',function(){
         if($("#price").val()>0 && $("#discount").val()>0){
@@ -273,7 +273,7 @@
     });
 
      $("#create_goods").on('click', function() { //創建新使用者之資料給controller
-        $("#description").html(CKEDITOR.instances.description.getData());
+        $("#description").val(CKEDITOR.instances.description.getData());
         CKEDITOR.instances.description.destroy();
         $("#modal_close").val(0);
         console.log($("#modal_close").val());
@@ -284,7 +284,7 @@
                     pid:$("#pid").val(),
                     classify:$("#classify").val(),
                     title:$("#title").val(),
-                    description:$("#description").html(),
+                    description:$("#description").val(),
                     top:$("#top").val(),
                     amount:$("#amount").val(),
                     price:$("#price").val(),
@@ -326,7 +326,7 @@
         $("#pid").val(data.pid);
         $("#classify").val(data.classify); //只顯示不能改
         $("#title").val(data.title);
-        $("#description").html(data.description); //////////////////////////////////
+        $("#description").val(data.description); //////////////////////////////////
         $("#top").val(data.top);
         $("#amount").val(data.amount);
         $("#price").val(data.price);
@@ -341,7 +341,7 @@
 
     $("#update_goods").on('click',function(){
         console.log(CKEDITOR.instances.description.getData());
-        $("#description").html(CKEDITOR.instances.description.getData());
+        $("#description").val(CKEDITOR.instances.description.getData());
         console.log($("#description"));
         CKEDITOR.instances.description.destroy();
         $("#modal_close").val(0);
@@ -354,7 +354,7 @@
                 pid:$("#pid").val(),
                 //classify不可從這邊修改
                 title:$("#title").val(),
-                description:$("#description").html(),
+                description:$("#description").val(),
                 top:$("#top").val(),
                 amount:$("#amount").val(),
                 price:$("#price").val(),
