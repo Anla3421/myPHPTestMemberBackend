@@ -70,7 +70,7 @@
 {{-- 麵包屑nav --}}
 <div class="container-fluild">
     <nav aria-label="breadcrumb" >
-        <ol class="breadcrumb col-2 alert-light">
+        <ol class="breadcrumb alert-light">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
         </ol>
@@ -117,11 +117,10 @@
 </div>
   
         {{-- {{dd($shop[0])}} --}}
-
-
         <div class="col-5">
             {{-- <a style="display: inline-block; margin-top: 14px; margin-left: auto; margin-right: auto; user-select: none;" href="/ckfinder/core/connector/php/connector.php?command=ImagePreview&type=Images&currentFolder=/kittens/&fileName=longcat.jpg&size=450x450" title="瀏覽伺服器" hidefocus="true" class="cke_dialog_ui_button" role="button" aria-labelledby="cke_112_label" id="cke_113_uiElement"><span id="cke_112_label" class="cke_dialog_ui_button">瀏覽伺服器</span></a> --}}
-            <form action="">      
+            <form action="{{url('creategoodsfull')}}" method="POST">      
+                @csrf
                 <div class="form-group">
                     <label for="exampleFormControlInput1"><h1><strong>標題</strong></h1></label>
                     <input type="text" class="form-control" id="title" name="title">

@@ -69,10 +69,10 @@ class DatabaseSeeder extends Seeder
         DB::table('shop')->insert([
             'id' =>'1',
             'pid'=>'1',
-            'title'=>'A牌西裝',
+            'title'=>'A牌運動鞋',
             'description'=>'<ul>
             <li>
-            <h1><em><strong>好山好水好西裝</strong></em></h1>
+            <h1><em><strong>好山好水好運動鞋</strong></em></h1>
             </li>
             <li>
             <h1>1</h1>
@@ -104,13 +104,13 @@ class DatabaseSeeder extends Seeder
         DB::table('shop')->insert([
             'id' =>'2',
             'pid'=>'2',
-            'title'=>'B牌汽車',
-            'description'=>'加速很快',
+            'title'=>'B牌筆電',
+            'description'=>'<p>開機很快<p>',
             'top'=>'0',
-            'price'=>'1000000',
-            'finalprice'=>'500000',
+            'price'=>'50000',
+            'finalprice'=>'30000',
             'amount'=>'7',
-            'discount'=>'50',
+            'discount'=>'60',
             'classify'=>'2',
             'kid'=>'2',
             'type'=>'0',
@@ -131,13 +131,13 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('classify')->insert([
             'id' =>'2',
-            'title'=>'汽車',
+            'title'=>'3C',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('classify')->insert([
             'id' =>'3',
-            'title'=>'3C',
+            'title'=>'汽車',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
@@ -158,32 +158,64 @@ class DatabaseSeeder extends Seeder
         DB::table('photo')->insert([
             'pid' =>'1',
             'shop_id'=>'1',
-            'title'=>'photo',
+            'title'=>'shoe1',
             'path'=>'/userfiles/files/shoe1.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('photo')->insert([
             'pid' =>'2',
-            'shop_id'=>'2',
-            'title'=>'photo2',
+            'shop_id'=>'1',
+            'title'=>'shoe2',
             'path'=>'/userfiles/files/shoe2.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('photo')->insert([
             'pid' =>'3',
-            'shop_id'=>'3',
-            'title'=>'photo3',
+            'shop_id'=>'1',
+            'title'=>'shoe3',
             'path'=>'/userfiles/files/shoe3.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('photo')->insert([
             'pid' =>'4',
-            'shop_id'=>'4',
-            'title'=>'photo4',
+            'shop_id'=>'1',
+            'title'=>'shoe4',
             'path'=>'/userfiles/files/shoe4.jpg',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('photo')->insert([
+            'pid' =>'5',
+            'shop_id'=>'2',
+            'title'=>'laptop1',
+            'path'=>'/userfiles/files/laptop1.jpg',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('photo')->insert([
+            'pid' =>'6',
+            'shop_id'=>'2',
+            'title'=>'laptop2',
+            'path'=>'/userfiles/files/laptop2.jpg',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('photo')->insert([
+            'pid' =>'7',
+            'shop_id'=>'2',
+            'title'=>'laptop3',
+            'path'=>'/userfiles/files/laptop3.jpg',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('photo')->insert([
+            'pid' =>'8',
+            'shop_id'=>'2',
+            'title'=>'laptop4',
+            'path'=>'/userfiles/files/laptop4.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);

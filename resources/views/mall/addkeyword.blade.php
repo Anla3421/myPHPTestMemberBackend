@@ -1,10 +1,18 @@
 @extends('layouts.nav')
+@section('title')
+商品管理&快速新增
+@stop
 @section('style')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-{{-- csrf for Ajax method post --}}
-{{-- <script src="https://code.jquery.com/jquery-3.1.0.js"></script> --}}
 @endsection
 @section('body')
+<div class="container-fluild">
+    <nav aria-label="breadcrumb" >
+        <ol class="breadcrumb col-2 alert-light">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
+        </ol>
+    </nav>
 <div class="container">
     <form action="{{url('addkeyword')}}" method="POST" class="form-inline">
         @csrf

@@ -1,10 +1,21 @@
 @extends('layouts.nav')
+@section('title')
+商品管理&快速新增
+@stop
 @section('style')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 {{-- csrf for Ajax method post --}}
 {{-- <script src="https://code.jquery.com/jquery-3.1.0.js"></script> --}}
 @endsection
 @section('body')
+{{-- 麵包屑nav --}}
+<div class="container-fluild">
+    <nav aria-label="breadcrumb" >
+        <ol class="breadcrumb col-2 alert-light">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
+        </ol>
+    </nav>
 <div class="container-fluid">
     {{-- <form action="{{url('addgoods')}}" method="POST" class="form-inline"> --}}
     <form class="form-inline">
@@ -30,7 +41,7 @@
         </div>
         <div>
             {{-- <button type="submit" class="btn btn-primary">新增商品內容</button> --}}
-            <button type="button" class="btn btn-primary" id="create_modal" data-toggle="modal" data-target="#exampleModal">創建新商品</button>
+            <button type="button" class="btn btn-primary" id="create_modal" data-toggle="modal" data-target="#exampleModal">快速新增</button>
             {{-- <button type="button" class="btn btn-primary" id="update_modal" data-toggle="modal" data-target="#exampleModal" disabled="true">修改商品</button> --}}
         </div>
     </form>
@@ -41,7 +52,7 @@
                 <th scope="col">圖片id</th>
                 <th scope="col">分類</th>
                 <th scope="col">標題</th>
-                <th scope="col">敘述(點下方進入全版修改)</th>
+                <th scope="col">敘述</th>
                 <th scope="col">是否置頂</th>
                 <th scope="col">數量</th>
                 <th scope="col">單價</th>
@@ -75,7 +86,15 @@
                     {{-- <td>{{$view->shoptoclassify->title}}</td>  --}}
                     {{--關聯取代--}}
                     <td>{{$view->title}}</td>
-                    <td><a href="updategoodsfull/{{$view->id}}">{{$view->description}}</a></td>
+                    <td><a hidden>{!!$view->description!!}</a>
+                        @if ($view->release==1)
+                        <a href="sellgoods/{{$view->id}}">點我進商品販賣頁面</a></td>
+                        {{-- <a href="goodstemplate">點我進商品販賣頁面</a></td>       --}}
+                        @else
+                        <a href="updategoodsfull/{{$view->id}}">點我進全版修改</a></td>   
+                        @endif
+                    
+                        
                         {{-- 用關聯矩陣 --'updategoodsfull/' {{url('addclassify')}} }}
                         {{-- <script type="text/javascript">
                         CKEDITOR.replace('description', {
@@ -253,6 +272,7 @@
         CKEDITOR.replace('description', {});
         $("#modal_close").val(1);
         console.log($("#modal_close").val());
+
         //dummy data for test
         // $("#pid").val(123), 
         // $("#classify").val("汽車"),

@@ -70,21 +70,39 @@
 {{-- 麵包屑nav --}}
 <div class="container-fluild">
     <nav aria-label="breadcrumb" >
-        <ol class="breadcrumb col-2 alert-light">
+        <ol class="breadcrumb alert-light">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/addgoods">商品管理&快速新增</a></li>
             <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
         </ol>
     </nav>
+    <form action="{{route('image.upload')}}" method="post" enctype="multipart/form-data">
+        @csrf
+       {{-- <!--
+       @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        --> --}}
+        <input name="file" type="file" accept="image/*" value=""/>
+        <input name="" type="submit" value="上傳"/>
+    </form>
+    
     {{-- aside --}}
     <div class="row">
         <div class="col-1">
             <aside>
             <div name="title" id="title">推薦給您：</div>
                 <ul>
-                @foreach ($shop as $aside)
+                {{-- @foreach ($shop as $aside) --}}
                     {{-- <li>{{$aside->classify}}</li> --}}
                     {{-- <li>{{$aside->shoptoclassify->title}}</li> --}}
-                @endforeach
+                {{-- @endforeach --}}
                 </ul>
             </aside>
         </div>
@@ -96,7 +114,7 @@
                 <div  class="swiper-slide" style="  height: 600px; background-image:url({{url($pic->path)}})"></div>
                 @endforeach --}}
                 @for ($i = 1; $i < 5; $i++)
-                    <div  class="swiper-slide" style="  height: 600px; background-image:url(userfiles/images/PIC{{$i}}.jpg)"></div>
+                    <div  class="swiper-slide" style="  height: 600px; background-image:url({{url('userfiles/images/PIC'.$i.'.jpg')}})"></div>
                 @endfor
             </div>
         <!-- Add Arrows -->
@@ -109,7 +127,7 @@
                     <div class="swiper-slide" style="width: 100px ;height: 200px; background-image:url({{url($pic->path)}})"></div>
                 @endforeach --}}
                 @for ($i = 1; $i < 5; $i++)
-                    <div class="swiper-slide" style="width: 100px ;height: 200px; background-image:url(userfiles/images/PIC{{$i}}.jpg)"></div>    
+                    <div class="swiper-slide" style="width: 100px ;height: 200px; background-image:url({{url('userfiles/images/PIC'.$i.'.jpg')}})"></div>    
                 @endfor
             </div>
 
@@ -121,37 +139,41 @@
 
         <div class="col-5">
             {{-- <a style="display: inline-block; margin-top: 14px; margin-left: auto; margin-right: auto; user-select: none;" href="/ckfinder/core/connector/php/connector.php?command=ImagePreview&type=Images&currentFolder=/kittens/&fileName=longcat.jpg&size=450x450" title="瀏覽伺服器" hidefocus="true" class="cke_dialog_ui_button" role="button" aria-labelledby="cke_112_label" id="cke_113_uiElement"><span id="cke_112_label" class="cke_dialog_ui_button">瀏覽伺服器</span></a> --}}
-            <form action="">      
+            <form action="{{url('updategoodsfull2')}}" method="POST">
+                @csrf
+                <div class="form-group">
+                <input type="text" class="form-control" id="id" name="id" value="{{$shop->id}}" hidden>
+                </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1"><h1><strong>標題</strong></h1></label>
-                    <input type="text" class="form-control" id="title" name="title">
+                    <input type="text" class="form-control" id="title" name="title" value="{{$shop->title}}">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1"><h3>關鍵字id</h3></label>
-                    <input type="text" class="form-control" id="kid" name="kid">
+                    <input type="text" class="form-control" id="kid" name="kid" value="{{$shop->kid}}">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">定價</label>
-                    <input type="text" class="form-control" id="price" name="price">
+                    <input type="text" class="form-control" id="price" name="price" value="{{$shop->price}}">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1"><h5><strong>折扣後售價</h5></strong></label>
-                    <input type="text" class="form-control" id="finalprice" name="finalprice" >
+                    <input type="text" class="form-control" id="finalprice" name="finalprice" value="{{$shop->finalprice}}">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">上架數量</label>
-                    <input type="text" class="form-control" id="amount" name="amount">
+                    <input type="text" class="form-control" id="amount" name="amount" value="{{$shop->amount}}">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">可購數量設定：</label>
-                    <input type="text" class="form-control" id="buyamount" name="buyamount">
+                    <input type="text" class="form-control" id="buyamount" name="buyamount" value="">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">detailid</label>
-                    <input type="text" class="form-control" id="did" name="did">
+                    <input type="text" class="form-control" id="did" name="did" value="{{$shop->did}}">
                 </div>
             <button id="buy_goods" type="button" class="btn btn-secondary" onclick="" disabled>直接購買</button>
-            <button id="addcart_goods" type="button" class="btn btn-secondary" onclick=""disabled>加入購物車</button>
+            <button id="addcart_goods" type="button" class="btn btn-secondary" onclick="" disabled>加入購物車</button>
             <div class="row">
                 <div class="form-group col-3">
                     <label for="exampleFormControlInput1">圖片1</label>
@@ -180,7 +202,7 @@
             <label for="exampleFormControlSelect1">敘述</label>
             <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
             {{-- 敘述--}}
-            <textarea type="text/javascript" class="form-control" id="description" name="description"></textarea>
+            <textarea type="text/javascript" class="form-control" id="description" name="description">{{$shop->description}}</textarea>
             {{-- 用關聯矩陣 --}}
             <script type="text/javascript">
                 CKFinder.setupCKEditor();
@@ -190,8 +212,8 @@
                 });
             </script>
         </div>
-    <button type="submit" class="btn btn-primary">新增商品內容</button>
-    <button type="button" class="btn btn-primary" onclick="window.location.reload()">清空商品內容</button>
+    <button type="submit" class="btn btn-primary">修改商品內容</button>
+    {{-- <button type="button" class="btn btn-primary" onclick="emptypage()">清空商品內容</button> --}}
 </div>
             </form>
 <!-- Swiper JS -->
@@ -225,6 +247,9 @@
 @stop
 @section('js')
 <script>
+    function emptypage(){
+        window.location.reload();
+    }
 
 </script>
 @endsection

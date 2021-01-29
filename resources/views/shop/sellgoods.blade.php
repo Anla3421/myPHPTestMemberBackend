@@ -1,7 +1,7 @@
 @extends('layouts.nav')
 
 @section('title')
-商品模板
+{{$shop->title}}
 @stop
 @section('style')
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -83,10 +83,10 @@
     <aside>
       <div name="title" id="title">推薦給您：</div>
         <ul>
-          @foreach ($shop as $aside)
+          {{-- @foreach ($shop as $aside) --}}
             {{-- <li>{{$aside->classify}}</li> --}}
-            <li>{{$aside->shoptoclassify->title}}</li>
-          @endforeach
+            {{-- <li>{{$aside->shoptoclassify->title}}</li> --}}
+          {{-- @endforeach --}}
         </ul>
     </aside>
   </div>
@@ -95,7 +95,7 @@
   <div class="col-6">
     <div class="swiper-container swiper gallery-top swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
       <div class="swiper-wrapper">
-        @foreach ($data as $pic)
+        @foreach ($photo as $pic)
           <div  class="swiper-slide" style="  height: 600px; background-image:url({{url($pic->path)}})"></div>
         @endforeach
       </div>
@@ -105,20 +105,20 @@
     </div>
   <div class="swiper-container gallery-thumbs swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events swiper-container-free-mode swiper-container-thumbs">
     <div class="swiper-wrapper">
-      @foreach ($data as $pic)
+      @foreach ($photo as $pic)
         <div class="swiper-slide" style="width: 100px ;height: 200px; background-image:url({{url($pic->path)}})"></div>
       @endforeach
    </div>
   </div>
   </div>
 
-{{-- {{dd($shop[0])}} --}}
+{{-- {{dd($shop)}} --}}
   <div class="col-5">
-  <div name="title" id="title"><h1><strong>{{$shop[0]->title}}</strong></h1></div>
-  {{-- <div name="kid" id="kid"> {{$shop[0]->kid}}</div> --}}
-  <div name="kid" id="kid"><h3>{{$shop[0]->shoptokeyword->title}}</h3></div>
-  <del name="price" id="price">定價：{{$shop[0]->price}}</del>
-  <div name="finalprice" id="finalprice"><h5><strong>折扣後售價：{{$shop[0]->finalprice}}</strong></h5></div>
+  <div name="title" id="title"><h1><strong>{{$shop->title}}</strong></h1></div>
+  {{-- <div name="kid" id="kid"> {{$shop->kid}}</div> --}}
+  <div name="kid" id="kid"><h3>{{$shop->shoptokeyword->title}}</h3></div>
+  <del name="price" id="price">定價：{{$shop->price}}</del>
+  <div name="finalprice" id="finalprice"><h5><strong>折扣後售價：{{$shop->finalprice}}</strong></h5></div>
 
     <div>欲購數量：
       <select name="amount" id="amount">
@@ -127,7 +127,7 @@
         @endfor
       </select>
     </div>
-      <div name="did" id="did"> {{$shop[0]->did}}</div>
+      <div name="did" id="did"> {{$shop->did}}</div>
       <button id="buy_goods" type="button" class="btn btn-primary" onclick="">直接購買</button>
       <button id="addcart_goods" type="button" class="btn btn-secondary" onclick="">加入購物車</button>
   </div>
@@ -139,10 +139,10 @@
   <div class="container" style="padding-top: 50px">
 <div>產品敘述：</div>
 <div name="description" id="description">
-    {!!$shop[0]->description !!}
+    {!!$shop->description !!}
 </div>
 </div>
-{{-- <textarea type="text/javascript" class="form-control" id="description" name="description" readonly>{{$shop[0]->description}}</textarea>
+{{-- <textarea type="text/javascript" class="form-control" id="description" name="description" readonly>{{$shop->description}}</textarea>
   <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script type="text/javascript">
         CKEDITOR.disableAutoInline = true;
@@ -189,5 +189,3 @@
 
 </script>
 @endsection
-
-

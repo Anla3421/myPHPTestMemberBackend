@@ -66,10 +66,22 @@ Route::middleware('mustlogin')->post('addgoods/{id}', 'MallController@goodsupdat
 //     echo 'under contract...';
 // });
 
-Route::middleware('mustlogin')->get('addgoodsfull', 'ShopController@Index')->name('addgoodsfull');
-
 Route::middleware('mustlogin')->get('goodstemplate', 'ShopController@fullgoods')->name('goodstemplate');
+
+Route::middleware('mustlogin')->get('addgoodsfull', 'ShopController@Index')->name('addgoodsfull');
 Route::middleware('mustlogin')->get('updategoodsfull/{id}', 'ShopController@updategoodsfull')->name('updategoodsfull');
+Route::middleware('mustlogin')->post('updategoodsfull2', 'ShopController@updategoodsfull2')->name('updategoodsfull');
+Route::middleware('mustlogin')->post('creategoodsfull', 'ShopController@creategoodsfull')->name('creategoodsfull');
+
+Route::middleware('mustlogin')->get('sellgoods/{id}', 'ShopController@sellgoods')->name('sellgoods');
+
+Route::get('/uploadfile','UploadFileController@index');
+Route::post('/uploadfile','UploadFileController@showUploadFile');
+
+
+
+Route::any('upload2', 'FileController@upload');
+
 
 
 // Route::resource('crudtest', 'CRUDtestcontroller');

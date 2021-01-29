@@ -29,7 +29,10 @@ class shop extends Model
     public function shoptokeyword(){
         return $this->hasOne('App\models\keyword', 'kid', 'kid');
     }
-    public function shoptophoto(){
+    public function shoppidtophotopid(){
         return $this->hasOne('App\models\photo', 'pid', 'pid');
+    }
+    public function shopidtophotoshopid(){
+        return $this->hasOne('App\models\photo', 'shop_id', 'id');
     }
 }
