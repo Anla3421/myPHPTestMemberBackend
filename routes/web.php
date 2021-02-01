@@ -75,12 +75,13 @@ Route::middleware('mustlogin')->post('creategoodsfull', 'ShopController@creatego
 
 Route::middleware('mustlogin')->get('sellgoods/{id}', 'ShopController@sellgoods')->name('sellgoods');
 
-Route::get('/uploadfile','UploadFileController@index');
-Route::post('/uploadfile','UploadFileController@showUploadFile');
+// Route::get('/uploadfile','UploadFileController@index');
+// Route::post('/uploadfile','UploadFileController@showUploadFile');
 
 
 
-Route::any('upload2', 'FileController@upload');
+Route::any('upload', 'FileController@upload');
+// Route::any('upload2', 'FileController@upload2');
 
 
 
