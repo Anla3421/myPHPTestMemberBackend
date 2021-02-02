@@ -119,6 +119,24 @@ class DatabaseSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
+        DB::table('shop')->insert([
+            'id' =>'3',
+            'pid'=>'3',
+            'title'=>'C牌西裝',
+            'description'=>'<p>特殊剪裁<p>',
+            'top'=>'1',
+            'price'=>'5000',
+            'finalprice'=>'3000',
+            'amount'=>'77',
+            'discount'=>'60',
+            'classify'=>'1',
+            'kid'=>'2',
+            'type'=>'0',
+            'did'=>'2',
+            'release'=>'0',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
 
         /**
          * classify
@@ -156,66 +174,110 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('photo')->insert([
-            'pid' =>'1',
+            'id' =>'1',
             'shop_id'=>'1',
-            'title'=>'shoe1',
+            'title'=>'A牌運動鞋',
+            'filename'=>'shoe1.jpg',
             'path'=>'/userfiles/files/shoe1.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('photo')->insert([
-            'pid' =>'2',
+            'id' =>'2',
             'shop_id'=>'1',
-            'title'=>'shoe2',
+            'title'=>'A牌運動鞋',
+            'filename'=>'shoe2.jpg',
             'path'=>'/userfiles/files/shoe2.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('photo')->insert([
-            'pid' =>'3',
+            'id' =>'3',
             'shop_id'=>'1',
-            'title'=>'shoe3',
+            'title'=>'A牌運動鞋',
+            'filename'=>'shoe3.jpg',
             'path'=>'/userfiles/files/shoe3.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('photo')->insert([
-            'pid' =>'4',
+            'id' =>'4',
             'shop_id'=>'1',
-            'title'=>'shoe4',
+            'title'=>'A牌運動鞋',
+            'filename'=>'shoe4.jpg',
             'path'=>'/userfiles/files/shoe4.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('photo')->insert([
-            'pid' =>'5',
+            'id' =>'5',
             'shop_id'=>'2',
-            'title'=>'laptop1',
+            'title'=>'B牌筆電',
+            'filename'=>'laptop1.jpg',
             'path'=>'/userfiles/files/laptop1.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('photo')->insert([
-            'pid' =>'6',
+            'id' =>'6',
             'shop_id'=>'2',
-            'title'=>'laptop2',
+            'title'=>'B牌筆電',
+            'filename'=>'laptop2.jpg',
             'path'=>'/userfiles/files/laptop2.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('photo')->insert([
-            'pid' =>'7',
+            'id' =>'7',
             'shop_id'=>'2',
-            'title'=>'laptop3',
+            'title'=>'B牌筆電',
+            'filename'=>'laptop3.jpg',
             'path'=>'/userfiles/files/laptop3.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('photo')->insert([
-            'pid' =>'8',
+            'id' =>'8',
             'shop_id'=>'2',
-            'title'=>'laptop4',
+            'title'=>'B牌筆電',
+            'filename'=>'laptop4.jpg',
             'path'=>'/userfiles/files/laptop4.jpg',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('photo')->insert([
+            'id' =>'9',
+            // 'shop_id'=>'3',
+            // 'title'=>'C牌西裝',
+            'filename'=>'suit1.jpg',
+            'path'=>'/userfiles/files/suit1.jpg',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('photo')->insert([
+            'id' =>'10',
+            // 'shop_id'=>'3',
+            // 'title'=>'C牌西裝',
+            'filename'=>'suit2.jpg',
+            'path'=>'/userfiles/files/suit2.jpg',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('photo')->insert([
+            'id' =>'11',
+            // 'shop_id'=>'3',
+            // 'title'=>'C牌西裝',
+            'filename'=>'suit3.jpg',
+            'path'=>'/userfiles/files/suit3.jpg',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('photo')->insert([
+            'id' =>'12',
+            // 'shop_id'=>'3',
+            // 'title'=>'C牌西裝',
+            'filename'=>'suit4.jpg',
+            'path'=>'/userfiles/files/suit4.jpg',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);

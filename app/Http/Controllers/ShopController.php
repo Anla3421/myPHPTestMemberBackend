@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\models\photo;
 use App\models\shop;
+use Illuminate\Support\Facades\Storage;
 
 class ShopController extends Controller
 {
@@ -22,13 +23,16 @@ class ShopController extends Controller
 	}
 	public function updategoodsfull(Request $request,$id){
 		$shop=shop::find($id);
+		$photo=photo::where('title',$shop->title)->get();
 		// echo "<pre>";
-		// print_r($shop);
-		return view('shop.updategoodsfull',['shop'=>$shop]);
+		// var_dump($photo[0]->title);
+		return view('shop.updategoodsfull',['shop'=>$shop],['photo'=>$photo]);
 	}
 	public function updategoodsfull2(Request $request) {
+							echo "<pre>";
+					print_r($request->all());
 		$goodsupdate = shop::find($request->id);
-		$goodsupdate->updateinfo2([
+		$goodsupdate->Updateinfo2([
 			// 'pid' => $request['pid'],
 			'pid' => 1,
 			'title' => $request['title'],
@@ -46,11 +50,40 @@ class ShopController extends Controller
 			'did' => $request['did'],
 		]);
 		$goodsupdate->save();
-		// echo "<pre>";
-		// print_r($request->all());
-		// print_r($goodsupdate);
+		
+		$photopathupdate=photo::where('title',$request->title)->get();
+			foreach ($photopathupdate as $a) {
+				$a->shop_id=NULL;
+				$a->title=NULL;
+				$a->save();
+			}
+			for ($i=1; $i<5 ; $i++) { 
+		$photopathupdate=photo::where('filename',$request->input('pic'.$i))->first();
+		// $photopathupdate->updateinfo([
+		// ]);
+		$photopathupdate->shop_id=$request->id;
+		$photopathupdate->title=$request->title;
+		$photopathupdate->save();
+					// 'filename'=>$request->input('pic'.$i),
+					// 'path'=>"/userfiles/files/".$request->input('pic'.$i),
+			}
 		return redirect()->intended('addgoods');
-	}
+		}
+
+	// for ($i=1; $i<5 ; $i++) { 
+		
+	// 	$insert_data=	[
+	// 				'shop_id'=>$request->id,
+	// 				'title'=>$request->title,
+	// 				'filename'=>$request->input('pic'.$i),
+	// 				'path'=>"/userfiles/files/".$request->input('pic'.$i),
+	// 		];
+	// 		$photo=photo::Create($insert_data);
+	// 		}
+	// 		print_r($insert_data);
+	// 	return redirect()->intended('addgoods');
+	// }
+	
 	public function creategoodsfull(Request $request) {
 		$a = shop::create([
 			'pid' => $request->pid,
@@ -80,11 +113,12 @@ class ShopController extends Controller
 
 		return redirect()->intended('addgoods');
 	}
-	public function sellgoods(Request $request,$id){
+	public function sellgoods($id){
 		$shop=shop::find($id);
-		$photo=photo::where('shop_id',$id)->get();
+		// $photo=photo::where('shop_id',$id)->get();
+		$photo=photo::where('title',$shop->title)->get();
 		// echo "<pre>";
-		// print_r($photo);
+		// print_r($shop->id);
 		return view('shop.sellgoods',['shop'=>$shop],['photo'=>$photo]);
 	}
 

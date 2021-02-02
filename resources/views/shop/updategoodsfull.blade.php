@@ -93,12 +93,18 @@
         <div class="col-6">
             <div class="swiper-container swiper gallery-top swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
             <div class="swiper-wrapper">
-                {{-- @foreach ($data as $pic)
+                @foreach ($photo as $pic)
                 <div  class="swiper-slide" style="  height: 600px; background-image:url({{url($pic->path)}})"></div>
-                @endforeach --}}
-                @for ($i = 1; $i < 5; $i++)
-                    <div  class="swiper-slide" style="  height: 600px; background-image:url({{url('userfiles/images/PIC'.$i.'.jpg')}})"></div>
-                @endfor
+                @endforeach
+                {{-- @if ($pic->title == null)
+                    @for ($i = 1; $i < 5; $i++)
+                        <div class="swiper-slide" style="height: 600px; background-image:url({{url('userfiles/images/PIC'.$i.'.jpg')}})"></div>    
+                    @endfor        
+                @else
+                    @foreach ($photo as $pic)
+                        <div class="swiper-slide" style="height: 600px; background-image:url({{url($pic->path)}})"></div>
+                    @endforeach
+                @endif --}}
             </div>
         <!-- Add Arrows -->
         <div class="swiper-button-next swiper-button-white"></div>
@@ -106,12 +112,20 @@
             </div>
             <div class="swiper-container gallery-thumbs swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events swiper-container-free-mode swiper-container-thumbs">
                 <div class="swiper-wrapper">
-                {{-- @foreach ($data as $pic)
+                    
+                    {{-- @if ($photo[1]->title == null)
+                        @for ($i = 1; $i < 5; $i++)
+                            <div class="swiper-slide" style="width: 100px ;height: 200px; background-image:url({{url('userfiles/images/PIC'.$i.'.jpg')}})"></div>    
+                        @endfor        
+                    @else
+                        @foreach ($photo as $pic)
+                            <div class="swiper-slide" style="width: 100px ;height: 200px; background-image:url({{url($pic->path)}})"></div>
+                        @endforeach
+                    @endif --}}
+                @foreach ($photo as $pic)
                     <div class="swiper-slide" style="width: 100px ;height: 200px; background-image:url({{url($pic->path)}})"></div>
-                @endforeach --}}
-                @for ($i = 1; $i < 5; $i++)
-                    <div class="swiper-slide" style="width: 100px ;height: 200px; background-image:url({{url('userfiles/images/PIC'.$i.'.jpg')}})"></div>    
-                @endfor
+                @endforeach
+                
             </div>
 
     </div>
@@ -121,7 +135,6 @@
 
 
         <div class="col-5">
-            {{-- <a style="display: inline-block; margin-top: 14px; margin-left: auto; margin-right: auto; user-select: none;" href="/ckfinder/core/connector/php/connector.php?command=ImagePreview&type=Images&currentFolder=/kittens/&fileName=longcat.jpg&size=450x450" title="瀏覽伺服器" hidefocus="true" class="cke_dialog_ui_button" role="button" aria-labelledby="cke_112_label" id="cke_113_uiElement"><span id="cke_112_label" class="cke_dialog_ui_button">瀏覽伺服器</span></a> --}}
             <form action="{{url('updategoodsfull2')}}" method="POST">
                 @csrf
                 <div class="form-group">
@@ -159,46 +172,48 @@
             <button id="addcart_goods" type="button" class="btn btn-secondary" onclick="" disabled>加入購物車</button>
             <div class="row">
                 <div class="form-group col-3">
-                    <label for="exampleFormControlInput1">圖片1</label>
-                    <input type="text" class="form-control" id="pic1" name="pic1">
+                    <label for="file" class="control-label">圖片1</label>
+                    <input id="file" type="file" class="form-control" id="pic1" name="pic1">
                 </div>
                 <div class="form-group col-3">
-                    <label for="exampleFormControlInput1">圖片2</label>
-                    <input type="text" class="form-control" id="pic2" name="pic2">
+                    <label for="file" class="control-label">圖片2</label>
+                    <input id="file" type="file" class="form-control" id="pic2" name="pic2">
                 </div>
                 <div class="form-group col-3">
-                    <label for="exampleFormControlInput1">圖片3</label>
-                    <input type="text" class="form-control" id="pic3" name="pic3">
+                    <label for="file" class="control-label">圖片3</label>
+                    <input id="file" type="file" class="form-control" id="pic3" name="pic3">
                 </div>
                 <div class="form-group col-3">
-                    <label for="exampleFormControlInput1">圖片4</label>
-                    <input type="text" class="form-control" id="pic4" name="pic4">
+                    <label for="file" class="control-label">圖片4</label>
+                    <input id="file" type="file" class="form-control" id="pic4" name="pic4">
                 </div>
+                
             </div>
         </div>
     </div>
 </div>
-<br><br><br><br><br><br>
-    <hr>
-<div class="container" style="padding-top: 50px">
-        <div class="form-group">
-            <label for="exampleFormControlSelect1">敘述</label>
-            <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-            {{-- 敘述--}}
-            <textarea type="text/javascript" class="form-control" id="description" name="description">{{$shop->description}}</textarea>
-            {{-- 用關聯矩陣 --}}
-            <script type="text/javascript">
-                CKFinder.setupCKEditor();
-                CKEDITOR.replace('description',{
-                    width: '90%',
-                    height: 700
-                });
-            </script>
-        </div>
-    <button type="submit" class="btn btn-primary">修改商品內容</button>
-    {{-- <button type="button" class="btn btn-primary" onclick="emptypage()">清空商品內容</button> --}}
-</div>
-            </form>
+    <br><br><br><br><br><br>
+        <hr>
+    <div class="container" style="padding-top: 50px">
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">敘述</label>
+                <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+                {{-- 敘述--}}
+                <textarea type="text/javascript" class="form-control" id="description" name="description">{{$shop->description}}</textarea>
+                {{-- 用關聯矩陣 --}}
+                <script type="text/javascript">
+                    CKFinder.setupCKEditor();
+                    CKEDITOR.replace('description',{
+                        width: '90%',
+                        height: 700
+                    });
+                </script>
+            </div>
+        <button type="submit" class="btn btn-primary">修改商品內容</button>
+        {{-- <button type="button" class="btn btn-primary" onclick="emptypage()">清空商品內容</button> --}}
+    </div>
+</form>
+
 <!-- Swiper JS -->
 <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>

@@ -12,9 +12,10 @@ class CreatePhotoTable extends Migration {
 	 */
 	public function up() {
 		Schema::create('photo', function (Blueprint $table) {
-			$table->increments('pid');
-			$table->integer('shop_id')->comment('商品id');
-			$table->string('title')->comment('photo alt name')->nullable();
+			$table->increments('id');
+			$table->integer('shop_id')->comment('商品id')->nullable();
+			$table->string('title')->comment('goods_title')->nullable();
+			$table->string('filename')->comment('photo alt name');
 			$table->longText('path')->comment('路徑');
 			$table->timestamps();
 		});

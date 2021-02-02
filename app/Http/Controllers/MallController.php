@@ -8,6 +8,7 @@ use App\models\photo; //for test
 use App\models\shop;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MallController extends Controller {
 	public function addclassify(Request $request) {
@@ -156,13 +157,34 @@ class MallController extends Controller {
 		return view('mall.addphoto', ['data' => $data]);
 	}
 
-	public function photocreate(Request $request) {
-		photo::create([
-			'shop_id' => $request->shop_id,
-			'title' => $request->title,
-			'path' => $request->path,
-		]);
-		return redirect()->intended('addphoto');
+	// public function photocreate(Request $request) {
+	// 	photo::create([
+	// 		'shop_id' => $request->shop_id,
+	// 		'title' => $request->title,
+	// 		'path' => $request->path,
+	// 	]);
+	// 	return redirect()->intended('addphoto');
+	// }
+
+	Public function photocreate(Request $request) {
+		if ($request->isMethod('POST')) {
+			$file = $request->file('pic1');
+			if ($file->isValid()) {
+				$originalName = $file->getClientOriginalName();
+				$ext = $file->getClientOriginalExtension();
+				$type = $file->getClientMimeType();
+				$realPath = $file->getRealPath();
+				// echo "<pre>";
+				// print_r($request->all());
+				$photo=photo::Create([
+					'filename'=>$originalName,
+					'path'=>"/userfiles/files/".$originalName,
+				]);
+				$bool = Storage::disk('uploads')->put($originalName, file_get_contents($realPath));
+				}
+		}
+		$data = photo::Paginate(20);
+		return view('mall.addphoto', ['data' => $data]);
 	}
 
 	/**
