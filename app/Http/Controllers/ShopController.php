@@ -23,14 +23,14 @@ class ShopController extends Controller
 	}
 	public function updategoodsfull(Request $request,$id){
 		$shop=shop::find($id);
-		$photo=photo::where('title',$shop->title)->get();
+		$photo=photo::where('shop_id',$shop->id)->get();
 		// echo "<pre>";
-		// var_dump($photo[0]->title);
+		// print_r($photo);
 		return view('shop.updategoodsfull',['shop'=>$shop],['photo'=>$photo]);
 	}
 	public function updategoodsfull2(Request $request) {
-							echo "<pre>";
-					print_r($request->all());
+				echo "<pre>";
+		print_r($request->all());
 		$goodsupdate = shop::find($request->id);
 		$goodsupdate->Updateinfo2([
 			// 'pid' => $request['pid'],
@@ -50,23 +50,37 @@ class ShopController extends Controller
 			'did' => $request['did'],
 		]);
 		$goodsupdate->save();
-		
-		$photopathupdate=photo::where('title',$request->title)->get();
-			foreach ($photopathupdate as $a) {
-				$a->shop_id=NULL;
-				$a->title=NULL;
-				$a->save();
-			}
-			for ($i=1; $i<5 ; $i++) { 
-		$photopathupdate=photo::where('filename',$request->input('pic'.$i))->first();
-		// $photopathupdate->updateinfo([
-		// ]);
-		$photopathupdate->shop_id=$request->id;
-		$photopathupdate->title=$request->title;
-		$photopathupdate->save();
-					// 'filename'=>$request->input('pic'.$i),
-					// 'path'=>"/userfiles/files/".$request->input('pic'.$i),
-			}
+
+		for ($i=1; $i<5 ; $i++) { 
+			if ($request->input('pic'.$i) != NULL) {
+				$photopathupdate=photo::where('title',$request->title.$i)->get();
+				foreach ($photopathupdate as $a) {
+					$a->shop_id=NULL;
+					$a->title=NULL;
+					$a->save();
+				}
+			$photopathupdate=photo::where('filename',$request->input('pic'.$i))->first();
+			$photopathupdate->shop_id=$request->id;
+			$photopathupdate->title=$request->title.$i;
+			$photopathupdate->save();
+				}
+		}
+		// $photopathupdate=photo::where('title',$request->title)->get();
+		// 	foreach ($photopathupdate as $a) {
+		// 		$a->shop_id=NULL;
+		// 		$a->title=NULL;
+		// 		$a->save();
+		// 	}
+		// 	for ($i=1; $i<5 ; $i++) { 
+		// $photopathupdate=photo::where('filename',$request->input('pic'.$i))->first();
+		// // $photopathupdate->updateinfo([
+		// // ]);
+		// $photopathupdate->shop_id=$request->id;
+		// $photopathupdate->title=$request->title;
+		// $photopathupdate->save();
+		// 			// 'filename'=>$request->input('pic'.$i),
+		// 			// 'path'=>"/userfiles/files/".$request->input('pic'.$i),
+		// 	}
 		return redirect()->intended('addgoods');
 		}
 
@@ -116,7 +130,7 @@ class ShopController extends Controller
 	public function sellgoods($id){
 		$shop=shop::find($id);
 		// $photo=photo::where('shop_id',$id)->get();
-		$photo=photo::where('title',$shop->title)->get();
+		$photo=photo::where('shop_id',$shop->id)->get();
 		// echo "<pre>";
 		// print_r($shop->id);
 		return view('shop.sellgoods',['shop'=>$shop],['photo'=>$photo]);

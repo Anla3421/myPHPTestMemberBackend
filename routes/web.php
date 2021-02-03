@@ -64,11 +64,16 @@ Route::middleware('mustlogin')->post('addgoods/{id}', 'MallController@goodsupdat
 Route::middleware('mustlogin')->get('goodstemplate', 'ShopController@fullgoods')->name('goodstemplate');
 
 Route::middleware('mustlogin')->get('addgoodsfull', 'ShopController@Index')->name('addgoodsfull');
-Route::any('updategoodsfull/{id}', 'ShopController@updategoodsfull')->name('updategoodsfull');
+Route::middleware('mustlogin')->any('updategoodsfull/{id}', 'ShopController@updategoodsfull')->name('updategoodsfull');
 Route::middleware('mustlogin')->post('updategoodsfull2', 'ShopController@updategoodsfull2')->name('updategoodsfull2');
 Route::middleware('mustlogin')->post('creategoodsfull', 'ShopController@creategoodsfull')->name('creategoodsfull');
 
 Route::middleware('mustlogin')->get('sellgoods/{id}', 'ShopController@sellgoods')->name('sellgoods');
+
+Route::middleware('mustlogin')->get('衣服','SellController@clothes')->name('clothes');
+Route::middleware('mustlogin')->get('3C','SellController@threec')->name('3c');
+Route::middleware('mustlogin')->get('汽車','SellController@vehicle')->name('vehicle');
+
 
 // Route::middleware('mustlogin')->get('addgoods', function () {
 //     echo 'under contract...';

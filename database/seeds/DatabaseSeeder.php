@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
             'finalprice'=>'5000',
             'amount'=>'10',
             'discount'=>'50',
-            'classify'=>'1',
+            'classify'=>'衣服',
             'kid'=>'1',
             'type'=>'1',
             'did'=>'1',
@@ -106,12 +106,12 @@ class DatabaseSeeder extends Seeder
             'pid'=>'2',
             'title'=>'B牌筆電',
             'description'=>'<p>開機很快<p>',
-            'top'=>'0',
+            'top'=>'1',
             'price'=>'50000',
             'finalprice'=>'30000',
             'amount'=>'7',
             'discount'=>'60',
-            'classify'=>'2',
+            'classify'=>'3C',
             'kid'=>'2',
             'type'=>'0',
             'did'=>'2',
@@ -129,7 +129,7 @@ class DatabaseSeeder extends Seeder
             'finalprice'=>'3000',
             'amount'=>'77',
             'discount'=>'60',
-            'classify'=>'1',
+            'classify'=>'衣服',
             'kid'=>'2',
             'type'=>'0',
             'did'=>'2',
@@ -137,7 +137,24 @@ class DatabaseSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
-
+        DB::table('shop')->insert([
+            'id' =>'4',
+            'pid'=>'4',
+            'title'=>'D牌汽車',
+            'description'=>'<p>非常省油<p>',
+            'top'=>'1',
+            'price'=>'5000000',
+            'finalprice'=>'3000000',
+            'amount'=>'7',
+            'discount'=>'60',
+            'classify'=>'汽車',
+            'kid'=>'2',
+            'type'=>'0',
+            'did'=>'2',
+            'release'=>'0',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
         /**
          * classify
          */
@@ -176,7 +193,7 @@ class DatabaseSeeder extends Seeder
         DB::table('photo')->insert([
             'id' =>'1',
             'shop_id'=>'1',
-            'title'=>'A牌運動鞋',
+            'title'=>'A牌運動鞋1',
             'filename'=>'shoe1.jpg',
             'path'=>'/userfiles/files/shoe1.jpg',
             'created_at' => date('Y-m-d H:i:s'),
@@ -185,7 +202,7 @@ class DatabaseSeeder extends Seeder
         DB::table('photo')->insert([
             'id' =>'2',
             'shop_id'=>'1',
-            'title'=>'A牌運動鞋',
+            'title'=>'A牌運動鞋2',
             'filename'=>'shoe2.jpg',
             'path'=>'/userfiles/files/shoe2.jpg',
             'created_at' => date('Y-m-d H:i:s'),
@@ -194,7 +211,7 @@ class DatabaseSeeder extends Seeder
         DB::table('photo')->insert([
             'id' =>'3',
             'shop_id'=>'1',
-            'title'=>'A牌運動鞋',
+            'title'=>'A牌運動鞋3',
             'filename'=>'shoe3.jpg',
             'path'=>'/userfiles/files/shoe3.jpg',
             'created_at' => date('Y-m-d H:i:s'),
@@ -203,7 +220,7 @@ class DatabaseSeeder extends Seeder
         DB::table('photo')->insert([
             'id' =>'4',
             'shop_id'=>'1',
-            'title'=>'A牌運動鞋',
+            'title'=>'A牌運動鞋4',
             'filename'=>'shoe4.jpg',
             'path'=>'/userfiles/files/shoe4.jpg',
             'created_at' => date('Y-m-d H:i:s'),
@@ -212,7 +229,7 @@ class DatabaseSeeder extends Seeder
         DB::table('photo')->insert([
             'id' =>'5',
             'shop_id'=>'2',
-            'title'=>'B牌筆電',
+            'title'=>'B牌筆電1',
             'filename'=>'laptop1.jpg',
             'path'=>'/userfiles/files/laptop1.jpg',
             'created_at' => date('Y-m-d H:i:s'),
@@ -221,7 +238,7 @@ class DatabaseSeeder extends Seeder
         DB::table('photo')->insert([
             'id' =>'6',
             'shop_id'=>'2',
-            'title'=>'B牌筆電',
+            'title'=>'B牌筆電2',
             'filename'=>'laptop2.jpg',
             'path'=>'/userfiles/files/laptop2.jpg',
             'created_at' => date('Y-m-d H:i:s'),
@@ -230,7 +247,7 @@ class DatabaseSeeder extends Seeder
         DB::table('photo')->insert([
             'id' =>'7',
             'shop_id'=>'2',
-            'title'=>'B牌筆電',
+            'title'=>'B牌筆電3',
             'filename'=>'laptop3.jpg',
             'path'=>'/userfiles/files/laptop3.jpg',
             'created_at' => date('Y-m-d H:i:s'),
@@ -239,7 +256,7 @@ class DatabaseSeeder extends Seeder
         DB::table('photo')->insert([
             'id' =>'8',
             'shop_id'=>'2',
-            'title'=>'B牌筆電',
+            'title'=>'B牌筆電4',
             'filename'=>'laptop4.jpg',
             'path'=>'/userfiles/files/laptop4.jpg',
             'created_at' => date('Y-m-d H:i:s'),

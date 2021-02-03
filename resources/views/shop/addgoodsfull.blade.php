@@ -82,8 +82,8 @@
             <div name="title" id="title">推薦給您：</div>
                 <ul>
                 @foreach ($shop as $aside)
-                    {{-- <li>{{$aside->classify}}</li> --}}
-                    <li>{{$aside->shoptoclassify->title}}</li>
+                    <li>{{$aside->classify}}</li>
+                    {{-- <li>{{$aside->shoptoclassify->title}}</li> --}}
                 @endforeach
                 </ul>
             </aside>
