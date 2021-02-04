@@ -17,6 +17,7 @@ class LoginController extends Controller {
 		$top=shop::where('top','1')->pluck('id');
 		$ntop=$top->toarray();
 		$a=array_rand($ntop,2);
+		$rng=shuffle($a);
 		$rngphoto1=photo::where('shop_id',$ntop[$a[0]])->get();
 		$rngphoto2=photo::where('shop_id',$ntop[$a[1]])->get();
 

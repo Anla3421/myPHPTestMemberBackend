@@ -1,7 +1,7 @@
 @extends('layouts.nav')
 
 @section('title')
-3C產品類
+3C類
 @stop
 @section('style')
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -18,6 +18,34 @@
         </ol>
     </nav>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col" hidden>#</th>
+        </tr>
+    </thead>
+    
+    <tbody>    
+        <tr>
+            <th scope="row" >品名</th>
+                @foreach ($shop as $item)
+                    <td>{{$item->title}}</td>
+                @endforeach
+        </tr>
+        <tr>
+            <th scope="row" >圖片</th>
+                @foreach ($shop as $item)
+                    <td><a href="/sellgoods/{{$item->id}}"><img src="{{$item->shop_idtophoto_shop_id->path}}" alt="{{$item->title}}" srcset="" width="300px" height="300px"></a></td>    
+                @endforeach
+        </tr>
+        <tr>
+            <th scope="row" >價格</th>
+                @foreach ($shop as $item)
+                    <td>{{$item->finalprice}}</td>
+                @endforeach
+        </tr>
+        </tbody>
+</table>
 
 @stop
 @section('js')
@@ -27,5 +55,3 @@
 
 </script>
 @endsection
-
-
