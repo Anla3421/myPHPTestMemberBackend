@@ -18,8 +18,7 @@
         </ol>
     </nav>
 
-{{$i=1}}
-
+{{-- 
 <table class="table">
     <thead>
         <tr>
@@ -27,16 +26,18 @@
         </tr>
     </thead>
     
-    {{-- @foreach ($shop as $item) --}}
-    {{$i=$i+1}}
-    {{var_dump($i % 2==1)}}
-    {{-- @while ($i % 2==1) --}}
+    @foreach ($shop as $item)
+    @while ($i % 2==1)
     <tbody>    
-    {{-- @endwhile --}}
+    @endwhile
         <tr>
             <th scope="row" >品名</th>
                 @foreach ($shop as $item)
-                    <td>{{$item->title}}</td>
+                <td>{{$item->title}}</td>    
+                @endforeach
+                
+                @foreach ($shop as $item)
+                    
                 @endforeach
         </tr>
         <tr>
@@ -51,12 +52,27 @@
                     <td>{{$item->finalprice}}</td>
                 @endforeach
         </tr>
-    {{-- @while ($i % 2==1) --}}
+    @while ($i % 2==1)
         </tbody>
-    {{-- @endwhile --}}
+    @endwhile
 
-    {{-- @endforeach --}}
-</table>
+    @endforeach
+</table> --}}
+
+<div class="container row">
+    @foreach ($shop as $item)
+        <div class="col-4">
+            {{-- Bootstrap Kitchen sink --}}
+            <div class="card" style="width: 18rem;">
+                <a href="/sellgoods/{{$item->id}}"><img src="{{$item->shop_idtophoto_shop_id->path}}" class="card-img-top" alt="{{$item->title}}"></a>
+                <div class="card-body">
+                    <h5 class="card-title">{{$item->title}}</td></h5>
+                    <p class="card-text">{{$item->finalprice}}</p>                    
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>
 
 @stop
 @section('js')
