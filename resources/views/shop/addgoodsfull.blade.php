@@ -153,20 +153,20 @@
             <button id="addcart_goods" type="button" class="btn btn-secondary" onclick=""disabled>加入購物車</button>
             <div class="row">
                 <div class="form-group col-3">
-                    <label for="exampleFormControlInput1">圖片1</label>
-                    <input type="text" class="form-control" id="pic1" name="pic1">
+                    <label for="file" class="control-label">圖片1</label>
+                    <input id="file "type="file" class="form-control" id="pic1" name="pic1">
                 </div>
                 <div class="form-group col-3">
-                    <label for="exampleFormControlInput1">圖片2</label>
-                    <input type="text" class="form-control" id="pic2" name="pic2">
+                    <label for="file" class="control-label">圖片2</label>
+                    <input id="file "type="file" class="form-control" id="pic2" name="pic2">
                 </div>
                 <div class="form-group col-3">
-                    <label for="exampleFormControlInput1">圖片3</label>
-                    <input type="text" class="form-control" id="pic3" name="pic3">
+                    <label for="file" class="control-label">圖片3</label>
+                    <input id="file "type="file" class="form-control" id="pic3" name="pic3">
                 </div>
                 <div class="form-group col-3">
-                    <label for="exampleFormControlInput1">圖片4</label>
-                    <input type="text" class="form-control" id="pic4" name="pic4">
+                    <label for="file" class="control-label">圖片4</label>
+                    <input id="file "type="file" class="form-control" id="pic4" name="pic4">
                 </div>
             </div>
         </div>

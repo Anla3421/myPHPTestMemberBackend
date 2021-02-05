@@ -12,7 +12,7 @@ class SellController extends Controller
 {
     public function clothes(){
         $classify=classify::where('title','衣服')->first();
-        $shop=shop::where('classify',$classify->title)->get();
+        $shop=shop::where('classify',$classify->title)->where('release','1')->get();
         
         // $shop=shop::get();
         // foreach ($shop as $key) {
@@ -31,12 +31,12 @@ class SellController extends Controller
 
     public function threec(){
         $classify=classify::where('title','3C')->first();
-        $shop=shop::where('classify',$classify->title)->get();
+        $shop=shop::where('classify',$classify->title)->where('release','1')->get();
         return view('sell.3c',['shop'=>$shop]);
     }
     public function vehicle(){
         $classify=classify::where('title','汽車')->first();
-        $shop=shop::where('classify',$classify->title)->get();
+        $shop=shop::where('classify',$classify->title)->where('release','1')->get();
         return view('sell.vehicle',['shop'=>$shop]);
     }
 }

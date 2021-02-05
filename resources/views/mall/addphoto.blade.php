@@ -44,7 +44,11 @@
         <tbody>
             {{-- {{dd($data)}} --}}
             @foreach ($data as $view)
-            <tr>
+            @if ($view->title || $view->filename == null)
+            <tr class="alert alert-dark" role="alert">                
+            @else
+            <tr>    
+            @endif
                 <td>{{$view->id}}</td>
                 <td>{{$view->shop_id}}</td>
                 <td>{{$view->title}}</td>

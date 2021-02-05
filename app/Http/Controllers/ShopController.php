@@ -117,6 +117,21 @@ class ShopController extends Controller
 			'type' => 2,
 			'did' => $request->did,
 		]);
+
+		for ($i=1; $i<5 ; $i++) { 
+			if ($request->input('pic'.$i) != NULL) {
+				$photopathupdate=photo::where('title',$request->title.$i)->get();
+				foreach ($photopathupdate as $a) {
+					$a->shop_id=NULL;
+					$a->title=NULL;
+					$a->save();
+				}
+			$photopathupdate=photo::where('filename',$request->input('pic'.$i))->first();
+			$photopathupdate->shop_id=$a->id;
+			$photopathupdate->title=$request->title.$i;
+			$photopathupdate->save();
+				}
+		}
 		// echo "<pre>";
 		// $data=Classify::get();
 		// $time=carbon::now();
