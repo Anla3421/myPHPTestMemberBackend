@@ -14,20 +14,24 @@ class LoginController extends Controller {
 	//首頁跳轉
 	public function homepage(Request $request) {
 		
-		$top=shop::where('top','1')->pluck('id');
-		$ntop=$top->toarray();
-		$a=array_rand($ntop,2);
-		$rng=shuffle($a);
-		$rngphoto1=photo::where('shop_id',$ntop[$a[0]])->get();
-		$rngphoto2=photo::where('shop_id',$ntop[$a[1]])->get();
-
+		$top=shop::where('top','1')->where('release','1')->pluck('id');
 		$classify=classify::all();
+		$ntop=$top->toarray();
+		
 		// echo "<pre>";
 		// print_r($classify);
 		// print_r($a[0]); //randomized ntop keys
-		// print_r($ntop[$a[0]]);
+		// print_r(count($ntop));
 		// print_r($photo);
-		return view('homepage',['photo'=>$rngphoto1,'classify'=>$classify],['photo2'=>$rngphoto2],['classify'=>$classify]);
+
+		if (count($ntop)>1) {
+			$a=array_rand($ntop,2);
+			$rng=shuffle($a);
+			$rngphoto1=photo::where('shop_id',$ntop[$a[0]])->get();
+			$rngphoto2=photo::where('shop_id',$ntop[$a[1]])->get();
+			return view('homepage',['photo'=>$rngphoto1,'classify'=>$classify],['photo2'=>$rngphoto2]);
+		}
+		return view('homepage',['classify'=>$classify,'photo'=>null,'photo2'=>null]);
 	}
 
 	//login頁面跳轉

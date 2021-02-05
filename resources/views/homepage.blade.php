@@ -68,15 +68,16 @@
     <?php
     echo random_int(1,100);
     ?>
+    @if ($photo!=null)
     <h3><ins>小編隨選~快去看看</ins></h3>
     <div class="row">
       <div class="col-1"></div>
       <div class="col-5">
         <div class="swiper-container swiper gallery-top swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
           <div class="swiper-wrapper">
-            @foreach ($photo as $pic)
-              <a href="sellgoods/{{$pic->shop_id}}" class="swiper-slide" style="  height: 600px; background-image:url({{url($pic->path)}})"></a>
-            @endforeach
+              @foreach ($photo as $pic)
+                <a href="sellgoods/{{$pic->shop_id}}" class="swiper-slide" style="  height: 600px; background-image:url({{url($pic->path)}})"></a>
+              @endforeach    
           </div>
         <div class="swiper-button-next swiper-button-white"></div>
         <div class="swiper-button-prev swiper-button-white"></div>
@@ -87,9 +88,9 @@
     <div class="col-5">
         <div class="swiper-container swiper gallery-top swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
           <div class="swiper-wrapper">
-            @foreach ($photo2 as $pic2)
-              <a href="sellgoods/{{url($pic2->path)}}" class="swiper-slide" style="  height: 600px; background-image:url({{url($pic2->path)}})"></a>
-            @endforeach
+              @foreach ($photo2 as $pic2)
+                <a href="sellgoods/{{url($pic2->path)}}" class="swiper-slide" style="  height: 600px; background-image:url({{url($pic2->path)}})"></a>
+              @endforeach                            
           </div>
         <div class="swiper-button-next swiper-button-white"></div>
         <div class="swiper-button-prev swiper-button-white"></div>
@@ -98,6 +99,7 @@
       </div> --}}
     </div>
   </div>
+  @endif
 </div>
 
 <div class="container-fulid">
