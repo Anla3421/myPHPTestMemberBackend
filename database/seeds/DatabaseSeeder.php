@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
-        // factory(App\User::class,10)->create();
+        factory(App\User::class,10)->create();
 
         // for (i=0;$newtime=time()+(random_int(1,24)*random_int(1,60)*random_int(1,60)*random_int(1,7));i++){
         //     $arrayName = array('' => , );
@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             'gender' =>'male',
             'level' => 1,
             'position' => 'administrator',
+            'api_token'=>Str::random(60),
             'remember_check' =>'ok',
             'remember_token' =>'NULL',
             'cellphone' => '0912123123',
@@ -43,6 +44,7 @@ class DatabaseSeeder extends Seeder
             'gender' =>'female',
             'level' => 2,
             'position' => 'administrator',
+            'api_token'=>Str::random(60),
             'remember_check' =>'ok',
             'remember_token' =>'NULL',
             'cellphone' => '0954654654',
@@ -55,6 +57,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('99999'),
             'gender' =>'male',
             'level' => 3,
+            'api_token'=>Str::random(60),
             'position' => 'user',
             'remember_check' =>'ok',
             'remember_token' =>'NULL',
@@ -331,6 +334,12 @@ class DatabaseSeeder extends Seeder
             'title'=>'D牌汽車4',
             'filename'=>'suit4.jpg',
             'path'=>'/userfiles/files/car4.jpg',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('cash')->insert([
+            'id' =>'1',
+            'money'=>'77777',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);

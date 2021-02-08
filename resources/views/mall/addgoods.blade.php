@@ -403,12 +403,12 @@
     function deleteitem(data) { //use confirm to delete users
         if (confirm("確認要刪除此商品" + data.title + "?")) {
             $.ajax({
-                url: "/addgoods/d/" + data.id, //for localhost test
+                url: "api/addgoods/d/" + data.id, //for localhost test
                 type: "POST",
                 success: function(data) {
                     console.log(data);
-                    alert('Delete Complete!');
-                    location.reload();
+                    // alert('Delete Complete!');
+                    // location.reload();
                 },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

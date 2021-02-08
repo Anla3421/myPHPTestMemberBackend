@@ -9,6 +9,8 @@ use App\models\shop;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;  //
+
 
 class MallController extends Controller {
 	public function addclassify(Request $request) {
@@ -72,6 +74,11 @@ class MallController extends Controller {
 			'type' => $request->type,
 			'did' => $request->did,
 		]);
+
+		// $a=shop::create([
+		// 	$request->all()
+		// ]);
+
 		// echo "<pre>";
 		// $data=Classify::get();
 		// $time=carbon::now();
@@ -80,10 +87,13 @@ class MallController extends Controller {
 		// print_r($request->all());
 		// return redirect()->intended('addgoods');
 
-		return response()->json([
-			'status' => 200,
-			'msg' => 'create success',
-		]);
+		// return response()->json([
+		// 	'status' => 200,
+		// 	'msg' => 'create success',
+		// ]);
+
+		// 回傳 animal 產生出來的實體物件資料，第二個參數設定狀態碼，可以直接寫 201 表示創建成功的狀態螞或用下面 Response 功能 
+		return response($a, Response::HTTP_CREATED);
 	}
 
 	public function goodsdelete(Request $request, $id) {
