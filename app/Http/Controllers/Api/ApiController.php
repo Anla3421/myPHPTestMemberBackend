@@ -9,9 +9,11 @@ use App\User;
 
 class ApiController extends Controller
 {
-    // protected 
+    // public $unixtime;
+    protected $salt;
     public function __construct(){
-        $this->salt=env('APP_SALT','CESTUDIO');
+        // parent::__construct();
+        $this->salt=env('APP_SALT');
     }
     public function test(Request $request){
         // echo 123;
@@ -32,8 +34,11 @@ class ApiController extends Controller
 
             $user=User::where('name',$request->name);
             $password=User::where('password',$request->password);
-            // $api_token=User::where('api_token',$request->api_token);
+            $api_token=User::where('api_token',$request->api_token);
+            global $unixtime;
             $unixtime=$request->unixtime;
+           
+            print_r($unixtime);
 
             // print_r($user->first()->name."this is name".'<br>'); //123
             // var_dump($user->count()==0); //false
@@ -46,9 +51,9 @@ class ApiController extends Controller
             if($user->count()==0){
                 throw new Exception("you may typo your name, please check again", 403);
             }
-            if($password->count()==0){
-                throw new Exception("you may typo your password, please check again", 403);
-            }
+            // if($password->count()==0){
+            //     throw new Exception("you may typo your password, please check again", 403);
+            // }
             // if($unixtime->count()==0){
             //     throw new Exception("you may typo your unixtime, please check again", 403);
             // }
@@ -59,20 +64,28 @@ class ApiController extends Controller
             //All Green
             $newuser=$user->first();
             $sign=md5($request->name.$unixtime.$this->salt.$newuser->api_token);
-            
             $newsign=md5($newuser->name.$unixtime.$this->salt.$newuser->api_token);
-                
+            var_dump($sign==$newsign);
+            if ($sign!=$newsign){
+                throw new Exception("please check again your information", 405);
+            }
+            $sign2=md5($sign.$newuser->password);
+            $newsign2=md5($newsign.$password->first()->password);
+            // print_r($newuser->password); //123
+            // print_r($password->first()->password);  //123
+            var_dump($sign2==$newsign2);
+            if ($sign2!=$newsign2){
+                throw new Exception("please check again your information", 406);
+            }
 
-            print_r("!!!!!!!!!!!Sign".$sign);
-            print_r("!!!!!!!!!!!newSign".$newsign);
             return response()->json([
                 'status'=> 200,
                 'msg'=> 'Validate all pass',
                 'result1'=>$sign,
                 'result2'=>$newsign,
-
+                'result3'=>$sign2,
+                'result4'=>$newsign2,
             ]);
-
             
 
 
@@ -84,4 +97,19 @@ class ApiController extends Controller
         };
 
     }
+
+    public function anothertest(Request $request){
+        $user=User::where('name',$request->name);
+        $password=User::where('password',$request->password);
+        $api_token=User::where('api_token',$request->api_token);
+        global $unixtime;
+
+        var_dump($unixtime);
+            // print_r($user->first());
+            // print_r($password->first());
+            $newuser=$user->first();
+            $newsign=md5($newuser->name.$unixtime.$this->salt.$newuser->api_token);
+        print_r($newsign);
+    }
+
 }

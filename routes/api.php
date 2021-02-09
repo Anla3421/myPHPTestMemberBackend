@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::namespace('Api')->group(function (){
-    Route::get('test', 'ApiController@test');
-    // Route::get('test', 'ApiController@test');
+    Route::any('test', 'ApiController@test');
+    Route::any('ano/test', 'ApiController@anothertest');
 });
 
 
@@ -25,7 +25,7 @@ Route::namespace('Api')->group(function (){
  * addgoods
  */
 // Route::middleware('mustlogin')->
-Route::post('addgoods/d/{id}', 'MallController@goodsdelete')->name('mallgoods.delete');
+Route::delete('addgoods/d/{id}', 'MallController@goodsdelete')->name('mallgoods.delete');
 
 // Route::middleware('mustlogin')->
 Route::post('addgoods', 'MallController@goodscreate')->name('mallgoods.create');
