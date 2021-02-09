@@ -1,10 +1,18 @@
 @extends('layouts.nav')
+@section('title')
+商品管理&快速新增
+@stop
 @section('style')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-{{-- csrf for Ajax method post --}}
-{{-- <script src="https://code.jquery.com/jquery-3.1.0.js"></script> --}}
 @endsection
 @section('body')
+<div class="container-fluild">
+    <nav aria-label="breadcrumb" >
+        <ol class="breadcrumb col-2 alert-light">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
+        </ol>
+    </nav>
 <div class="container">
     <form action="{{url('addkeyword')}}" method="POST" class="form-inline">
         @csrf
@@ -17,14 +25,14 @@
             <input type="text" class="form-control m-1" name="icon" maxlength="10" value="<?php if (isset($_GET['icon'])) {print $_GET['icon'];}?>" />
         </div>
         <div>
-            <button type="submit" class="btn btn-primary">新增</button>
+            <button type="submit" class="btn btn-primary">新增關鍵字</button>
         </div>
     </form>
 
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">ID</th>
+                <th scope="col">kID</th>
                 <th scope="col">Title</th>
                 <th scope="col">Icon</th>
                 <th scope="col">Created_at</th>
@@ -35,7 +43,7 @@
             {{-- {{dd($data)}} --}}
             @foreach ($data as $view)
             <tr>
-                <td>{{$view->id}}</td>
+                <td>{{$view->kid}}</td>
                 <td>{{$view->title}}</td>
                 <td>{{$view->icon}}</td>
                 <td>{{$view->created_at}}</td>

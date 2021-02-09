@@ -1,23 +1,31 @@
 @extends('layouts.nav')
+@section('title')
+商品管理&快速新增
+@stop
 @section('style')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-{{-- csrf for Ajax method post --}}
-{{-- <script src="https://code.jquery.com/jquery-3.1.0.js"></script> --}}
 @endsection
 @section('body')
+<div class="container-fluild">
+    <nav aria-label="breadcrumb" >
+        <ol class="breadcrumb col-2 alert-light">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
+        </ol>
+    </nav>
 <div class="container">
-    <form action="{{url('addclassify')}}" method="POST" class="form-inline">
+    <form class="form-horizontal" role="form" method="POST" action="" enctype="multipart/form-data">
         @csrf
-        {{-- <div  class="form-group col-5">
-            <label for="exampleInputEmail1">ID</label>
-            <input type="text" class="form-control m-1" name="id" maxlength="10" value="<?php if (isset($_GET['name'])) {print $_GET['name'];}?>" /> --}}
-        {{-- </div> --}}
-        <div class="form-group col-4">
-            <label for="exampleInputEmail1">Title</label>
-            <input type="text" class="form-control m-1" name="title" aria-describedby="emailHelp" width="10" maxlength="10" value="<?php if (isset($_GET['cellphone'])) {print $_GET['cellphone'];}?>" />
-        </div>
-        <div>
-            <button type="submit" class="btn btn-primary">新增商品類別</button>
+        <div class="row">
+            <div class="form-group col-5">
+                <label for="exampleInputEmail1">對應之商店ID及商品標題於商品新增/修改處更新</label>
+            </div>
+            <div class="form-group col-5">
+                <input id="file" type="file" class="form-control" id="pic1" name="pic1" required>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">新增照片</button>
+            </div>
         </div>
     </form>
 
@@ -25,7 +33,10 @@
         <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Title</th>
+                <th scope="col">shop_id</th>
+                <th scope="col">Goods Title</th>
+                <th scope="col">filename</th>
+                <th scope="col">路徑</th>
                 <th scope="col">Created_at</th>
                 <th scope="col">Updated_at</th>
             </tr>
@@ -33,9 +44,16 @@
         <tbody>
             {{-- {{dd($data)}} --}}
             @foreach ($data as $view)
-            <tr>
+            @if ($view->title || $view->filename == null)
+            <tr class="alert alert-dark" role="alert">                
+            @else
+            <tr>    
+            @endif
                 <td>{{$view->id}}</td>
+                <td>{{$view->shop_id}}</td>
                 <td>{{$view->title}}</td>
+                <td>{{$view->filename}}</td>
+                <td>{{$view->path}}</td>
                 <td>{{$view->created_at}}</td>
                 <td>{{$view->updated_at}}</td>
             </tr>

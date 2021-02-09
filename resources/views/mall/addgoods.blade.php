@@ -1,10 +1,21 @@
 @extends('layouts.nav')
+@section('title')
+商品管理&快速新增
+@stop
 @section('style')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 {{-- csrf for Ajax method post --}}
 {{-- <script src="https://code.jquery.com/jquery-3.1.0.js"></script> --}}
 @endsection
 @section('body')
+{{-- 麵包屑nav --}}
+<div class="container-fluild">
+    <nav aria-label="breadcrumb" >
+        <ol class="breadcrumb col-2 alert-light">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
+        </ol>
+    </nav>
 <div class="container-fluid">
     {{-- <form action="{{url('addgoods')}}" method="POST" class="form-inline"> --}}
     <form class="form-inline">
@@ -30,7 +41,7 @@
         </div>
         <div>
             {{-- <button type="submit" class="btn btn-primary">新增商品內容</button> --}}
-            <button type="button" class="btn btn-primary" id="create_modal" data-toggle="modal" data-target="#exampleModal">創建新商品</button>
+            <button type="button" class="btn btn-primary" id="create_modal" data-toggle="modal" data-target="#exampleModal">快速新增</button>
             {{-- <button type="button" class="btn btn-primary" id="update_modal" data-toggle="modal" data-target="#exampleModal" disabled="true">修改商品</button> --}}
         </div>
     </form>
@@ -53,14 +64,14 @@
                 <th scope="col">Created_at</th>
                 <th scope="col">Updated_at</th>
                 <th scope="col">上/下架</th>
-                <th scope="col">修改</th>
+                <th scope="col">快速修改</th>
                 <th scope="col">刪除</th>
                 
             </tr>
         </thead>
         <tbody>
             
-            {{-- {{print_r($data->toarray())}} --}}
+            {{-- {{print_r($data[0]->description)}} --}}
             @foreach ($data as $view)
             @if ($view->release==1)
                 <tr class="alert alert-success" role="alert">
@@ -69,9 +80,28 @@
             @endif
                     <td>{{$view->id}}</td>
                     <td>{{$view->pid}}</td>
-                    <td>{{$view->classify}}</td>
+                    {{-- <td>{{$view->shoptophoto->title}}</td> --}}
+                    <td>{{$view->classify}}</td> 
+                    {{-- 一般使用 --}}
+                    {{-- <td>{{$view->shoptoclassify->title}}</td>  --}}
+                    {{--關聯取代--}}
                     <td>{{$view->title}}</td>
-                    <td>{{$view->description}}</td>
+                    <td><a hidden>{!!$view->description!!}</a>
+                        @if ($view->release==1)
+                        <a href="sellgoods/{{$view->id}}">點我進商品販賣頁面</a></td>
+                        {{-- <a href="goodstemplate">點我進商品販賣頁面</a></td>       --}}
+                        @else
+                        <a href="updategoodsfull/{{$view->id}}">點我進全版修改</a></td>   
+                        @endif
+                    
+                        
+                        {{-- 用關聯矩陣 --'updategoodsfull/' {{url('addclassify')}} }}
+                        {{-- <script type="text/javascript">
+                        CKEDITOR.replace('description', {
+                        filebrowserUploadUrl: "{{route('CKE.upload', ['_token' => csrf_token() ])}}",
+                        filebrowserUploadMethod: 'form'
+                        });
+                        </script> --}}
                     <td>
                         @if ($view->top==1)
                         是
@@ -84,6 +114,7 @@
                     <td>{{$view->discount}}</td>
                     <td>{{$view->finalprice}}</td>
                     <td>{{$view->kid}}</td>
+                    {{-- <td>{{$view->shoptokeyword->title}}</td> --}}
                     <td>
                         @if ($view->type==1)
                         統一價格
@@ -94,7 +125,6 @@
                     <td>{{$view->did}}</td>
                     <td>{{$view->created_at}}</td>
                     <td>{{$view->updated_at}}</td>
-
                         @if ($view->release==1)
                             <td>
                                 <button type="button" id="release_modal" class="btn btn-warning" value="1" onclick="releaseitem({{json_encode($view)}})">下架</button>
@@ -149,7 +179,16 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">敘述</label>
-                        <input type="text" class="form-control" id="description" name="description">
+                        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+                        {{-- 敘述--}}
+                        <textarea type="text/javascript" class="form-control" id="description" name="description"></textarea> 
+                        {{-- 用關聯矩陣 --}}
+                        {{-- <script type="text/javascript">
+                        CKEDITOR.replace('description', {
+                        filebrowserUploadUrl: "{{route('CKE.upload', ['_token' => csrf_token() ])}}",
+                        filebrowserUploadMethod: 'form'
+                        });
+                        </script> --}}
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">是否置頂</label>
@@ -192,7 +231,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="modal_close" type="button" class="btn btn-secondary" data-dismiss="modal" value="1" onclick="destroy()">Close</button>
                     <button id="create_goods" type="button" class="btn btn-primary create">Create!</button>
                     <button id="update_goods" type="button" class="btn btn-primary update">Update user</button>
                     <button id="delete_goods" type="button" class="btn btn-primary create">Delete user</button>
@@ -200,6 +239,7 @@
 @stop
 @section('js')
 <script>
+    var editor1, val = '';
     $(document).ready(function() {
         $("#price,#discount").on('keyup',function(){
         if($("#price").val()>0 && $("#discount").val()>0){
@@ -209,10 +249,29 @@
         });
     });
 
+    function destroy(){
+        console.log($("#modal_close").val());
+        if ($("#modal_close").val()==1){
+            CKEDITOR.instances.description.destroy();
+            $("#modal_close").val(0);
+            console.log($("#modal_close").val());
+        }
+        
+        
+        //CKeditor:
+        // crete CKEDITOR.replace to replace target
+        // getdata() and turn html(?) to use
+        // destroy CKEDITOR
+    }
+
     $("#create_modal").on('click', function(mergedata) { //打開選單
         $("#exampleModalLabel").text('Create Merchandise!!!');
         // $("input").val('');
         $("#classify").val($("#Classifyselect").val());
+        CKFinder.setupCKEditor();
+        CKEDITOR.replace('description', {});
+        $("#modal_close").val(1);
+        console.log($("#modal_close").val());
 
         //dummy data for test
         // $("#pid").val(123), 
@@ -221,7 +280,7 @@
         // $("#description").val(123),
         // $("#top").val(0),
         // $("#price").val(100),
-        // // $('#finalprice').val(),
+        // $('#finalprice').val(),
         // $("#amount").val(155),
         // $("#discount").val(60),
         // $("#kid").val(3213),
@@ -234,6 +293,10 @@
     });
 
      $("#create_goods").on('click', function() { //創建新使用者之資料給controller
+        $("#description").val(CKEDITOR.instances.description.getData());
+        CKEDITOR.instances.description.destroy();
+        $("#modal_close").val(0);
+        console.log($("#modal_close").val());
         $.ajax({
                 url: "/addgoods", //for localhost test
                 type: "POST",
@@ -269,15 +332,21 @@
 
     function updateitem(data) { //打開選單後顯示原本的資料
         console.log(data);
+
+        $("#exampleModalLabel").text('Update Merchandise!!!');
         $("#delete_goods").hide();
         $("#update_goods").show();
         $("#create_goods").hide();
+        CKFinder.setupCKEditor();
+        CKEDITOR.replace('description', {});
+        $("#modal_close").val(1);
+        console.log($("#modal_close").val());
 
         $('#uid').val(data.id); //撈給下面url用
         $("#pid").val(data.pid);
         $("#classify").val(data.classify); //只顯示不能改
         $("#title").val(data.title);
-        $("#description").val(data.description);
+        $("#description").val(data.description); //////////////////////////////////
         $("#top").val(data.top);
         $("#amount").val(data.amount);
         $("#price").val(data.price);
@@ -286,9 +355,17 @@
         $("#kid").val(data.kid);
         $("#type").val(data.type);
         $("#did").val(data.did);
+
+
     }
 
     $("#update_goods").on('click',function(){
+        console.log(CKEDITOR.instances.description.getData());
+        $("#description").val(CKEDITOR.instances.description.getData());
+        console.log($("#description"));
+        CKEDITOR.instances.description.destroy();
+        $("#modal_close").val(0);
+        console.log($("#modal_close").val());
         $id=$('#uid').val();
         $.ajax({
             url:"/addgoods/"+ $id,
@@ -326,12 +403,12 @@
     function deleteitem(data) { //use confirm to delete users
         if (confirm("確認要刪除此商品" + data.title + "?")) {
             $.ajax({
-                url: "/addgoods/d/" + data.id, //for localhost test
+                url: "api/addgoods/d/" + data.id, //for localhost test
                 type: "POST",
                 success: function(data) {
                     console.log(data);
-                    alert('Delete Complete!');
-                    location.reload();
+                    // alert('Delete Complete!');
+                    // location.reload();
                 },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -6,53 +6,62 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
     {{-- for Ajax提交(? --}}
-    <title>login test</title>
+    
+    
+    <title>@section('title')
+      login        
+      @show
+    </title>
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script type="text/javascript" src="/js/ckfinder/ckfinder.js"></script>
+    <script>CKFinder.config( { connectorPath: '/ckfinder/connector' } );</script>
+
     {{-- bootstrap樣板必要元素 --}}
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-  body {
-    font-family: "Lato", sans-serif;
-  }
+    body {
+      font-family: "Lato", sans-serif;
+    }
 
-  .sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: rgb(31, 31, 31);
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-  }
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: rgb(31, 31, 31);
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    }
 
-  .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-  }
+    .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
 
-  .sidenav a:hover {
-    color: #f1f1f1;
-  }
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
 
-  .sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-  }
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
 
-  @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-  }
+    @media screen and (max-height: 450px) {
+      .sidenav {padding-top: 15px;}
+      .sidenav a {font-size: 18px;}
+    }
   </style>
     @yield('style')
 </head>
@@ -85,7 +94,7 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-      
+
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
@@ -103,7 +112,10 @@
                   <a class="dropdown-item" href="/addkeyword">新增關鍵字</a>
                   <a class="dropdown-item" href="/addphoto">新增照片</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/addgoods">新增商品</a>
+                  <a class="dropdown-item" href="/addgoods">商品管理&快速新增</a>
+                  <a class="dropdown-item" href="/addgoodsfull">新增商品(全版模式)</a>
+                  <a class="dropdown-item" href="/goodstemplate">商品模板</a>
+
                 </div>
               </li>
               <li class="nav-item">
@@ -113,16 +125,16 @@
             @auth
             <a class="navbar-brand" href="logout">Logout</a>
             @else
-            <a class="navbar-brand" href="login">Login</a>    
+            <a class="navbar-brand" href="login">Login</a>
             @endauth
           </div>
-      </nav>       
+      </nav>
     </div>
   @section('body')
   <div class="container" style="padding:120px">
     <form action="{{url('catch')}}" method="POST">
       @csrf
-        <label for="exampleInputEmail1">Name</label>             
+        <label for="exampleInputEmail1">Name</label>
           <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp" width="5" size="5" maxlength="10">
             <large id="emailHelp" class="form-text text-muted">請輸入使用者名稱及密碼.</large>
               <div class="form-group">

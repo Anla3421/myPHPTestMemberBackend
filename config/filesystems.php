@@ -64,6 +64,17 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        // 'uploads' => [
+        //     'driver' => 'local',
+        //     'root' => storage_path('app/uploads'),
+        //     'url' => env('APP_URL').'/storage',
+        // ],
+        'uploads' => [
+            'driver' => 'local',
+            'root' => public_path('/userfiles/files'),
+            'url' => env('APP_URL'),
+        ],
+
     ],
 
     /*

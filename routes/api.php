@@ -14,9 +14,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::namespace('Api')->group(function (){
+    Route::get('test', 'ApiController@test');
+    // Route::get('test', 'ApiController@test');
+});
+
+
+
+/**
+ * addgoods
+ */
+// Route::middleware('mustlogin')->
+Route::post('addgoods/d/{id}', 'MallController@goodsdelete')->name('mallgoods.delete');
+
+// Route::middleware('mustlogin')->
+Route::post('addgoods', 'MallController@goodscreate')->name('mallgoods.create');
+
+
+
+
+
+
+
+
+/**
+ * Test
+ */
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/hello{name}', function ($name) {
+Route::get('/hello/{name}', function ($name) {
     return 'Hello World'.$name;
 });
+Route::any('/biz/file/upload', 'FileController@upload');

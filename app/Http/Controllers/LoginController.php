@@ -5,12 +5,33 @@ namespace App\Http\Controllers;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
+use App\models\photo;
+use App\models\shop;
+use App\models\classify;
 
 class LoginController extends Controller {
 
 	//首頁跳轉
-	public function homepage() {
-		return view('homepage');
+	public function homepage(Request $request) {
+		
+		$top=shop::where('top','1')->where('release','1')->pluck('id');
+		$classify=classify::all();
+		$ntop=$top->toarray();
+		
+		// echo "<pre>";
+		// print_r($classify);
+		// print_r($a[0]); //randomized ntop keys
+		// print_r(count($ntop));
+		// print_r($photo);
+
+		if (count($ntop)>1) {
+			$a=array_rand($ntop,2);
+			$rng=shuffle($a);
+			$rngphoto1=photo::where('shop_id',$ntop[$a[0]])->get();
+			$rngphoto2=photo::where('shop_id',$ntop[$a[1]])->get();
+			return view('homepage',['photo'=>$rngphoto1,'classify'=>$classify],['photo2'=>$rngphoto2]);
+		}
+		return view('homepage',['classify'=>$classify,'photo'=>null,'photo2'=>null]);
 	}
 
 	//login頁面跳轉
