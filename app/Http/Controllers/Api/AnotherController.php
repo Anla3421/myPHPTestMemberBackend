@@ -6,15 +6,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Exception;
 use App\User;
+use GuzzleHttp\Client;
 
 class AnotherController extends Controller
 {
     public $apiurl;
-    protected $client;
+    protected $Client;
     public function __construct(){
-        $this->apiurl=env('APIURL','localhost:8000/api/ano/test');
+        $this->apiurl=env('APIURL','localhost:8079/api/test');
         $this->Client= new Client([
-            'base,url'=>'localhost:8000/api/ano/test',
+            'base,url'=>'localhost:8079/api/test',
             'time'=>2.0,
         ]);
     }
@@ -30,27 +31,28 @@ class AnotherController extends Controller
 
     
     public function sendbalance(Request $request){
-        $client=new Client();
-        $res=$Client->request('post',$url,['json'=>[
-            'user'=>'admin',
+        // $Client=new Client();
+        $res=$this->Client->request('post',$this->apiurl,['json'=>[
+            'name'=>'admin',
             'unixtime'=>time(),
         ]]);
 
-        if(!$reques->user){
-            $userID='admin,'
+        if(!$request->user){
+            $userID='name';
         }
 
         print_r($res->getBody()->getContents());
     }
 
 
-    public function anothertest(Request $request){
-        //Validate
 
-        $user=User::where('name',$request->name);
-        $password=User::where('password',$request->password);
+//     public function anothertest(Request $request){
+//         //Validate
 
-        $newuser=$user->first();
-        $newsign=md5($newuser->name.$unixtime.$this->salt.$newuser->api_token);
-    }
+//         $user=User::where('name',$request->name);
+//         $password=User::where('password',$request->password);
+
+//         $newuser=$user->first();
+//         $newsign=md5($newuser->name.$unixtime.$this->salt.$newuser->api_token);
+//     }
 }
