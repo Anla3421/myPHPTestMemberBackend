@@ -343,5 +343,24 @@ class DatabaseSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
+    //     DB::table('tasks')->insert([
+    //         'id' =>'1',
+    //         'user_id'=>'77777',
+    //         'title' => date('Y-m-d H:i:s'),
+    //         'description' => date('Y-m-d H:i:s',$newtime),
+
+    //     ]);
+
+    //     Schema::create('tasks', function (Blueprint $table) {
+    //         $table->bigIncrements('id');
+    //         $table->unsignedBigInteger('user_id');
+    //         $table->string('title');
+    //         $table->text('description')->nullable();
+    //         $table->foreign('user_id')
+    //                 ->references('id')
+    //                 ->on('users')
+    //                 ->onDelete('cascade');
+
+    //         $table->timestamps();
     }
 }

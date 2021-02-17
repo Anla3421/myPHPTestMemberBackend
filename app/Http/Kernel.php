@@ -70,6 +70,7 @@ class Kernel extends HttpKernel
         // My setting (online)
         'mustlogin' =>\App\Http\Middleware\mustlogin::class,
         'mustlogout' =>\App\Http\Middleware\mustlogout::class,
+        'auth.jwt'  =>  \Tymon\JWTAuth\Http\Middleware\Authenticate::class,
         // For test (offline)
         'before' => \App\Http\Middleware\BeforeMiddleware::class,
         'after' => \App\Http\Middleware\AfterMiddleware::class,

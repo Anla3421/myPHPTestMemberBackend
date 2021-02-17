@@ -35,7 +35,7 @@ class ApiController extends Controller
             $user=User::where('name',$request->name);
             $password=User::where('password',$request->password);
             $api_token=User::where('api_token',$request->api_token);
-            global $unixtime;
+            // global $unixtime;
             $unixtime=$request->unixtime;
            
             print_r($unixtime);
@@ -63,8 +63,8 @@ class ApiController extends Controller
 
             //All Green
             $newuser=$user->first();
-            $sign=md5($request->name.$unixtime.$this->salt.$newuser->api_token);
-            $newsign=md5($newuser->name.$unixtime.$this->salt.$newuser->api_token);
+            $sign=sha1($request->name.$unixtime.$this->salt.$newuser->api_token);
+            $newsign=sha1($newuser->name.$unixtime.$this->salt.$newuser->api_token);
             var_dump($sign==$newsign);
             if ($sign!=$newsign){
                 throw new Exception("please check again your information", 405);

@@ -49,4 +49,16 @@ class User extends Authenticatable
         $this->cellphone=$needtochange['cellphone'];
         $this->remember_check=$needtochange['remember_check'];
     }
+
+    // public function getJWTIdentifier();
+    // public function getJWTCustomClaims();
+
+    /**
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
 }
