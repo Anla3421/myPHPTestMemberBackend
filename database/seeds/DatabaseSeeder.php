@@ -12,7 +12,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
-        factory(App\User::class,10)->create();
+
+        // factory(App\User::class,10)->create();
 
         // for (i=0;$newtime=time()+(random_int(1,24)*random_int(1,60)*random_int(1,60)*random_int(1,7));i++){
         //     $arrayName = array('' => , );
@@ -24,13 +25,13 @@ class DatabaseSeeder extends Seeder
          */
         DB::table('users')->insert([
             // 'name' => Str::random(10),
-            'account' =>'ccccc',
+            'uid' =>Str::random(5),
             'name' => 'admin',
             'password' => Hash::make('admin'),
             'gender' =>'male',
             'level' => 1,
             'position' => 'administrator',
-            'api_token'=>Str::random(60),
+            'api_token'=>Str::random(8),
             'remember_check' =>'ok',
             'remember_token' =>'NULL',
             'cellphone' => '0912123123',
@@ -38,13 +39,13 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('users')->insert([
-            'account' =>'bbbbb',
+            'uid' =>Str::random(5),
             'name' => '123',
             'password' => Hash::make('123'),
             'gender' =>'female',
             'level' => 2,
             'position' => 'administrator',
-            'api_token'=>Str::random(60),
+            'api_token'=>Str::random(8),
             'remember_check' =>'ok',
             'remember_token' =>'NULL',
             'cellphone' => '0954654654',
@@ -52,12 +53,12 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('users')->insert([
-            'account' =>'aaaaa',
+            'uid' =>Str::random(5),
             'name' => '99999',
             'password' => Hash::make('99999'),
             'gender' =>'male',
             'level' => 3,
-            'api_token'=>Str::random(60),
+            'api_token'=>Str::random(8),
             'position' => 'user',
             'remember_check' =>'ok',
             'remember_token' =>'NULL',

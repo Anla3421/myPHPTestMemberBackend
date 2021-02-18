@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id'); //Auto-incrementing UNSIGNED INTEGER (primary key) equivalent column.
-            $table->string('account')->unique();
+            $table->string('uid')->unique();
             $table->string('name')->unique();
             $table->string('password');
             $table->enum('gender',['male','female']);

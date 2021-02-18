@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Exception;
 use App\User;
+use Carbon\Carbon;
+use DB;
 
 class ApiController extends Controller
 {
@@ -37,8 +39,23 @@ class ApiController extends Controller
             $api_token=User::where('api_token',$request->api_token);
             // global $unixtime;
             $unixtime=$request->unixtime;
-           
-            print_r($unixtime);
+            $logintime=date('Y-m-d H:m');
+            
+
+
+            // $test=DB::table('users')->get(); 
+            // foreach ($test as $id => $value) {
+            //     // $test->where('created_at', '>', 'updated_at');
+            //     print_r($test->where('created_at', '<', 'updated_at'));
+            // }
+            
+            echo($logintime);
+            echo($loginduetime);
+            // print_r($test);
+            // print_r($loginduetime-$logintime);
+
+            // print_r($logintime);
+            // print_r($this->salt);
 
             // print_r($user->first()->name."this is name".'<br>'); //123
             // var_dump($user->count()==0); //false
@@ -51,9 +68,9 @@ class ApiController extends Controller
             if($user->count()==0){
                 throw new Exception("you may typo your name, please check again", 403);
             }
-            // if($password->count()==0){
-            //     throw new Exception("you may typo your password, please check again", 403);
-            // }
+            if($password->count()==0){
+                throw new Exception("you may typo your password, please check again", 403);
+            }
             // if($unixtime->count()==0){
             //     throw new Exception("you may typo your unixtime, please check again", 403);
             // }
@@ -62,29 +79,35 @@ class ApiController extends Controller
             // }
 
             //All Green
-            $newuser=$user->first();
-            $sign=sha1($request->name.$unixtime.$this->salt.$newuser->api_token);
-            $newsign=sha1($newuser->name.$unixtime.$this->salt.$newuser->api_token);
-            var_dump($sign==$newsign);
-            if ($sign!=$newsign){
+            $dbuser=$user->first();
+            $sign=sha1($request->name.$unixtime.$this->salt.$dbuser->api_token);
+            $dbsign=sha1($dbuser->name.$unixtime.$this->salt.$dbuser->api_token);
+            // var_dump($sign==$dbsign);
+            if ($sign!=$dbsign){
                 throw new Exception("please check again your information", 405);
             }
-            $sign2=md5($sign.$newuser->password);
-            $newsign2=md5($newsign.$password->first()->password);
-            // print_r($newuser->password); //123
+            $sign2=md5($sign.$dbuser->password);
+            $dbsign2=md5($dbsign.$password->first()->password);
+            // print_r($dbuser->password); //123
             // print_r($password->first()->password);  //123
-            var_dump($sign2==$newsign2);
-            if ($sign2!=$newsign2){
+            // var_dump($sign2==$dbsign2);
+            if ($sign2!=$dbsign2){
                 throw new Exception("please check again your information", 406);
             }
+
+            $token=$dbuser->api_token;
+            $uid=$dbuser->uid;
 
             return response()->json([
                 'status'=> 200,
                 'msg'=> 'Validate all pass',
-                'result1'=>$sign,
-                'result2'=>$newsign,
-                'result3'=>$sign2,
-                'result4'=>$newsign2,
+                'token' =>$token,
+                'uid'=>$uid,
+                'signinput'=>$sign,
+                'signdb---'=>$dbsign,
+                'signinput+password'=>$sign2,
+                'signdb---+password'=>$dbsign2,
+                'salt'=>$this->salt,
             ]);
             
 
@@ -98,18 +121,18 @@ class ApiController extends Controller
 
     }
 
-    public function anothertest(Request $request){
-        $user=User::where('name',$request->name);
-        $password=User::where('password',$request->password);
-        $api_token=User::where('api_token',$request->api_token);
-        global $unixtime;
+    // public function anothertest(Request $request){
+    //     $user=User::where('name',$request->name);
+    //     $password=User::where('password',$request->password);
+    //     $api_token=User::where('api_token',$request->api_token);
+    //     global $unixtime;
 
-        var_dump($unixtime);
-            // print_r($user->first());
-            // print_r($password->first());
-            $newuser=$user->first();
-            $newsign=md5($newuser->name.$unixtime.$this->salt.$newuser->api_token);
-        print_r($newsign);
-    }
+    //     var_dump($unixtime);
+    //         // print_r($user->first());
+    //         // print_r($password->first());
+    //         $newuser=$user->first();
+    //         $newsign=md5($newuser->name.$unixtime.$this->salt.$newuser->api_token);
+    //     print_r($newsign);
+    // }
 
 }
