@@ -52,7 +52,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://localhost'), //Origin
+    // 'url' => env('APP_URL', 'http://test777.ukyo.idv.tw/'),
+    
 
     'asset_url' => env('ASSET_URL', null),
 

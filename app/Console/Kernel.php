@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \App\Console\Commands\Inspire::class,
+        // \App\Console\Commands\Inspire::class, 
     ];
 
     /**
@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
         $loginduetime=date('Y-m-d H:m',strtotime('-1 Week'));
         DB::table('users')->where('created_at', '>', $loginduetime)->update(array('api_token'=>null)); 
-        })->everyMinute();
+        })->everyFiveMinutes();
     }
 
     /**

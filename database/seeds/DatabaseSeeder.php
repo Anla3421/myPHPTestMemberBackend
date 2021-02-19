@@ -27,7 +27,8 @@ class DatabaseSeeder extends Seeder
             // 'name' => Str::random(10),
             'uid' =>Str::random(5),
             'name' => 'admin',
-            'password' => Hash::make('admin'),
+            // 'password' => Hash::make('admin'),
+            'password' => 'admin', //for test
             'gender' =>'male',
             'level' => 1,
             'position' => 'administrator',
@@ -41,7 +42,8 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'uid' =>Str::random(5),
             'name' => '123',
-            'password' => Hash::make('123'),
+            // 'password' => Hash::make('123'),
+            'password' => '123', //for test
             'gender' =>'female',
             'level' => 2,
             'position' => 'administrator',
@@ -55,7 +57,8 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'uid' =>Str::random(5),
             'name' => '99999',
-            'password' => Hash::make('99999'),
+            // 'password' => Hash::make('99999'),
+            'password' => '99999', //for test
             'gender' =>'male',
             'level' => 3,
             'api_token'=>Str::random(8),
@@ -119,7 +122,7 @@ class DatabaseSeeder extends Seeder
             'kid'=>'2',
             'type'=>'0',
             'did'=>'2',
-            'release'=>'0',
+            'release'=>'1',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
@@ -137,7 +140,7 @@ class DatabaseSeeder extends Seeder
             'kid'=>'2',
             'type'=>'0',
             'did'=>'2',
-            'release'=>'0',
+            'release'=>'1',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
@@ -155,7 +158,7 @@ class DatabaseSeeder extends Seeder
             'kid'=>'2',
             'type'=>'0',
             'did'=>'2',
-            'release'=>'0',
+            'release'=>'1',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);

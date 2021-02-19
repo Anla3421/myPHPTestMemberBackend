@@ -49,8 +49,6 @@ class ApiController extends Controller
             //     print_r($test->where('created_at', '<', 'updated_at'));
             // }
             
-            echo($logintime);
-            echo($loginduetime);
             // print_r($test);
             // print_r($loginduetime-$logintime);
 
