@@ -16,8 +16,9 @@ class ApiController extends Controller {
 		$this->salt = env('APP_SALT');
 	}
 	public function test(Request $request) {
-		// echo 123;
-		// var_dump(!$request->has('name'));
+		$sign = null;
+
+		// var_dump(!$request->has('name'))
 
 		try {
 			if (!$request->has('name')) {
@@ -28,6 +29,11 @@ class ApiController extends Controller {
 			}
 			if (!$request->has('unixtime')) {
 				throw new Exception("unixtime can't be empty", 404);
+			}
+
+			if (!$request->has('sign')) {
+				throw new Exception("sign can't be empty", 404);
+
 			}
 
 			//Validate
@@ -72,12 +78,11 @@ class ApiController extends Controller {
 
 			//All Green
 			$dbuser = $user->first();
-			$sign = sha1($request->name . $unixtime . $this->salt . $dbuser->api_token); //name+unixtime+salt+apitoken
-			$dbsign = sha1($dbuser->name . $unixtime . $this->salt . $dbuser->api_token);
-			// var_dump($sign==$dbsign);
-			if ($sign != $dbsign) {
-				throw new Exception("please check again your information", 405);
+			if ($request->sign != md5($request->name . $request->unixtime . $this->salt . $request->password)) {
+				throw new Exception("you  sign  is wrong, please check again", 403);
 			}
+			// var_dump($sign==$dbsign);
+
 			// $sign2=md5($sign.$dbuser->password);
 			// $dbsign2=md5($dbsign.$password->first()->password);
 			// print_r($dbuser->password); //123
@@ -104,7 +109,7 @@ class ApiController extends Controller {
 					'id' => $dbuser->id,
 					'uid' => $uid,
 					'yourSign' => $sign,
-					'mySign' => $dbsign,
+					'mySign' => md5($request->name . $request->unixtime . $this->salt . $request->password),
 					'gender' => $dbuser->gender,
 					'chmod' => $dbuser->position,
 					'level' => $dbuser->level,
@@ -116,6 +121,7 @@ class ApiController extends Controller {
 			return response()->json([
 				'status' => $e->getcode(),
 				'msg' => $e->getMessage(),
+				'request' => $request->all(),
 			]);
 		};
 
