@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
             // 'name' => Str::random(10),
             'uid' =>Str::random(5),
             'name' => 'admin',
-            // 'password' => Hash::make('admin'),
-            'password' => 'admin', //for test
+            'password' => Hash::make('admin'),
+            // 'password' => 'admin', //for test
             'gender' =>'male',
             'level' => 1,
             'position' => 'administrator',
@@ -42,8 +42,8 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'uid' =>Str::random(5),
             'name' => '123',
-            // 'password' => Hash::make('123'),
-            'password' => '123', //for test
+            'password' => Hash::make('123'),
+            // 'password' => '123', //for test
             'gender' =>'female',
             'level' => 2,
             'position' => 'administrator',
@@ -57,8 +57,8 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'uid' =>Str::random(5),
             'name' => '99999',
-            // 'password' => Hash::make('99999'),
-            'password' => '99999', //for test
+            'password' => Hash::make('99999'),
+            // 'password' => '99999', //for test
             'gender' =>'male',
             'level' => 3,
             'api_token'=>Str::random(8),

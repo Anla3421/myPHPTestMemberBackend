@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Exception;
 use App\User;
 use Carbon\Carbon;
+use Auth;
 use DB;
 
 class ApiController extends Controller
@@ -66,9 +67,7 @@ class ApiController extends Controller
             if($user->count()==0){
                 throw new Exception("you may typo your name, please check again", 403);
             }
-            if($password->count()==0){
-                throw new Exception("you may typo your password, please check again", 403);
-            }
+
             // if($unixtime->count()==0){
             //     throw new Exception("you may typo your unixtime, please check again", 403);
             // }
@@ -78,33 +77,44 @@ class ApiController extends Controller
 
             //All Green
             $dbuser=$user->first();
-            $sign=sha1($request->name.$unixtime.$this->salt.$dbuser->api_token);
+            $sign=sha1($request->name.$unixtime.$this->salt.$dbuser->api_token); //name+unixtime+salt+apitoken
             $dbsign=sha1($dbuser->name.$unixtime.$this->salt.$dbuser->api_token);
             // var_dump($sign==$dbsign);
             if ($sign!=$dbsign){
                 throw new Exception("please check again your information", 405);
             }
-            $sign2=md5($sign.$dbuser->password);
-            $dbsign2=md5($dbsign.$password->first()->password);
+            // $sign2=md5($sign.$dbuser->password);
+            // $dbsign2=md5($dbsign.$password->first()->password);
             // print_r($dbuser->password); //123
             // print_r($password->first()->password);  //123
             // var_dump($sign2==$dbsign2);
-            if ($sign2!=$dbsign2){
-                throw new Exception("please check again your information", 406);
-            }
-
+            // if ($sign2!=$dbsign2){
+            //     throw new Exception("please check again your information", 406);
+            // }
+            if(Auth::attempt(['name' => $request->name, 'password' => $request->password])){
+                $loginstatus='yes';
+            }else{
+                if($password->count()==0){
+                    throw new Exception("you may typo your password, please check again", 403);
+                }
+                $loginstatus='no';
+            };
+            
             $token=$dbuser->api_token;
             $uid=$dbuser->uid;
+
+
 
             return response()->json([
                 'status'=> 200,
                 'msg'=> 'Validate all pass',
+                'loginstatus'=>$loginstatus,
                 'token' =>$token,
                 'uid'=>$uid,
                 'signinput'=>$sign,
                 'signdb---'=>$dbsign,
-                'signinput+password'=>$sign2,
-                'signdb---+password'=>$dbsign2,
+                // 'signinput+password'=>$sign2,
+                // 'signdb---+password'=>$dbsign2,
                 'salt'=>$this->salt,
             ]);
             

@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
         $loginduetime=date('Y-m-d H:m',strtotime('-1 Week'));
         DB::table('users')->where('created_at', '>', $loginduetime)->update(array('api_token'=>null)); 
-        })->everyFiveMinutes();
+        })->dailyAt('13:00');
     }
 
     /**
