@@ -7,6 +7,8 @@ use App\User;
 use Auth;
 use Exception;
 use Illuminate\Http\Request;
+use DB;
+use Illuminate\Support\Str;
 
 class ApiController extends Controller {
 	// public $unixtime;
@@ -88,6 +90,9 @@ class ApiController extends Controller {
 			// }
 			if (Auth::attempt(['name' => $request->name, 'password' => $request->password])) {
 				$loginstatus = 'yes';
+                $random=Str::random(32);
+                DB::table('users')->where('name', $request->name)->update(array('api_token'=>$random));
+                $api_token=DB::table('users')->where('name', $request->name)->pluck('api_token');
 			} else {
 				if ($password->count() == 0) {
 					throw new Exception("you may typo your password, please check again", 403);
@@ -96,18 +101,21 @@ class ApiController extends Controller {
 			};
 
 			$token = $dbuser->api_token;
-			$uid = $dbuser->uid;
 
-			return response()->json(['status' => 200,
+
+            return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
+                    // 'frontSign' => $sign,
+					// 'backendSign' => $dbsign,
 					'id' => $dbuser->id,
-					'uid' => $uid,
-					'yourSign' => $sign,
-					'mySign' => $dbsign,
 					'gender' => $dbuser->gender,
 					'chmod' => $dbuser->position,
 					'level' => $dbuser->level,
+                    'cellphone' =>$dbuser->cellphone,
+                    // 'api_token'=>$dbuser->api_token,
+                    'api_token'=>$api_token,
+
 				],
 
 			]);
