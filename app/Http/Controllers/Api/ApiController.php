@@ -15,12 +15,11 @@ class ApiController extends Controller {
 	protected $salt;
 	public function __construct() {
 		// parent::__construct();
-		$this->salt = env('APP_SALT');
+		$this->salt = env('APP_SALT','iamsalt');
 	}
 	public function test(Request $request) {
-		// echo 123;
+		$sign = null;
 		// var_dump(!$request->has('name'));
-
 		try {
 			if (!$request->has('name')) {
 				throw new Exception("name can't be empty", 404);
@@ -31,35 +30,18 @@ class ApiController extends Controller {
 			if (!$request->has('unixtime')) {
 				throw new Exception("unixtime can't be empty", 404);
 			}
+            if (!$request->has('sign')) {
+				throw new Exception("sign can't be empty", 404);
+			}
 
-			//Validate
-
+            //Validate
+			
 			$user = User::where('name', $request->name);
 			$password = User::where('password', $request->password);
 			$api_token = User::where('api_token', $request->api_token);
 			// global $unixtime;
 			$unixtime = $request->unixtime;
 			$logintime = date('Y-m-d H:m');
-
-			// $test=DB::table('users')->get();
-			// foreach ($test as $id => $value) {
-			//     // $test->where('created_at', '>', 'updated_at');
-			//     print_r($test->where('created_at', '<', 'updated_at'));
-			// }
-
-			// print_r($test);
-			// print_r($loginduetime-$logintime);
-
-			// print_r($logintime);
-			// print_r($this->salt);
-
-			// print_r($user->first()->name."this is name".'<br>'); //123
-			// var_dump($user->count()==0); //false
-			// echo "<pre>";
-			// print_r($user->first()->name);
-			// print_r($user->get()->count()); //1
-			// print_r($user->first()->count()); //3
-			// print_r($user->count()); //1
 
 			if ($user->count() == 0) {
 				throw new Exception("you may typo your name, please check again", 403);
@@ -74,20 +56,11 @@ class ApiController extends Controller {
 
 			//All Green
 			$dbuser = $user->first();
-			$sign = sha1($request->name . $unixtime . $this->salt . $dbuser->api_token); //name+unixtime+salt+apitoken
-			$dbsign = sha1($dbuser->name . $unixtime . $this->salt . $dbuser->api_token);
-			// var_dump($sign==$dbsign);
-			if ($sign != $dbsign) {
-				throw new Exception("please check again your information", 405);
-			}
-			// $sign2=md5($sign.$dbuser->password);
-			// $dbsign2=md5($dbsign.$password->first()->password);
-			// print_r($dbuser->password); //123
-			// print_r($password->first()->password);  //123
-			// var_dump($sign2==$dbsign2);
-			// if ($sign2!=$dbsign2){
-			//     throw new Exception("please check again your information", 406);
-			// }
+            // print_r($request->sign);
+            // print_r(md5($request->name . $request->unixtime . $this->salt . $request->password));
+            if ($request->sign != md5($request->name . $request->unixtime . $this->salt . $request->password)) {
+				throw new Exception("you  sign  is wrong, please check again", 403);
+            }
 			if (Auth::attempt(['name' => $request->name, 'password' => $request->password])) {
 				$loginstatus = 'yes';
                 $random=Str::random(32);
@@ -114,7 +87,8 @@ class ApiController extends Controller {
 					'level' => $dbuser->level,
                     'cellphone' =>$dbuser->cellphone,
                     // 'api_token'=>$dbuser->api_token,
-                    'api_token'=>$api_token,
+                    'api_token'=>$random,
+					'sait'=>$this->salt,
 
 				],
 
@@ -128,19 +102,5 @@ class ApiController extends Controller {
 		};
 
 	}
-
-	// public function anothertest(Request $request){
-	//     $user=User::where('name',$request->name);
-	//     $password=User::where('password',$request->password);
-	//     $api_token=User::where('api_token',$request->api_token);
-	//     global $unixtime;
-
-	//     var_dump($unixtime);
-	//         // print_r($user->first());
-	//         // print_r($password->first());
-	//         $newuser=$user->first();
-	//         $newsign=md5($newuser->name.$unixtime.$this->salt.$newuser->api_token);
-	//     print_r($newsign);
-	// }
 
 }

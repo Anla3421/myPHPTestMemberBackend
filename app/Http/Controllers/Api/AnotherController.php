@@ -12,14 +12,16 @@ class AnotherController extends Controller
 {
     public $apiurl;
     protected $Client;
+    protected $salt;
     public function __construct(){
-        // $this->apiurl=env('APIURL','localhost:8079/api/test'); //@localhost
-        $this->apiurl=env('APIURL','http://test777.ukyo.idv.tw/api/test');
+        $this->apiurl=env('APIURL','localhost:8079/api/test'); //@localhost
+        // $this->apiurl=env('APIURL','http://test777.ukyo.idv.tw/api/test');
         $this->Client= new Client([
-            // 'base_url'=>'localhost:8079/api/test', //@localhost
-            'base_url'=>'http://test777.ukyo.idv.tw/api/test',
+            'base_url'=>'localhost:8079/api/test', //@localhost
+            // 'base_url'=>'http://test777.ukyo.idv.tw/api/test',
             'time'=>2.0,
         ]);
+        $this->salt = env('APP_SALT','iamsalt');
     }
 
     // public function sendbalance(Request $request){
@@ -31,14 +33,18 @@ class AnotherController extends Controller
     //     print_r($res->getBody()->getContents());
     // }
 
-    
+
+
     public function sendbalance(Request $request){
-        // $Client=new Client();
+        $name='123';
+        $password='123';
+        $unixtime=time();
         $res=$this->Client->request('post',$this->apiurl,['json'=>[
-            'name'=>'123',
-            'password'=>'$2y$10$LuItf/NoDhdkxyKaZcxw7uVLHkStcFLddlTkx0ZIuVfEtJdBxc.cq',
-            // 'password'=>'123',
-            'unixtime'=>time(),
+            'name'=>$name,
+            // 'password'=>'$2y$10$LuItf/NoDhdkxyKaZcxw7uVLHkStcFLddlTkx0ZIuVfEtJdBxc.cq',
+            'password'=>$password,
+            'unixtime'=>$unixtime,
+            'sign'=>md5($name . $unixtime . $this->salt . $password)
         ]]);
         // var_dump($this->Client);
 

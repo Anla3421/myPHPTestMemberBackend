@@ -347,13 +347,24 @@ class DatabaseSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
-    //     DB::table('tasks')->insert([
-    //         'id' =>'1',
-    //         'user_id'=>'77777',
-    //         'title' => date('Y-m-d H:i:s'),
-    //         'description' => date('Y-m-d H:i:s',$newtime),
-
-    //     ]);
+        DB::table('gamelist')->insert([
+            'id' =>'1',
+            'gamename'=>'國際象棋',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('gamelist')->insert([
+            'id' =>'2',
+            'gamename'=>'五子棋',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('gamelist')->insert([
+            'id' =>'3',
+            'gamename'=>'圍棋',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
 
     //     Schema::create('tasks', function (Blueprint $table) {
     //         $table->bigIncrements('id');
