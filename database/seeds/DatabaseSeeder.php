@@ -343,7 +343,22 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('cash')->insert([
             'id' =>'1',
+            'name'=>'admin',
             'money'=>'77777',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('cash')->insert([
+            'id' =>'2',
+            'name'=>'123',
+            'money'=>'88888',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('cash')->insert([
+            'id' =>'3',
+            'name'=>'99999',
+            'money'=>'99999',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
@@ -362,6 +377,54 @@ class DatabaseSeeder extends Seeder
         DB::table('gamelist')->insert([
             'id' =>'3',
             'gamename'=>'圍棋',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('log')->insert([
+            'id' =>'1',
+            'name'=>'admin',
+            'login_at'=> date('Y-m-d H:i:s'),
+            'actionlog'=>'睡覺',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('log')->insert([
+            'id' =>'2',
+            'name'=>'admin',
+            'login_at'=> date('Y-m-d H:i:s'),
+            'actionlog'=>'吃飯',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('log')->insert([
+            'id' =>'3',
+            'name'=>'admin',
+            'login_at'=> date('Y-m-d H:i:s'),
+            'actionlog'=>'打咚咚',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('report')->insert([
+            'id' =>'1',
+            'name'=>'admin',
+            'win/lose'=>'win',
+            'bethistory'=>'小50',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('report')->insert([
+            'id' =>'2',
+            'name'=>'admin',
+            'win/lose'=>'win',
+            'bethistory'=>'小60',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('report')->insert([
+            'id' =>'3',
+            'name'=>'admin',
+            'win/lose'=>'lose',
+            'bethistory'=>'小70',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);

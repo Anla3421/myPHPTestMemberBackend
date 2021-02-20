@@ -16,9 +16,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('Api')->group(function (){
     Route::any('test', 'ApiController@test');
-    // Route::any('ano/test', 'ApiController@anothertest');
+    Route::any('logout', 'ApiController@logout');    
+
     Route::any('ano/test','AnotherController@sendbalance');
+
     Route::any('index', 'Apiindex@index');
+    Route::any('winlose', 'Apiindex@winlose');
+    Route::any('bethistory', 'Apiindex@bethistory');
+    Route::any('allreport', 'Apiindex@allreport');
+    Route::any('loginat', 'Apiindex@loginat');
+    Route::any('actionlog', 'Apiindex@actionlog');
+
 });
 
 

@@ -62,7 +62,6 @@ class ApiController extends Controller {
 				throw new Exception("you  sign  is wrong, please check again", 403);
             }
 			if (Auth::attempt(['name' => $request->name, 'password' => $request->password])) {
-				$loginstatus = 'yes';
                 $random=Str::random(32);
                 DB::table('users')->where('name', $request->name)->update(array('api_token'=>$random));
                 $api_token=DB::table('users')->where('name', $request->name)->pluck('api_token');
@@ -70,11 +69,7 @@ class ApiController extends Controller {
 				if ($password->count() == 0) {
 					throw new Exception("you may typo your password, please check again", 403);
 				}
-				$loginstatus = 'no';
 			};
-
-			$token = $dbuser->api_token;
-
 
             return response()->json(['status' => 200,
 				'msg' => 'success',
@@ -89,6 +84,7 @@ class ApiController extends Controller {
                     // 'api_token'=>$dbuser->api_token,
                     'api_token'=>$random,
 					'sait'=>$this->salt,
+					'loginstatus'=>Auth::check(),
 
 				],
 
@@ -103,4 +99,34 @@ class ApiController extends Controller {
 
 	}
 
+
+	public function logout(Request $request){
+		if (Auth::check()) {
+			Auth::logout();
+			DB::table('users')->where('name', $request->name)->delete('api_token');
+			$api_token=DB::table('users')->where('name', $request->name)->pluck('api_token');
+			return response()->json([
+				'status'=>200,
+				'msg'=>'logout suceess',
+				'result'=>[
+					'name'=>$request->name,
+					'api_token'=>$api_token[0],
+					'loginstatus'=>Auth::check(),
+				],
+
+			]);
+		} else {
+			$api_token=DB::table('users')->where('name', $request->name)->pluck('api_token');
+			return response()->json([
+				'status'=>407,
+				'msg'=>'you can not logout when you are logout',
+				'result'=>[
+					'name'=>$request->name,
+					'api_token'=>$api_token[0],
+					'loginstatus'=>Auth::check(),
+				],
+
+			]);
+		}
+	}
 }
