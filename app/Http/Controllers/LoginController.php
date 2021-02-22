@@ -17,7 +17,8 @@ class LoginController extends Controller {
 		$top=shop::where('top','1')->where('release','1')->pluck('id');
 		$classify=classify::all();
 		$ntop=$top->toarray();
-		
+		echo "<pre>";
+		var_dump($classify);
 		// echo "<pre>";
 		// print_r($classify);
 		// print_r($a[0]); //randomized ntop keys

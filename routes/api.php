@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('Api')->group(function (){
     Route::any('test', 'ApiController@test');
-    Route::any('logout', 'ApiController@logout');    
+    Route::any('logout', 'ApiController@logout');
+    Route::any('logincheck', 'ApiController@logincheck');
 
     Route::any('ano/test','AnotherController@sendbalance');
 

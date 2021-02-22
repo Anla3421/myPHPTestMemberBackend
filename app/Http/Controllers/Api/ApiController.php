@@ -76,11 +76,13 @@ class ApiController extends Controller {
 				'result' => [
                     // 'frontSign' => $sign,
 					// 'backendSign' => $dbsign,
-					'id' => $dbuser->id,
-					'gender' => $dbuser->gender,
-					'chmod' => $dbuser->position,
-					'level' => $dbuser->level,
-                    'cellphone' =>$dbuser->cellphone,
+
+					// 'id' => $dbuser->id,
+					// 'gender' => $dbuser->gender,
+					// 'chmod' => $dbuser->position,
+					// 'level' => $dbuser->level,
+                    // 'cellphone' =>$dbuser->cellphone,
+
                     // 'api_token'=>$dbuser->api_token,
                     'api_token'=>$random,
 					'sait'=>$this->salt,
@@ -99,29 +101,70 @@ class ApiController extends Controller {
 
 	}
 
+	public function logincheck(Request $request){
+		// ini_set('display_errors', "ON");
+		// $request->api_token='y3jJNKzQa8r4BHPHIY3M7AlY9McCNWkg';0
+		// var_dump($request->api_token);
+		// Auth::loginUsingId(2);
+		// var_dump(Auth::check());
+		$db_api_token=DB::table('users')->where('api_token', $request->api_token)->pluck('api_token');
+		$dbuser=DB::table('users')->where('api_token', $request->api_token)->first();
+		// print_r($db_api_token);
+		try {
+			if (!$request->api_token[0]){
+				throw new Exception("token can not be NULL", 989);
+			}
+			// if(AUth::check()){
+			// 	$db_api_token=DB::table('users')->where('name', $request->name)->pluck('api_token');
+			// }else{
+			// 	throw new Exception("your status is not login", 898);
+			// }
+			if($request->api_token!=$db_api_token[0]){
+				throw new Exception("can not find your token at db", 999);
+			}
+
+			return response()->json([
+				'status'=> 200,
+				'msg'=> 'log status is fine.',
+				'result' => [
+				'id' => $dbuser->id,
+				'gender' => $dbuser->gender,
+				'chmod' => $dbuser->position,
+				'level' => $dbuser->level,
+				'cellphone' =>$dbuser->cellphone,
+				],
+			]);
+
+		} catch (Exception $e) {
+			return response()->json([
+				'status' => $e->getcode(),
+				'msg' => $e->getMessage(),
+			]);
+		}
+	}
 
 	public function logout(Request $request){
 		if (Auth::check()) {
 			Auth::logout();
-			DB::table('users')->where('name', $request->name)->delete('api_token');
-			$api_token=DB::table('users')->where('name', $request->name)->pluck('api_token');
+			DB::table('users')->where('id', $request->id)->delete('api_token');
+			$api_token=DB::table('users')->where('id', $request->id)->pluck('api_token');
 			return response()->json([
 				'status'=>200,
 				'msg'=>'logout suceess',
 				'result'=>[
-					'name'=>$request->name,
+					// 'name'=>$request->name,
 					'api_token'=>$api_token[0],
 					'loginstatus'=>Auth::check(),
 				],
 
 			]);
 		} else {
-			$api_token=DB::table('users')->where('name', $request->name)->pluck('api_token');
+			$api_token=DB::table('users')->where('id', $request->id)->pluck('api_token');
 			return response()->json([
 				'status'=>407,
 				'msg'=>'you can not logout when you are logout',
 				'result'=>[
-					'name'=>$request->name,
+					// 'name'=>$request->name,
 					'api_token'=>$api_token[0],
 					'loginstatus'=>Auth::check(),
 				],
