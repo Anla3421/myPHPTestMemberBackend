@@ -4,7 +4,7 @@ namespace App\models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class keyword extends Model {
+class mainmenu extends Model {
 	protected $guarded = [];
-	protected $table = "keyword";
+	protected $table = "mainmenu";
 }
