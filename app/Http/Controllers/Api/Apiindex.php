@@ -105,20 +105,39 @@ class Apiindex extends Controller
         // print_r($mainmenu);
         // print_r($mainmenuget);
         // exit();
+        $table = DB::find();
+        $temp = array_column($table, 'name', 'main');
+        $temp = [
+            '1' => value,
+            '2' => value,
+            '3' => value,
+            '4' => value,
+        ];
+        
+        foreach ($table as $index => $value) {
+            $keys = array_keys($temp);
+            if (in_array($value['subid'], $keys)) {
+                $target = array_search($value['subid'], $keys);
+                $temp[$target][] = array('???' => $value);
+            }
+        }
+
+        
+        
+
         $main =[];
             $db = DB::table('mainmenu')->get()->toArray();
             echo "<pre>";
        
             foreach ((Array)$db as $key => $value) {
                 if($value->mainpage>0){
-                    $main[$key] =$value;
+                    $main[$key] =$value ;
                 }
             }
             print_r($main);
 
             // exit;
             foreach ((Array)$main as $key => $value) {
-                # code...
                 foreach ($db as $key1 => $values) {
                     
                     if($value->id == $values->subid ){

@@ -28,6 +28,8 @@ Route::namespace('Api')->group(function (){
     Route::any('loginat', 'Apiindex@loginat');
     Route::any('actionlog', 'Apiindex@actionlog');
 
+    Route::any('array','Apiarray@array');
+
 });
 
 
