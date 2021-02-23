@@ -70,6 +70,102 @@ class DatabaseSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
+        DB::table('users')->insert([
+            // 'name' => Str::random(10),
+            'uid' =>Str::random(5),
+            'name' => 'aluo',
+            'password' => Hash::make('aluo'),
+            // 'password' => 'admin', //for test
+            'gender' =>'male',
+            'level' => 1,
+            'position' => 'administrator',
+            'api_token'=>Str::random(32),
+            'remember_check' =>'ok',
+            'remember_token' =>'NULL',
+            'cellphone' => '0912123123',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('users')->insert([
+            // 'name' => Str::random(10),
+            'uid' =>Str::random(5),
+            'name' => 'aluouser',
+            'password' => Hash::make('aluo'),
+            // 'password' => 'admin', //for test
+            'gender' =>'male',
+            'level' => 1,
+            'position' => 'user',
+            'api_token'=>Str::random(32),
+            'remember_check' =>'ok',
+            'remember_token' =>'NULL',
+            'cellphone' => '0912123123',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('users')->insert([
+            // 'name' => Str::random(10),
+            'uid' =>Str::random(5),
+            'name' => 'ukyo',
+            'password' => Hash::make('ukyo'),
+            // 'password' => 'admin', //for test
+            'gender' =>'male',
+            'level' => 1,
+            'position' => 'administrator',
+            'api_token'=>Str::random(32),
+            'remember_check' =>'ok',
+            'remember_token' =>'NULL',
+            'cellphone' => '0912123123',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('users')->insert([
+            // 'name' => Str::random(10),
+            'uid' =>Str::random(5),
+            'name' => 'ukyouser',
+            'password' => Hash::make('ukyo'),
+            // 'password' => 'admin', //for test
+            'gender' =>'male',
+            'level' => 1,
+            'position' => 'user',
+            'api_token'=>Str::random(32),
+            'remember_check' =>'ok',
+            'remember_token' =>'NULL',
+            'cellphone' => '0912123123',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('users')->insert([
+            // 'name' => Str::random(10),
+            'uid' =>Str::random(5),
+            'name' => 'bobo',
+            'password' => Hash::make('bobo'),
+            // 'password' => 'admin', //for test
+            'gender' =>'male',
+            'level' => 1,
+            'position' => 'administrator',
+            'api_token'=>Str::random(32),
+            'remember_check' =>'ok',
+            'remember_token' =>'NULL',
+            'cellphone' => '0912123123',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('users')->insert([
+            // 'name' => Str::random(10),
+            'uid' =>Str::random(5),
+            'name' => 'bobouser',
+            'password' => Hash::make('bobo'),
+            // 'password' => 'admin', //for test
+            'gender' =>'male',
+            'level' => 1,
+            'position' => 'user',
+            'api_token'=>Str::random(32),
+            'remember_check' =>'ok',
+            'remember_token' =>'NULL',
+            'cellphone' => '0912123123',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
         DB::table('gamelist')->insert([
             'id' =>'1',
             'gamename'=>'國際象棋',
