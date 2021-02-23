@@ -7,7 +7,7 @@ use App\models\mainmenu;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
-use Query\Builder;
+use ArrayObject;
 
 class Apiarray extends Controller {
 	public function newarray(Request $request) {
@@ -56,17 +56,18 @@ class Apiarray extends Controller {
     }
 
 	public function array(Request $request) {
-        $mainmenu3 = mainmenu::get()->toarray();
-        $mainmenu2 = mainmenu::get();
+        // $mainmenu3 = mainmenu::get()->toarray();
+        $mainmenu2 = mainmenu::get()->toarray();
         $mainmenu=$mainmenu2;
         // print_r($mainmenu3);
         // print_r($mainmenu);
         
         foreach ($mainmenu as $key => $value) {
             if($value->mainpage==0){
-            $submain[$key]=$value;
-        }else{
-            $main[$key]=$value ;
+            	$submain[$key]=$value;
+        	}else{
+            	$main[$key]=$value;
+				$main[$key]["submain"] = new ArrayObject();
             }
         }
         
@@ -76,7 +77,8 @@ class Apiarray extends Controller {
         foreach ($main as $mainkey => $mainvalue) {
             foreach ($submain as $subkey => $subvalue) {
                 if($mainvalue['mainpage']==$subvalue['subid']){
-                    $main[$mainkey]['submain'][$subkey]=$subvalue;
+					$main[$mainkey]["submain"]->append($subvalue);
+                    // $main[$mainkey]['submain'][$subkey]=$subvalue;
                     // $main[$mainkey]['submain'][]=$subvalue;
 
                 }
