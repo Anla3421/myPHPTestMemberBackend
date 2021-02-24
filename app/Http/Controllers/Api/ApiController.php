@@ -77,15 +77,15 @@ class ApiController extends Controller {
                     // 'frontSign' => $sign,
 					// 'backendSign' => $dbsign,
 
-					// 'id' => $dbuser->id,
-					// 'gender' => $dbuser->gender,
-					// 'chmod' => $dbuser->position,
-					// 'level' => $dbuser->level,
-                    // 'cellphone' =>$dbuser->cellphone,
+					'id' => $dbuser->id,
+					'gender' => $dbuser->gender,
+					'chmod' => $dbuser->position,
+					'level' => $dbuser->level,
+                    'cellphone' =>$dbuser->cellphone,
 
                     // 'api_token'=>$dbuser->api_token,
                     'api_token'=>$random,
-					'sait'=>$this->salt,
+					// 'sait'=>$this->salt,
 					'loginstatus'=>Auth::check(),
 
 				],

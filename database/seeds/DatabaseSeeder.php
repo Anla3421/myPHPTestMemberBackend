@@ -18,8 +18,11 @@ class DatabaseSeeder extends Seeder
         // for (i=0;$newtime=time()+(random_int(1,24)*random_int(1,60)*random_int(1,60)*random_int(1,7));i++){
         //     $arrayName = array('' => , );
         // }
+        $this->call(ShopTableSeeder::class);
+        $this->call(MaxdisSeeder::class);
+        
+        
         $newtime=time()+(random_int(1,24)*random_int(1,60)*random_int(1,60)*random_int(1,7)); //小時,分,秒,天
-
         
        /**
          * User information
@@ -166,24 +169,7 @@ class DatabaseSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
-        DB::table('gamelist')->insert([
-            'id' =>'1',
-            'gamename'=>'國際象棋',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('gamelist')->insert([
-            'id' =>'2',
-            'gamename'=>'五子棋',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('gamelist')->insert([
-            'id' =>'3',
-            'gamename'=>'圍棋',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
+
         DB::table('log')->insert([
             'id' =>'1',
             'name'=>'admin',
@@ -208,210 +194,7 @@ class DatabaseSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
-        DB::table('report')->insert([
-            'id' =>'1',
-            'name'=>'admin',
-            'win/lose'=>'win',
-            'bethistory'=>'小50',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('report')->insert([
-            'id' =>'2',
-            'name'=>'admin',
-            'win/lose'=>'win',
-            'bethistory'=>'小60',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('report')->insert([
-            'id' =>'3',
-            'name'=>'admin',
-            'win/lose'=>'lose',
-            'bethistory'=>'小70',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('mainmenu')->insert([
-            'id' =>'1',
-            'table'=>'帳戶管理',
-            'url'=>'',
-            'mainpage'=>'1',
-            'icon1'=>'',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'0',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('mainmenu')->insert([
-            'id' =>'2',
-            'table'=>'設定管理',
-            'url'=>'',
-            'mainpage'=>'2',
-            'icon1'=>'',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'0',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('mainmenu')->insert([
-            'id' =>'3',
-            'table'=>'報表管理',
-            'url'=>'',
-            'mainpage'=>'3',
-            'icon1'=>'',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'0',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('mainmenu')->insert([
-            'id' =>'4',
-            'table'=>'操作紀錄',
-            'url'=>'',
-            'mainpage'=>'4',
-            'icon1'=>'',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'0',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('mainmenu')->insert([
-            'id' =>'5',
-            'table'=>'代理商管理',
-            'url'=>'',
-            'mainpage'=>'0',
-            'icon1'=>'',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'1',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-            DB::table('mainmenu')->insert([
-            'id' =>'6',
-            'table'=>'會員管理',
-            'url'=>'',
-            'mainpage'=>'0',
-            'icon1'=>'',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'1',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('mainmenu')->insert([
-            'id' =>'7',
-            'table'=>'帳戶設定',
-            'url'=>'',
-            'mainpage'=>'0',
-            'icon1'=>'',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'2',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('mainmenu')->insert([
-            'id' =>'8',
-            'table'=>'角色設定',
-            'url'=>'',
-            'mainpage'=>'0',
-            'icon1'=>'',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'2',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('mainmenu')->insert([
-            'id' =>'9',
-            'table'=>'權限設定',
-            'url'=>'',
-            'mainpage'=>'0',
-            'icon1'=>'',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'2',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('mainmenu')->insert([
-            'id' =>'10',
-            'table'=>'Win/Lose',
-            'url'=>'',
-            'mainpage'=>'0',
-            'icon1'=>'',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'3',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('mainmenu')->insert([
-            'id' =>'11',
-            'table'=>'Bet History',
-            'url'=>'',
-            'mainpage'=>'0',
-            'icon1'=>'',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'3',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('mainmenu')->insert([
-            'id' =>'12',
-            'table'=>'All Report',
-            'url'=>'',
-            'mainpage'=>'0',
-            'icon1'=>'',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'3',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('mainmenu')->insert([
-            'id' =>'13',
-            'table'=>'Wallet',
-            'url'=>'',
-            'mainpage'=>'0',
-            'icon1'=>'',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'3',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('mainmenu')->insert([
-            'id' =>'14',
-            'table'=>'使用者登入log',
-            'url'=>'',
-            'mainpage'=>'0',
-            'icon1'=>'',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'4',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('mainmenu')->insert([
-            'id' =>'15',
-            'table'=>'歷程log',
-            'url'=>'',
-            'mainpage'=>'0',
-            'icon1'=>'',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'4',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
+        
         
 /**
          * Shop data

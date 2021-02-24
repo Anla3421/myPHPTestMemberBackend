@@ -9,8 +9,69 @@ use Exception;
 use Illuminate\Http\Request;
 use ArrayObject;
 
-class Apiarray extends Controller {
-	public function newarray(Request $request) {
+class Apiarray extends Controller 
+{
+	public function array(Request $request) {
+
+		try {
+			if (!$request->has('api_token')) {
+				throw new Exception("api_token can't be empty", 999);
+			}
+		
+			$mainmenu = mainmenu::get();
+			// print_r($mainmenu);
+			
+			foreach ($mainmenu as $key => $value) {
+				if($value->mainpage==0){
+					$submain[$key]=$value;
+				}else{
+					$main[$key]=$value;
+					$main[$key]["submain"] = new ArrayObject();
+					// $main[$key]["submain"]["report"] = new ArrayObject();
+				}
+			}
+        
+			// print_r($main);
+			// print_r($submain);
+
+			foreach ($main as $mainkey => $mainvalue) {
+				foreach ($submain as $subkey => $subvalue) {
+					if($mainvalue['mainpage']==$subvalue['subid']){
+						$main[$mainkey]["submain"]->append($subvalue);
+						// $main[$mainkey]['subma2in'][$subkey]=$subvalue;
+						// $main[$mainkey]['submain'][]=$subvalue;
+					// if($mainvalue['mainpage']+20==$subvalue['subid']){
+						// echo "<pre>";
+						// var_dump($mainkey);
+						// print_r($mainvalue['id']);
+						// $main[$mainkey]["submain"]["report"] = new ArrayObject();
+						// $main[$mainkey]["submain"]["report"]->append($subvalue);
+					// }
+					//intval('mainpage')
+					}
+					
+				}
+			}
+		
+			// print_r($main);
+			// print_r($main2);
+
+			return response()->json(['status' => 200,
+			'msg' => 'success',
+			'result' => [
+				'main' => $main,
+			]
+			]);
+
+			} catch (Exception $e) {
+				return response()->json([
+					'status' => $e->getcode(),
+					'msg' => $e->getMessage(),
+				]);
+			};
+		}
+
+    public function newarray(Request $request) {
         ob_start();
     $t = microtime(true);
     $i = 0;
@@ -53,58 +114,9 @@ class Apiarray extends Controller {
     return response()->json([
         'time'=>$tmp,
     ]);
-    }
+    
 
-	public function array(Request $request) {
-        // $mainmenu3 = mainmenu::get()->toarray();
-        $mainmenu2 = mainmenu::get()->toarray();
-        $mainmenu=$mainmenu2;
-        // print_r($mainmenu3);
-        // print_r($mainmenu);
-        
-        foreach ($mainmenu as $key => $value) {
-            if($value->mainpage==0){
-            	$submain[$key]=$value;
-        	}else{
-            	$main[$key]=$value;
-				$main[$key]["submain"] = new ArrayObject();
-            }
-        }
-        
-        // print_r($main);
-        // print_r($submain);
-
-        foreach ($main as $mainkey => $mainvalue) {
-            foreach ($submain as $subkey => $subvalue) {
-                if($mainvalue['mainpage']==$subvalue['subid']){
-					$main[$mainkey]["submain"]->append($subvalue);
-                    // $main[$mainkey]['submain'][$subkey]=$subvalue;
-                    // $main[$mainkey]['submain'][]=$subvalue;
-
-                }
- 
-            }
-        }
-
-
-        // $main2 = mainmenu::where('mainpage', '>', 0)->get()->toArray();
-        
-        print_r($main);
-        // print_r($main2);
-
-        
-        return response()->json(['status' => 200,
-        'msg' => 'success',
-        'result' => [
-            // 'menu'=>$menu,
-            // 'gamelist'=>$gamelist,
-            // 'userlist'=>$userlist,
-            // 'wallet'=>$wallet,
-            'main' => $main,
-            // 'submain' => $submain,
-        ]
-        ]);
-exit;
+	exit;
 		$main = mainmenu::where('mainpage', '>', 0)->get()->toArray();
 		$submain = mainmenu::where('mainpage', 0)->get()->toArray();
         
@@ -150,5 +162,4 @@ exit;
 			]);
 		};
 	}
-    
 }

@@ -34,6 +34,19 @@ Route::namespace ('Api')->group(function () {
 
 });
 
+Route::namespace('MAXdis')->group(function(){
+	Route::any('account','Apiindex@account');
+	Route::any('game','Apiindex@game');
+	Route::any('gameinfo','Apiindex@gameinfo');
+	Route::any('report','Apiindex@report');
+	Route::any('report_dtl','Apiindex@report_dtl');
+	Route::any('server_config','Apiindex@server_config');
+	Route::any('player','Apiindex@player');
+
+	Route::any('account/u','Apiindex@accountupdate');
+});
+
+
 Route::post('login', 'ApiController@login');
 Route::post('register', 'ApiController@register');
 

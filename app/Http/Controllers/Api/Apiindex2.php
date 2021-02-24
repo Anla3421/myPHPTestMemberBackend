@@ -8,7 +8,7 @@ use DB;
 use Exception;
 use ArrayObject;
 
-class Apiindex extends Controller
+class Apiindex2 extends Controller
 {
     public function index(Request $request){
 
