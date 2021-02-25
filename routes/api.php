@@ -15,40 +15,42 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::namespace ('Api')->group(function () {
-	Route::any('test', 'ApiController@test');
-	Route::any('logout', 'ApiController@logout');
-	Route::any('logincheck', 'ApiController@logincheck');
+	Route::any('login', 'ApiController@login');
+	Route::any('logout', 'ApiController@logoserverconfigut');
+	Route::any('apitokencheck', 'ApiController@apitokencheck');
 
-	Route::any('ano/test', 'AnotherController@sendbalance');
+	Route::any('ano/login', 'AnotherController@login');
 
-	Route::any('index', 'Apiindex@index');
-	Route::any('winlose', 'Apiindex@winlose');
-	Route::any('bethistory', 'Apiindex@bethistory');
-	Route::any('allreport', 'Apiindex@allreport');
-	Route::any('loginat', 'Apiindex@loginat');
-	Route::any('actionlog', 'Apiindex@actionlog');
+	// Route::any('index', 'Apiindex@index');
+	// Route::any('winlose', 'Apiindex@winlose');
+	// Route::any('bethistory', 'Apiindex@bethistory');
+	// Route::any('allreport', 'Apiindex@allreport');
+	// Route::any('loginat', 'Apiindex@loginat');
+	// Route::any('actionlog', 'Apiindex@actionlog');
 
-	Route::any('array', 'Apiarray@array');
+	// Route::any('sidebar', 'Apiarray@sidebar');
 
 	Route::any('newarray', 'Apiarray@newarray');
 
 });
 
 Route::namespace('MAXdis')->group(function(){
-	Route::any('account','Apiindex@account');
+	Route::any('sidebar','Apiindex@sidebar');
+
+	Route::any('playersave','Apiindex@playersave');
 	Route::any('game','Apiindex@game');
 	Route::any('gameinfo','Apiindex@gameinfo');
 	Route::any('report','Apiindex@report');
-	Route::any('report_dtl','Apiindex@report_dtl');
-	Route::any('server_config','Apiindex@server_config');
+	Route::any('reportdtl','Apiindex@reportdtl');
+	Route::any('serverconfig','Apiindex@serverconfig');
 	Route::any('player','Apiindex@player');
 
 	Route::any('account/u','Apiindex@accountupdate');
 });
 
 
-Route::post('login', 'ApiController@login');
-Route::post('register', 'ApiController@register');
+// Route::post('login', 'ApiController@login');
+// Route::post('register', 'ApiController@register');
 
 // Route::group(['middleware' => 'auth.jwt'], function () {
 // 	Route::get('logout', 'ApiController@logout');

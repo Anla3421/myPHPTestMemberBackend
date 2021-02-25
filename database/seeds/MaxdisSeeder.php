@@ -197,7 +197,7 @@ class MaxdisSeeder extends Seeder
             'table'=>'遊戲管理',
             'url'=>'',
             'mainpage'=>'5',
-            'icon1'=>'',
+            'icon1'=>'fas fa-cogs',
             'icon2'=>'',
             'icon3'=>'',
             'subid'=>'0',
@@ -207,10 +207,10 @@ class MaxdisSeeder extends Seeder
         DB::table('mainmenu')->insert([
             'id' =>'17',
             'table'=>'遊戲清單',
-            'url'=>'',
+            'url'=>'/game_list',
             'mainpage'=>'0',
-            'icon1'=>'',
-            'icon2'=>'',
+            'icon1'=>'fas fa-list-ul',
+            'icon2'=>'gamepad',
             'icon3'=>'',
             'subid'=>'5',
             'created_at' => date('Y-m-d H:i:s'),
@@ -219,10 +219,10 @@ class MaxdisSeeder extends Seeder
         DB::table('mainmenu')->insert([
             'id' =>'18',
             'table'=>'遊戲資訊',
-            'url'=>'',
+            'url'=>'/game_info',
             'mainpage'=>'0',
-            'icon1'=>'',
-            'icon2'=>'',
+            'icon1'=>'fas fa-info-circle',
+            'icon2'=>'scroll',
             'icon3'=>'',
             'subid'=>'5',
             'created_at' => date('Y-m-d H:i:s'),
@@ -231,10 +231,10 @@ class MaxdisSeeder extends Seeder
         DB::table('mainmenu')->insert([
             'id' =>'19',
             'table'=>'伺服器設定值',
-            'url'=>'',
+            'url'=>'/server_config',
             'mainpage'=>'0',
-            'icon1'=>'',
-            'icon2'=>'',
+            'icon1'=>'fas fa-server',
+            'icon2'=>'server',
             'icon3'=>'',
             'subid'=>'5',
             'created_at' => date('Y-m-d H:i:s'),
@@ -242,4 +242,5 @@ class MaxdisSeeder extends Seeder
         ]);
         
     }
+
 }

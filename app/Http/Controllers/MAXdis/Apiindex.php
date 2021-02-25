@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\MAXdis;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\models\mainmenu;
 use DB;
 use Exception;
+use Illuminate\Http\Request;
+use ArrayObject;
 
 class Apiindex extends Controller
 {
@@ -51,12 +53,16 @@ class Apiindex extends Controller
 	}
     
 
-    public function account(Request $request){
+    public function playersave(Request $request){
         try {
 			if (!$request->has('api_token')) {
-				throw new Exception("api_token can't be empty", 999);
+				throw new Exception("api_token can't be empty", 400);
+			}
+            if (!$request->has('id')) {
+				throw new Exception("id can't be empty", 400);
 			}
 
+            
 
         $player_save=DB::table('player_save')->get();
         // print_r($player_save);
@@ -78,10 +84,43 @@ class Apiindex extends Controller
         };
     }
 
+    public function player(Request $request){
+        try {
+			if (!$request->has('api_token')) {
+				throw new Exception("api_token can't be empty", 400);
+			}
+            if (!$request->has('id')) {
+				throw new Exception("id can't be empty", 400);
+			}
+
+
+        $player=DB::table('player')->get();
+        // print_r($player);
+
+        
+        return response()->json(['status' => 200,
+        'msg' => 'success',
+        'result' => [
+            'player' => $player,
+        ]
+        ]);
+
+
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => $e->getcode(),
+                'msg' => $e->getMessage(),
+            ]);
+        };
+    }
+
     public function game(Request $request){
         try {
 			if (!$request->has('api_token')) {
-				throw new Exception("api_token can't be empty", 999);
+				throw new Exception("api_token can't be empty", 400);
+			}
+            if (!$request->has('id')) {
+				throw new Exception("id can't be empty", 400);
 			}
 
 
@@ -107,7 +146,10 @@ class Apiindex extends Controller
     public function gameinfo(Request $request){
         try {
 			if (!$request->has('api_token')) {
-				throw new Exception("api_token can't be empty", 999);
+				throw new Exception("api_token can't be empty", 400);
+			}
+            if (!$request->has('id')) {
+				throw new Exception("id can't be empty", 400);
 			}
 
 
@@ -134,12 +176,15 @@ class Apiindex extends Controller
     public function report(Request $request){
         try {
 			if (!$request->has('api_token')) {
-				throw new Exception("api_token can't be empty", 999);
+				throw new Exception("api_token can't be empty", 400);
+			}
+            if (!$request->has('id')) {
+				throw new Exception("id can't be empty", 400);
 			}
 
 
-        $server_config=DB::table('report')->get();
-        // print_r($server_config);
+        $report=DB::table('report')->get();
+        // print_r($report);
 
         
         return response()->json(['status' => 200,
@@ -158,10 +203,13 @@ class Apiindex extends Controller
         };
     }
 
-    public function report_dtl(Request $request){
+    public function reportdtl(Request $request){
         try {
 			if (!$request->has('api_token')) {
-				throw new Exception("api_token can't be empty", 999);
+				throw new Exception("api_token can't be empty", 400);
+			}
+            if (!$request->has('id')) {
+				throw new Exception("id can't be empty", 400);
 			}
 
 
@@ -185,10 +233,13 @@ class Apiindex extends Controller
         };
     }
 
-    public function server_config(Request $request){
+    public function serverconfig(Request $request){
         try {
 			if (!$request->has('api_token')) {
-				throw new Exception("api_token can't be empty", 999);
+				throw new Exception("api_token can't be empty", 400);
+			}
+            if (!$request->has('id')) {
+				throw new Exception("id can't be empty", 400);
 			}
 
 
@@ -212,31 +263,6 @@ class Apiindex extends Controller
         };
     }
 
-    public function player(Request $request){
-        try {
-			if (!$request->has('api_token')) {
-				throw new Exception("api_token can't be empty", 999);
-			}
-
-
-        $player=DB::table('player')->get();
-        // print_r($player);
-
-        
-        return response()->json(['status' => 200,
-        'msg' => 'success',
-        'result' => [
-            'player' => $player,
-        ]
-        ]);
-
-
-        } catch (Exception $e) {
-            return response()->json([
-                'status' => $e->getcode(),
-                'msg' => $e->getMessage(),
-            ]);
-        };
-    }
+    
 
 }

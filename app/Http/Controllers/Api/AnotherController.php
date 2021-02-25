@@ -14,10 +14,10 @@ class AnotherController extends Controller
     protected $Client;
     protected $salt;
     public function __construct(){
-        $this->apiurl=env('APIURL','localhost:8079/api/test'); //@localhost
+        $this->apiurl=env('APIURL','localhost:8079/api/login'); //@localhost
         // $this->apiurl=env('APIURL','http://test777.ukyo.idv.tw/api/test');
         $this->Client= new Client([
-            'base_url'=>'localhost:8079/api/test', //@localhost
+            'base_url'=>'localhost:8079/api/login', //@localhost
             // 'base_url'=>'http://test777.ukyo.idv.tw/api/test',
             'time'=>2.0,
         ]);
@@ -35,9 +35,9 @@ class AnotherController extends Controller
 
 
 
-    public function sendbalance(Request $request){
-        $name='123';
-        $password='123';
+    public function login(Request $request){
+        // $name='123';
+        // $password='123';
         $unixtime=time();
         $res=$this->Client->request('post',$this->apiurl,['json'=>[
             'name'=>$name,
@@ -47,7 +47,7 @@ class AnotherController extends Controller
             'sign'=>md5($name . $unixtime . $this->salt . $password)
         ]]);
         // var_dump($this->Client);
-
+        // var_dump(md5($name . $unixtime . $this->salt . $password));
         if(!$request->user){
             $userID='name';
         }

@@ -17,7 +17,7 @@ class ApiController extends Controller {
 		// parent::__construct();
 		$this->salt = env('APP_SALT','iamsalt');
 	}
-	public function test(Request $request) {
+	public function login(Request $request) {
 		$sign = null;
 		// var_dump(!$request->has('name'));
 		try {
@@ -42,6 +42,7 @@ class ApiController extends Controller {
 			// global $unixtime;
 			$unixtime = $request->unixtime;
 			$logintime = date('Y-m-d H:m');
+			
 
 			if ($user->count() == 0) {
 				throw new Exception("you may typo your name, please check again", 403);
@@ -82,11 +83,11 @@ class ApiController extends Controller {
 					'chmod' => $dbuser->position,
 					'level' => $dbuser->level,
                     'cellphone' =>$dbuser->cellphone,
-
-                    // 'api_token'=>$dbuser->api_token,
-                    'api_token'=>$random,
+					'api_token'=>$random,
+                    
+					// 'api_token'=>$dbuser->api_token,
 					// 'sait'=>$this->salt,
-					'loginstatus'=>Auth::check(),
+					// 'loginstatus'=>Auth::check(),
 
 				],
 
@@ -101,7 +102,7 @@ class ApiController extends Controller {
 
 	}
 
-	public function logincheck(Request $request){
+	public function apitokencheck(Request $request){
 		// ini_set('display_errors', "ON");
 		// $request->api_token='y3jJNKzQa8r4BHPHIY3M7AlY9McCNWkg';0
 		// var_dump($request->api_token);
@@ -110,8 +111,10 @@ class ApiController extends Controller {
 		$db_api_token=DB::table('users')->where('api_token', $request->api_token)->pluck('api_token');
 		$dbuser=DB::table('users')->where('api_token', $request->api_token)->first();
 		// print_r($db_api_token);
+		// print_r($dbuser);
+		// print_r($request->api_token);
 		try {
-			if (!$request->api_token[0]){
+			if (!$request->api_token){
 				throw new Exception("token can not be NULL", 989);
 			}
 			// if(AUth::check()){
@@ -119,6 +122,9 @@ class ApiController extends Controller {
 			// }else{
 			// 	throw new Exception("your status is not login", 898);
 			// }
+			if($db_api_token->count() == 0){
+				throw new Exception("can not find your token at db", 987);
+			}
 			if($request->api_token!=$db_api_token[0]){
 				throw new Exception("can not find your token at db", 999);
 			}
@@ -127,11 +133,14 @@ class ApiController extends Controller {
 				'status'=> 200,
 				'msg'=> 'log status is fine.',
 				'result' => [
-				'id' => $dbuser->id,
-				'gender' => $dbuser->gender,
-				'chmod' => $dbuser->position,
-				'level' => $dbuser->level,
-				'cellphone' =>$dbuser->cellphone,
+
+					'id' => $dbuser->id,
+					'gender' => $dbuser->gender,
+					'chmod' => $dbuser->position,
+					'level' => $dbuser->level,
+                    'cellphone' =>$dbuser->cellphone,
+					'api_token'=>$db_api_token,
+					
 				],
 			]);
 
@@ -144,17 +153,23 @@ class ApiController extends Controller {
 	}
 
 	public function logout(Request $request){
+		// Auth::loginUsingId(2);
 		if (Auth::check()) {
 			Auth::logout();
-			DB::table('users')->where('id', $request->id)->delete('api_token');
+			DB::table('users')->where('id', $request->id)->update(['api_token'=>NULL]);
 			$api_token=DB::table('users')->where('id', $request->id)->pluck('api_token');
+			// print_r($api_token1);
+			// echo '我是段落';
+			// print_r($api_token2);
+			// echo '我是段落';
+			// print_r($api_token);
 			return response()->json([
 				'status'=>200,
 				'msg'=>'logout suceess',
 				'result'=>[
 					// 'name'=>$request->name,
 					'api_token'=>$api_token[0],
-					'loginstatus'=>Auth::check(),
+					// 'loginstatus'=>Auth::check(),
 				],
 
 			]);
@@ -166,7 +181,7 @@ class ApiController extends Controller {
 				'result'=>[
 					// 'name'=>$request->name,
 					'api_token'=>$api_token[0],
-					'loginstatus'=>Auth::check(),
+					// 'loginstatus'=>Auth::check(),
 				],
 
 			]);

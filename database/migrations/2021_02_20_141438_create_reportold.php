@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReport extends Migration
+class CreateReportold extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateReport extends Migration
      */
     public function up()
     {
-        Schema::create('report', function (Blueprint $table) {
+        Schema::create('reportold', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('win/lose');
@@ -29,6 +29,6 @@ class CreateReport extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('report');
+        Schema::dropIfExists('reportold');
     }
 }

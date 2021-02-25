@@ -11,7 +11,7 @@ use ArrayObject;
 
 class Apiarray extends Controller 
 {
-	public function array(Request $request) {
+	public function sidebar(Request $request) {
 
 		try {
 			if (!$request->has('api_token')) {
@@ -59,7 +59,7 @@ class Apiarray extends Controller
 			return response()->json(['status' => 200,
 			'msg' => 'success',
 			'result' => [
-				'main' => $main,
+				'sidebar' => $main,
 			]
 			]);
 
