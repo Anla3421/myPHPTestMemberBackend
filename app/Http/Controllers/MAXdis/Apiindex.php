@@ -4,6 +4,9 @@ namespace App\Http\Controllers\MAXdis;
 
 use App\Http\Controllers\Controller;
 use App\models\mainmenu;
+use App\models\users;
+use App\models\player;
+use App\models\defer;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
@@ -20,6 +23,11 @@ class Apiindex extends Controller
 			if (!$request->has('api_token')) {
 				throw new Exception("api_token can't be empty", 999);
 			}
+            $api_token=users::where('api_token',$request->api_token)->first()->api_token;
+            if ($api_token==NULL){
+                throw new Exception("api_token can't be empty", 987);
+            }
+
 			$mainmenu = mainmenu::get();
 			foreach ($mainmenu as $key => $value) {
 				if($value->mainpage==0){
@@ -62,6 +70,15 @@ class Apiindex extends Controller
 				throw new Exception("id can't be empty", 400);
 			}
 
+            // $id=DB::table('users')->find($request->id)->toarray()->api_token;
+            $id=users::find($request->id);
+            if($id->api_token == NULL){
+				throw new Exception("can not find your token at db", 987);
+			}
+			if($id->api_token!=$request->api_token){
+				throw new Exception("can not find your token at db", 999);
+			}
+
             
 
         $player_save=DB::table('player_save')->get();
@@ -92,6 +109,15 @@ class Apiindex extends Controller
             if (!$request->has('id')) {
 				throw new Exception("id can't be empty", 400);
 			}
+            $id=users::find($request->id);
+            if($id->api_token == NULL){
+				throw new Exception("can not find your token at db", 987);
+			}
+			if($id->api_token!=$request->api_token){
+				throw new Exception("can not find your token at db", 999);
+			}
+
+
 
 
         $player=DB::table('player')->get();
@@ -114,6 +140,18 @@ class Apiindex extends Controller
         };
     }
 
+    public function playercreate(Request $request){
+        $create = true;
+        $defer = new defer;
+        return $defer->verifytokenandid($request,$create);
+    }
+
+    public function playerupdate(Request $request){
+        $create = false;
+        $defer = new defer;
+        return $defer->verifytokenandid($request,$create);
+    }
+
     public function game(Request $request){
         try {
 			if (!$request->has('api_token')) {
@@ -122,7 +160,13 @@ class Apiindex extends Controller
             if (!$request->has('id')) {
 				throw new Exception("id can't be empty", 400);
 			}
-
+            $id=users::find($request->id);
+            if($id->api_token == NULL){
+				throw new Exception("can not find your token at db", 987);
+			}
+			if($id->api_token!=$request->api_token){
+				throw new Exception("can not find your token at db", 999);
+			}
 
         $game=DB::table('game')->get();
 
@@ -151,7 +195,13 @@ class Apiindex extends Controller
             if (!$request->has('id')) {
 				throw new Exception("id can't be empty", 400);
 			}
-
+            $id=users::find($request->id);
+            if($id->api_token == NULL){
+				throw new Exception("can not find your token at db", 987);
+			}
+			if($id->api_token!=$request->api_token){
+				throw new Exception("can not find your token at db", 999);
+			}
 
         $gameinfo=DB::table('gameinfo')->get();
         // print_r($gameinfo);
@@ -181,7 +231,13 @@ class Apiindex extends Controller
             if (!$request->has('id')) {
 				throw new Exception("id can't be empty", 400);
 			}
-
+            $id=users::find($request->id);
+            if($id->api_token == NULL){
+				throw new Exception("can not find your token at db", 987);
+			}
+			if($id->api_token!=$request->api_token){
+				throw new Exception("can not find your token at db", 999);
+			}
 
         $report=DB::table('report')->get();
         // print_r($report);
@@ -211,7 +267,13 @@ class Apiindex extends Controller
             if (!$request->has('id')) {
 				throw new Exception("id can't be empty", 400);
 			}
-
+            $id=users::find($request->id);
+            if($id->api_token == NULL){
+				throw new Exception("can not find your token at db", 987);
+			}
+			if($id->api_token!=$request->api_token){
+				throw new Exception("can not find your token at db", 999);
+			}
 
         $report_dtl=DB::table('report_dtl')->get();
         // print_r($server_config);
@@ -242,6 +304,22 @@ class Apiindex extends Controller
 				throw new Exception("id can't be empty", 400);
 			}
 
+            $id=users::find($request->id);
+            // print_r($id->position);
+            if($id->api_token == NULL){
+				throw new Exception("can not find your token at db", 987);
+			}
+			if($id->api_token != $request->api_token){
+				throw new Exception("can not find your token at db", 999);
+			}
+            //chmod check
+            // if(!$id->position){
+            //     throw new Exception("Forbidden", 403);
+            // };
+            // if($id->position != 'administrator'){
+            //     throw new Exception("Forbidden", 403);
+            // };
+            
 
         $server_config=DB::table('server_config')->get();
         // print_r($server_config);

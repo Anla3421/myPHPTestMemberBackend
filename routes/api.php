@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace ('Api')->group(function () {
 	Route::any('login', 'ApiController@login');
-	Route::any('logout', 'ApiController@logoserverconfigut');
+	Route::any('logout', 'ApiController@logout');
 	Route::any('apitokencheck', 'ApiController@apitokencheck');
 
 	Route::any('ano/login', 'AnotherController@login');
@@ -38,14 +38,29 @@ Route::namespace('MAXdis')->group(function(){
 	Route::any('sidebar','Apiindex@sidebar');
 
 	Route::any('playersave','Apiindex@playersave');
-	Route::any('game','Apiindex@game');
-	Route::any('gameinfo','Apiindex@gameinfo');
-	Route::any('report','Apiindex@report');
-	Route::any('reportdtl','Apiindex@reportdtl');
-	Route::any('serverconfig','Apiindex@serverconfig');
-	Route::any('player','Apiindex@player');
+	Route::any('playersave/c','Apiindex@playersavecreate');
+	Route::any('playersave/u','Apiindex@playersaveupdate');
 
-	Route::any('account/u','Apiindex@accountupdate');
+	Route::any('game','Apiindex@game');
+	Route::any('game/c','Apiindex@gamecreate');
+	Route::any('game/u','Apiindex@gameupdate');
+	
+	Route::any('gameinfo','Apiindex@gameinfo');
+	Route::any('gameinfo/c','Apiindex@gameinfocreate');
+	Route::any('gameinfo/u','Apiindex@gameinfoupdate');
+
+	Route::any('report','Apiindex@report');
+
+	Route::any('reportdtl','Apiindex@reportdtl');
+
+	Route::any('serverconfig','Apiindex@serverconfig');
+	Route::any('serverconfig/u','Apiindex@serverconfigupdate');
+	
+	Route::any('player','Apiindex@player');
+	Route::post('player/c','Apiindex@playercreate');
+	Route::post('player/u','Apiindex@playerupdate');
+	
+	// Route::any('account/u','Apiindex@accountupdate');
 });
 
 

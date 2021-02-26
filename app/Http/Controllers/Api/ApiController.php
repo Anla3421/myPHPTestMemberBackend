@@ -154,37 +154,47 @@ class ApiController extends Controller {
 
 	public function logout(Request $request){
 		// Auth::loginUsingId(2);
-		if (Auth::check()) {
-			Auth::logout();
-			DB::table('users')->where('id', $request->id)->update(['api_token'=>NULL]);
-			$api_token=DB::table('users')->where('id', $request->id)->pluck('api_token');
-			// print_r($api_token1);
-			// echo '我是段落';
-			// print_r($api_token2);
-			// echo '我是段落';
-			// print_r($api_token);
-			return response()->json([
-				'status'=>200,
-				'msg'=>'logout suceess',
-				'result'=>[
-					// 'name'=>$request->name,
-					'api_token'=>$api_token[0],
-					// 'loginstatus'=>Auth::check(),
-				],
+			
+		DB::table('users')->where('id', $request->id)->update(['api_token'=>NULL]);
+		$api_token=DB::table('users')->where('id', $request->id)->pluck('api_token');
+		Auth::logout();
+		return response()->json([
+			'status'=>200,
+			'msg'=>'logout suceess',
+			'result'=>[
+				// 'name'=>$request->name,
+				'api_token'=>$api_token[0],
+				// 'loginstatus'=>Auth::check(),
+			],
 
-			]);
-		} else {
-			$api_token=DB::table('users')->where('id', $request->id)->pluck('api_token');
-			return response()->json([
-				'status'=>407,
-				'msg'=>'you can not logout when you are logout',
-				'result'=>[
-					// 'name'=>$request->name,
-					'api_token'=>$api_token[0],
-					// 'loginstatus'=>Auth::check(),
-				],
+		]);
 
-			]);
-		}
+		// if (Auth::check()) {
+		// 	Auth::logout();
+		// 	DB::table('users')->where('id', $request->id)->update(['api_token'=>NULL]);
+		// 	$api_token=DB::table('users')->where('id', $request->id)->pluck('api_token');
+		// 	return response()->json([
+		// 		'status'=>200,
+		// 		'msg'=>'logout suceess',
+		// 		'result'=>[
+		// 			// 'name'=>$request->name,
+		// 			'api_token'=>$api_token[0],
+		// 			// 'loginstatus'=>Auth::check(),
+		// 		],
+
+		// 	]);
+		// } else {
+		// 	$api_token=DB::table('users')->where('id', $request->id)->pluck('api_token');
+		// 	return response()->json([
+		// 		'status'=>407,
+		// 		'msg'=>'you can not logout when you are logout',
+		// 		'result'=>[
+		// 			// 'name'=>$request->name,
+		// 			'api_token'=>$api_token[0],
+		// 			// 'loginstatus'=>Auth::check(),
+		// 		],
+
+		// 	]);
+		// }
 	}
 }

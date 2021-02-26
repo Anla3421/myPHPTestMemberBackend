@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a9ccbc62f2b7dc5475445aaf7c56f1d1",
+    "content-hash": "5b7d8654ce8ed824f7c5f5f49220ef2f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2652,6 +2652,53 @@
                 "source": "https://github.com/opis/closure/tree/3.6.1"
             },
             "time": "2020-11-07T02:01:34+00:00"
+        },
+        {
+            "name": "php-defer/php-defer",
+            "version": "v4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-defer/php-defer.git",
+                "reference": "63747a103847b4bc9a534ee3e5f133b653d01a89"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-defer/php-defer/zipball/63747a103847b4bc9a534ee3e5f133b653d01a89",
+                "reference": "63747a103847b4bc9a534ee3e5f133b653d01a89",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.5 || ^8.4"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/functions.inc.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bartłomiej Krukowski",
+                    "email": "bartlomiej@krukowski.me"
+                }
+            ],
+            "description": "Golang's defer statement for PHP",
+            "keywords": [
+                "defer",
+                "golang"
+            ],
+            "support": {
+                "issues": "https://github.com/php-defer/php-defer/issues",
+                "source": "https://github.com/php-defer/php-defer/tree/master"
+            },
+            "time": "2019-10-21T17:11:24+00:00"
         },
         {
             "name": "phpoption/phpoption",
