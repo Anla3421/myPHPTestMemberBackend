@@ -4,11 +4,20 @@ namespace App\models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Exception;
+use DB;
 
 class defer extends Model
 {
-    protected function verifyupdate($request){
-        player::find($request->id)->update([
+    protected function verifyupdate($request,$table){
+        // player::find($request->id)->update([
+        //     'provider_id'=>$request->provider_id,
+        //     'name'=>$request->name,
+        //     'uniq_id'=>$request->uniq_id,
+        //     'created_at'=>$request->created_at,
+        //     'updated_at'=>$request->updated_at,
+        // ]);
+        DB::table($table)->where('id',$request->id)->update([
             'provider_id'=>$request->provider_id,
             'name'=>$request->name,
             'uniq_id'=>$request->uniq_id,
@@ -16,8 +25,15 @@ class defer extends Model
             'updated_at'=>$request->updated_at,
         ]);
     }
-    protected function verifycreate($request){
-        player::create([
+    protected function verifycreate($request,$table){
+        // player::create([
+        //     'provider_id'=>$request->provider_id,
+        //     'name'=>$request->name,
+        //     'uniq_id'=>$request->uniq_id,
+        //     'created_at'=>$request->created_at,
+        //     'updated_at'=>$request->updated_at,
+        // ]);
+        DB::table($table)->insert([
             'provider_id'=>$request->provider_id,
             'name'=>$request->name,
             'uniq_id'=>$request->uniq_id,
@@ -25,7 +41,7 @@ class defer extends Model
             'updated_at'=>$request->updated_at,
         ]);
     }
-    public function verifytokenandid(Request $request,$create){
+    public function verifytokenandid(Request $request,$create,$table){
         try {
             if (!$request->has('api_token')) {
                 throw new Exception("api_token can't be empty", 400);
@@ -49,9 +65,9 @@ class defer extends Model
 
             
             if ($create){
-                $this->verifycreate($request);
+                $this->verifycreate($request,$table);
             }else{
-                $this->verifyupdate($request);
+                $this->verifyupdate($request,$table);
             }
 
             return response()->json([

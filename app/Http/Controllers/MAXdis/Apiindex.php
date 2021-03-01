@@ -101,6 +101,20 @@ class Apiindex extends Controller
         };
     }
 
+    public function playersavecreate(Request $request){
+        $table = 'player_save';
+        $create = true;
+        $defer = new defer;
+        return $defer->verifytokenandid($request,$create,$table);
+    }
+
+    public function playersaveupdate(Request $request){
+        $table = 'player_save';
+        $create = false;
+        $defer = new defer;
+        return $defer->verifytokenandid($request,$create,$table);
+    }
+
     public function player(Request $request){
         try {
 			if (!$request->has('api_token')) {
@@ -141,15 +155,17 @@ class Apiindex extends Controller
     }
 
     public function playercreate(Request $request){
+        $table = 'player';
         $create = true;
         $defer = new defer;
-        return $defer->verifytokenandid($request,$create);
+        return $defer->verifytokenandid($request,$create,$table);
     }
 
     public function playerupdate(Request $request){
+        $table = 'player';
         $create = false;
         $defer = new defer;
-        return $defer->verifytokenandid($request,$create);
+        return $defer->verifytokenandid($request,$create,$table);
     }
 
     public function game(Request $request){
@@ -185,6 +201,20 @@ class Apiindex extends Controller
                 'msg' => $e->getMessage(),
             ]);
         };
+    }
+
+    public function gamecreate(Request $request){
+        $table = 'game';
+        $create = true;
+        $defer = new defer;
+        return $defer->verifytokenandid($request,$create,$table);
+    }
+
+    public function gameupdate(Request $request){
+        $table = 'game';
+        $create = false;
+        $defer = new defer;
+        return $defer->verifytokenandid($request,$create,$table);
     }
 
     public function gameinfo(Request $request){
@@ -223,6 +253,20 @@ class Apiindex extends Controller
         };
     }
 
+    public function gameinfocreate(Request $request){
+        $table = 'gameinfo';
+        $create = true;
+        $defer = new defer;
+        return $defer->verifytokenandid($request,$create,$table);
+    }
+
+    public function gameinfoupdate(Request $request){
+        $table = 'gameinfo';
+        $create = false;
+        $defer = new defer;
+        return $defer->verifytokenandid($request,$create,$table);
+    }
+
     public function report(Request $request){
         try {
 			if (!$request->has('api_token')) {
@@ -257,6 +301,20 @@ class Apiindex extends Controller
                 'msg' => $e->getMessage(),
             ]);
         };
+    }
+
+    public function reportcreate(Request $request){
+        $table = 'report';
+        $create = true;
+        $defer = new defer;
+        return $defer->verifytokenandid($request,$create,$table);
+    }
+
+    public function reportupdate(Request $request){
+        $table = 'report';
+        $create = false;
+        $defer = new defer;
+        return $defer->verifytokenandid($request,$create,$table);
     }
 
     public function reportdtl(Request $request){
@@ -341,6 +399,19 @@ class Apiindex extends Controller
         };
     }
 
+    public function serverconfigcreate(Request $request){
+        $table = 'server_config';
+        $create = true;
+        $defer = new defer;
+        return $defer->verifytokenandid($request,$create,$table);
+    }
+
+    public function serverconfigupdate(Request $request){
+        $table = 'server_config';
+        $create = false;
+        $defer = new defer;
+        return $defer->verifytokenandid($request,$create,$table);
+    }
     
 
 }
