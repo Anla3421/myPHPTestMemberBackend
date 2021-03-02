@@ -17,63 +17,163 @@ class defer extends Model
         //     'created_at'=>$request->created_at,
         //     'updated_at'=>$request->updated_at,
         // ]);
+        switch ($table) {
+            case 'player':
+                DB::table($table)->where('id',$request->update_id)->update([
+                    'provider_id'=>$request->provider_id,
+                    'name'=>$request->name,
+                    'uniq_id'=>$request->uniq_id,
+                    'last_at'=>$request->last_at,
+                ]);
+                break;
 
-        //player
-        DB::table($table)->where('id',$request->id)->update([
-            'provider_id'=>$request->provider_id,
-            'name'=>$request->name,
-            'uniq_id'=>$request->uniq_id,
-            'last_at'=>$request->last_at,
-        ]);
-    //     //player_save
-    //     DB::table($table)->where('id',$request->id)->update([
-    //         'gid'=>$request->gid,
-    //         'token'=>$request->token,
-    //         'name'=>$request->name,
-    //         'profile'=>$request->profile,
-    //         'value'=>$request->value,
-    //         'created_at'=>$request->created_at,
-    //         'updated_at'=>$request->updated_at,
-    //     ]);
-    //     //game
-    //     DB::table($table)->where('id',$request->id)->update([
-    //         'gid'=>$request->gid,
-    //         'token'=>$request->token,
-    //         'name'=>$request->name,
-    //         'profile'=>$request->profile,
-    //         'value'=>$request->value,
-    //         'created_at'=>$request->created_at,
-    //         'updated_at'=>$request->updated_at,
-    //     ]);
-    //     //game_info
-    //     DB::table($table)->where('id',$request->id)->update([
-    //         'gid'=>$request->gid,
-    //         'token'=>$request->token,
-    //         'name'=>$request->name,
-    //         'profile'=>$request->profile,
-    //         'value'=>$request->value,
-    //         'created_at'=>$request->created_at,
-    //         'updated_at'=>$request->updated_at,
-    //     ]);
-    //     //report
-    //     DB::table($table)->where('id',$request->id)->update([
-    //         'gid'=>$request->gid,
-    //         'token'=>$request->token,
-    //         'name'=>$request->name,
-    //         'profile'=>$request->profile,
-    //         'value'=>$request->value,
-    //         'created_at'=>$request->created_at,
-    //         'updated_at'=>$request->updated_at,
-    //     ]);
-    //     //serverconfig
-    //     DB::table($table)->where('id',$request->id)->update([
-    //         'gid'=>$request->gid,
-    //         'name'=>$request->name,
-    //         'profile'=>$request->profile,
-    //         'value'=>$request->value,
-    //         'updated_at'=>$request->updated_at,
-    //     ]);
+            case 'player_save':
+                DB::table($table)->where('id',$request->update_id)->update([
+                    'gid'=>$request->gid,
+                    'token'=>$request->token,
+                    'name'=>$request->name,
+                    'profile'=>$request->profile,
+                    'value'=>$request->value,
+                    'updated_at'=>$request->updated_at,
+                ]);
+                break;
+
+            case 'game':
+                DB::table($table)->where('id',$request->update_id)->update([
+                    'gid' =>$request->gid,
+                    'info_id'=>$request->info_id,
+                    'provider_id'=>$request->provider_id,
+                    'status'=>$request->status,
+                    'created_at' => $request->created_at,
+                    'updated_at' => $request->updated_at,
+                ]);
+                break;
+
+            case 'game_info':
+                DB::table($table)->where('id',$request->$request->update_id)->update([
+                    'info_id'=>$request->info_id,
+                    'name' =>$request->name,
+                    'name_cn' =>$request->name_cn,
+                    'name_en' =>$request->name_en,
+                    'name_jp' =>$request->name_jp,
+                    'server_host'=>$request->server_host,
+                    'server_path'=>$request->server_path,
+                    'server_port'=>$request->server_port,
+                    'server_demo_port'=>$request->server_demo_port,
+                    'client_dir_name'=>$request->client_dir_name,
+                    'created_at' => $request->created_at,
+                    'updated_at' => $request->updated_at,
+                ]);
+                break;
+
+            case 'provider':
+                DB::table($table)->where('id',$request->$request->update_id)->update([
+                    'username'=>$request->username,
+                    'private_key'=>$request->private_key,
+                    'game_url'=>$request->game_url,
+                    'name'=>$request->name,
+                    'enabled'=>$request->enabled,
+                    'created_at' => $request->created_at,
+                    'updated_at' => $request->updated_at,
+                ]);
+               break;
+            
+            case 'report':
+                DB::table($table)->where('id',$request->$request->update_id)->update([
+                    'token'=>$request->token,
+                    'gid'=>$request->gid,
+                    'in'=>$request->in,
+                    'out'=>$request->out,
+                    'wage'=>$request->wage,
+                    'surplus'=>$request->surplus,
+                    'goods'=>$request->goods,
+                    'profile'=>$request->profile,
+                    'created_at' =>$request->created_at,
+                ]);
+                break;
+
+            case 'serverconfig':
+                DB::table($table)->where('id',$request->$request->update_id)->update([
+                    'gid'=>$request->gid,
+                    'name'=>$request->name,
+                    'profile'=>$request->profile,
+                    'value'=>$request->value,
+                    'updated_at'=>$request->updated_at,
+                ]);
+                break;                                                
+            
+            default:
+                throw new Exception("Bad Request", 400);
+                break;
+        }
+
+        // //player
+        // DB::table($table)->where('id',$request->update_id)->update([
+        //     'provider_id'=>$request->provider_id,
+        //     'name'=>$request->name,
+        //     'uniq_id'=>$request->uniq_id,
+        //     'last_at'=>$request->last_at,
+        // ]);
+
+        // //player_save
+        // DB::table($table)->where('id',$request->update_id)->update([
+        //     'gid'=>$request->gid,
+        //     'token'=>$request->token,
+        //     'name'=>$request->name,
+        //     'profile'=>$request->profile,
+        //     'value'=>$request->value,
+        //     'updated_at'=>$request->updated_at,
+        // ]);
+
+        // //game
+        // DB::table($table)->where('id',$request->update_id)->update([
+        //     'gid' =>$request->gid,
+        //     'info_id'=>$request->info_id,
+        //     'provider_id'=>$request->provider_id,
+        //     'status'=>$request->status,
+        //     'created_at' => $request->created_at,
+        //     'updated_at' => $request->updated_at,
+        // ]);
+
+        // //game_info
+        // DB::table($table)->where('id',$request->$request->update_id)->update([
+        //     'info_id'=>$request->info_id,
+        //     'name' =>$request->name,
+        //     'name_cn' =>$request->name_cn,
+        //     'name_en' =>$request->name_en,
+        //     'name_jp' =>$request->name_jp,
+        //     'server_host'=>$request->server_host,
+        //     'server_path'=>$request->server_path,
+        //     'server_port'=>$request->server_port,
+        //     'server_demo_port'=>$request->server_demo_port,
+        //     'client_dir_name'=>$request->client_dir_name,
+        //     'created_at' => $request->created_at,
+        //     'updated_at' => $request->updated_at,
+        // ]);
+
+        // //report
+        // DB::table($table)->where('id',$request->$request->update_id)->update([
+        //     'token'=>$request->token,
+        //     'gid'=>$request->gid,
+        //     'in'=>$request->in,
+        //     'out'=>$request->out,
+        //     'wage'=>$request->wage,
+        //     'surplus'=>$request->surplus,
+        //     'goods'=>$request->goods,
+        //     'profile'=>$request->profile,
+        //     'created_at' =>$request->created_at,
+        // ]);
+
+        // //serverconfig
+        // DB::table($table)->where('id',$request->$request->update_id)->update([
+        //     'gid'=>$request->gid,
+        //     'name'=>$request->name,
+        //     'profile'=>$request->profile,
+        //     'value'=>$request->value,
+        //     'updated_at'=>$request->updated_at,
+        // ]);
     }
+
     protected function verifycreate($request,$table){
         // player::create([
         //     'provider_id'=>$request->provider_id,
@@ -83,14 +183,103 @@ class defer extends Model
         //     'updated_at'=>$request->updated_at,
         // ]);
         
-        // player
-        DB::table($table)->insert([
-            'provider_id'=>$request->provider_id,
-            'name'=>$request->name,
-            'uniq_id'=>$request->uniq_id,
-            'last_at'=>$request->last_at,
-        ]);
+        switch ($table) {
+            case 'player':
+                DB::table($table)->where('id',$request->update_id)->insert([
+                    'provider_id'=>$request->provider_id,
+                    'name'=>$request->name,
+                    'uniq_id'=>$request->uniq_id,
+                    'last_at'=>$request->last_at,
+                ]);
+                break;
+            case 'player_save':
+                DB::table($table)->where('id',$request->update_id)->insert([
+                    'gid'=>$request->gid,
+                    'token'=>$request->token,
+                    'name'=>$request->name,
+                    'profile'=>$request->profile,
+                    'value'=>$request->value,
+                    'updated_at'=>$request->updated_at,
+                ]);
+                break;
+            case 'game':
+                DB::table($table)->where('id',$request->update_id)->insert([
+                    'gid' =>$request->gid,
+                    'info_id'=>$request->info_id,
+                    'provider_id'=>$request->provider_id,
+                    'status'=>$request->status,
+                    'created_at' => $request->created_at,
+                    'updated_at' => $request->updated_at,
+                ]);
+                break;                                
+            case 'game_info':
+                DB::table($table)->where('id',$request->$request->update_id)->insert([
+                    'info_id'=>$request->info_id,
+                    'name' =>$request->name,
+                    'name_cn' =>$request->name_cn,
+                    'name_en' =>$request->name_en,
+                    'name_jp' =>$request->name_jp,
+                    'server_host'=>$request->server_host,
+                    'server_path'=>$request->server_path,
+                    'server_port'=>$request->server_port,
+                    'server_demo_port'=>$request->server_demo_port,
+                    'client_dir_name'=>$request->client_dir_name,
+                    'created_at' => $request->created_at,
+                    'updated_at' => $request->updated_at,
+                ]);
+                break;
+
+            case 'provider':
+                DB::table($table)->where('id',$request->$request->update_id)->insert([
+                    'username'=>$request->username,
+                    'private_key'=>$request->private_key,
+                    'game_url'=>$request->game_url,
+                    'name'=>$request->name,
+                    'enabled'=>$request->enabled,
+                    'created_at' => $request->created_at,
+                    'updated_at' => $request->updated_at,
+                ]);
+                break;
+
+            case 'report':
+                DB::table($table)->where('id',$request->$request->update_id)->insert([
+                    'token'=>$request->token,
+                    'gid'=>$request->gid,
+                    'in'=>$request->in,
+                    'out'=>$request->out,
+                    'wage'=>$request->wage,
+                    'surplus'=>$request->surplus,
+                    'goods'=>$request->goods,
+                    'profile'=>$request->profile,
+                    'created_at' =>$request->created_at,
+                ]);
+                break;
+            case 'serverconfig':
+                DB::table($table)->where('id',$request->$request->update_id)->insert([
+                    'gid'=>$request->gid,
+                    'name'=>$request->name,
+                    'profile'=>$request->profile,
+                    'value'=>$request->value,
+                    'updated_at'=>$request->updated_at,
+                ]);
+                break;                                                
+                
+                
+            
+            default:
+                throw new Exception("Bad Request", 400);
+                break;
+        }
     }
+    //     // player
+    //     DB::table($table)->insert([
+    //         'provider_id'=>$request->provider_id,
+    //         'name'=>$request->name,
+    //         'uniq_id'=>$request->uniq_id,
+    //         'last_at'=>$request->last_at,
+    //     ]);
+    // }
+
     public function verifytokenandid(Request $request,$create,$table){
         try {
             if (!$request->has('api_token')) {

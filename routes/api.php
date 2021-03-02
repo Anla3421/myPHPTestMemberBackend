@@ -49,7 +49,12 @@ Route::namespace('MAXdis')->group(function(){
 	Route::any('gameinfo/c','Apiindex@gameinfocreate');
 	Route::any('gameinfo/u','Apiindex@gameinfoupdate');
 
+	Route::any('providerid','Apiindex@providerid');
+	Route::any('providerid/c','Apiindex@provideridcreate');
+	Route::any('providerid/u','Apiindex@provideridupdate');
+
 	Route::any('report','Apiindex@report');
+	Route::any('report/c','Apiindex@reportcreate');
 
 	Route::any('reportdtl','Apiindex@reportdtl');
 
@@ -59,6 +64,8 @@ Route::namespace('MAXdis')->group(function(){
 	Route::any('player','Apiindex@player');
 	Route::post('player/c','Apiindex@playercreate');
 	Route::post('player/u','Apiindex@playerupdate');
+
+
 	
 	// Route::any('account/u','Apiindex@accountupdate');
 });
