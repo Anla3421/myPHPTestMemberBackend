@@ -10,13 +10,18 @@ class CreatePlayerTable extends Migration
     {
         Schema::create('player', function (Blueprint $table) {
 
-		$table->increments('id')->unsigned();
-		$table->integer('provider_id',)->unsigned();
-		$table->string('name',64);
-		$table->string('uniq_id',64);
-		// $table->timestamp('last_at');
-        $table->timestamps();
-		// $table->primary('id');
+		// $table->increments('id')->unsigned();
+        // $table->increments('id');
+        $table->increments('id')->unsigned();
+		$table->integer('provider_id',)->unsigned()->unique();
+		$table->string('name',64)->unique();
+		$table->string('uniq_id',64)->unique();
+		$table->timestamp('last_at');
+        // $table->timestamps();
+        // $table->primary(['id','provider_id']);
+        
+		
+        
 
         });
     }

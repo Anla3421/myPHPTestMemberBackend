@@ -16,9 +16,9 @@ class CreateProviderTable extends Migration
 		$table->string('game_url',150);
 		$table->string('name',20);
 		$table->tinyInteger('enabled',);
-		// $table->timestamp('updated_at')->default('CURRENT_TIMESTAMP');
-		// $table->timestamp('created_at')->default('CURRENT_TIMESTAMP');
-        $table->timestamps();
+        $table->timestamp('created_at')->useCurrent();
+        $table->timestamp('updated_at')->useCurrent();
+        // $table->timestamps(0);
 		// $table->primary('id');
 
         });

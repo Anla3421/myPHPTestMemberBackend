@@ -233,14 +233,14 @@ class Apiindex extends Controller
 				throw new Exception("can not find your token at db", 999);
 			}
 
-        $gameinfo=DB::table('gameinfo')->get();
+        $gameinfo=DB::table('game_info')->get();
         // print_r($gameinfo);
 
         
         return response()->json(['status' => 200,
         'msg' => 'success',
         'result' => [
-            'gameinfo' => $gameinfo,
+            'game_info' => $gameinfo,
         ]
         ]);
 

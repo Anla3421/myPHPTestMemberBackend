@@ -17,13 +17,62 @@ class defer extends Model
         //     'created_at'=>$request->created_at,
         //     'updated_at'=>$request->updated_at,
         // ]);
+
+        //player
         DB::table($table)->where('id',$request->id)->update([
             'provider_id'=>$request->provider_id,
             'name'=>$request->name,
             'uniq_id'=>$request->uniq_id,
-            'created_at'=>$request->created_at,
-            'updated_at'=>$request->updated_at,
+            'last_at'=>$request->last_at,
         ]);
+    //     //player_save
+    //     DB::table($table)->where('id',$request->id)->update([
+    //         'gid'=>$request->gid,
+    //         'token'=>$request->token,
+    //         'name'=>$request->name,
+    //         'profile'=>$request->profile,
+    //         'value'=>$request->value,
+    //         'created_at'=>$request->created_at,
+    //         'updated_at'=>$request->updated_at,
+    //     ]);
+    //     //game
+    //     DB::table($table)->where('id',$request->id)->update([
+    //         'gid'=>$request->gid,
+    //         'token'=>$request->token,
+    //         'name'=>$request->name,
+    //         'profile'=>$request->profile,
+    //         'value'=>$request->value,
+    //         'created_at'=>$request->created_at,
+    //         'updated_at'=>$request->updated_at,
+    //     ]);
+    //     //game_info
+    //     DB::table($table)->where('id',$request->id)->update([
+    //         'gid'=>$request->gid,
+    //         'token'=>$request->token,
+    //         'name'=>$request->name,
+    //         'profile'=>$request->profile,
+    //         'value'=>$request->value,
+    //         'created_at'=>$request->created_at,
+    //         'updated_at'=>$request->updated_at,
+    //     ]);
+    //     //report
+    //     DB::table($table)->where('id',$request->id)->update([
+    //         'gid'=>$request->gid,
+    //         'token'=>$request->token,
+    //         'name'=>$request->name,
+    //         'profile'=>$request->profile,
+    //         'value'=>$request->value,
+    //         'created_at'=>$request->created_at,
+    //         'updated_at'=>$request->updated_at,
+    //     ]);
+    //     //serverconfig
+    //     DB::table($table)->where('id',$request->id)->update([
+    //         'gid'=>$request->gid,
+    //         'name'=>$request->name,
+    //         'profile'=>$request->profile,
+    //         'value'=>$request->value,
+    //         'updated_at'=>$request->updated_at,
+    //     ]);
     }
     protected function verifycreate($request,$table){
         // player::create([
@@ -33,12 +82,13 @@ class defer extends Model
         //     'created_at'=>$request->created_at,
         //     'updated_at'=>$request->updated_at,
         // ]);
+        
+        // player
         DB::table($table)->insert([
             'provider_id'=>$request->provider_id,
             'name'=>$request->name,
             'uniq_id'=>$request->uniq_id,
-            'created_at'=>$request->created_at,
-            'updated_at'=>$request->updated_at,
+            'last_at'=>$request->last_at,
         ]);
     }
     public function verifytokenandid(Request $request,$create,$table){

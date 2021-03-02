@@ -20,9 +20,9 @@ class CreateGameInfoTable extends Migration
 		$table->integer('server_port',);
 		$table->integer('server_demo_port',);
 		$table->string('client_dir_name',30);
-		// $table->timestamp('updated_at')->default('CURRENT_TIMESTAMP');
-		// $table->timestamp('create_at')->default('CURRENT_TIMESTAMP');
-		$table->timestamps();
+        $table->timestamp('created_at')->useCurrent();
+        $table->timestamp('updated_at')->useCurrent();
+		// $table->timestamps(0);
 		// $table->primary('info_id');
 
         });

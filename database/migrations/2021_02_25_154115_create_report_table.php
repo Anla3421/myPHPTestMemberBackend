@@ -14,13 +14,13 @@ class CreateReportTable extends Migration
 		$table->string('token',64);
 		$table->integer('gid',);
 		$table->decimal('in',20,3);
-		$table->decimal('out',20,3);
-		$table->decimal('wage',10,3);
+		$table->decimal('out',20,3)->unsigned();
+		$table->decimal('wage',10,3)->unsigned();
 		$table->decimal('surplus',20,3)->default('0.000');
 		$table->tinyInteger('goods',)->default('0');
 		$table->tinyInteger('profile',)->default('0');
-		// $table->timestamp('created_at')->default('CURRENT_TIMESTAMP');
-		$table->timestamps();
+		$table->timestamp('created_at')->useCurrent();
+		// $table->timestamps();
 		// $table->primary('id');
 
         });
