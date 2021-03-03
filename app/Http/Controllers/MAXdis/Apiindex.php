@@ -254,14 +254,64 @@ class Apiindex extends Controller
     }
 
     public function gameinfocreate(Request $request){
-        $table = 'gameinfo';
+        $table = 'game_info';
         $create = true;
         $defer = new defer;
         return $defer->verifytokenandid($request,$create,$table);
     }
 
     public function gameinfoupdate(Request $request){
-        $table = 'gameinfo';
+        $table = 'game_info';
+        $create = false;
+        $defer = new defer;
+        return $defer->verifytokenandid($request,$create,$table);
+    }
+
+    public function provider(Request $request){
+        try {
+			if (!$request->has('api_token')) {
+				throw new Exception("api_token can't be empty", 400);
+			}
+            if (!$request->has('id')) {
+				throw new Exception("id can't be empty", 400);
+			}
+            $id=users::find($request->id);
+            if($id->api_token == NULL){
+				throw new Exception("can not find your token at db", 987);
+			}
+			if($id->api_token!=$request->api_token){
+				throw new Exception("can not find your token at db", 999);
+			}
+
+        $provider=DB::table('provider')->get();
+        // print_r($gameinfo);
+
+        
+        return response()->json(['status' => 200,
+        'msg' => 'success',
+        'result' => [
+            'provider' => $provider,
+        ]
+        ]);
+
+
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => $e->getcode(),
+                'msg' => $e->getMessage(),
+            ]);
+        };
+    }
+
+    public function providercreate(Request $request){
+        $table = 'provider';
+        $create = true;
+        $defer = new defer;
+        return $defer->verifytokenandid($request,$create,$table);
+    }
+
+    public function providerupdate(Request $request){
+        $table = 'provider';
         $create = false;
         $defer = new defer;
         return $defer->verifytokenandid($request,$create,$table);

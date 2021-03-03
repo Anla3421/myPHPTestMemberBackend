@@ -14,7 +14,7 @@ class CreateServerConfigTable extends Migration
 		$table->string('name',20);
 		$table->string('profile',10);
 		$table->string('value',300);
-		$table->datetime('updated_at');
+		$table->datetime('updated_at')->useCurrent();
 		$table->primary(['gid','name','profile']);
 
         });

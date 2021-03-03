@@ -20,6 +20,7 @@ class defer extends Model
         switch ($table) {
             case 'player':
                 DB::table($table)->where('id',$request->update_id)->update([
+                    //有ID
                     'provider_id'=>$request->provider_id,
                     'name'=>$request->name,
                     'uniq_id'=>$request->uniq_id,
@@ -28,8 +29,9 @@ class defer extends Model
                 break;
 
             case 'player_save':
-                DB::table($table)->where('id',$request->update_id)->update([
-                    'gid'=>$request->gid,
+                DB::table($table)->where('gid',$request->gid)->update([
+                    //沒ID
+                    // 'gid'=>$request->gid,
                     'token'=>$request->token,
                     'name'=>$request->name,
                     'profile'=>$request->profile,
@@ -40,6 +42,7 @@ class defer extends Model
 
             case 'game':
                 DB::table($table)->where('id',$request->update_id)->update([
+                    //有ID
                     'gid' =>$request->gid,
                     'info_id'=>$request->info_id,
                     'provider_id'=>$request->provider_id,
@@ -50,8 +53,9 @@ class defer extends Model
                 break;
 
             case 'game_info':
-                DB::table($table)->where('id',$request->$request->update_id)->update([
-                    'info_id'=>$request->info_id,
+                DB::table($table)->where('info_id',$request->info_id)->update([
+                    //沒ID
+                    // 'info_id'=>$request->info_id,
                     'name' =>$request->name,
                     'name_cn' =>$request->name_cn,
                     'name_en' =>$request->name_en,
@@ -67,7 +71,8 @@ class defer extends Model
                 break;
 
             case 'provider':
-                DB::table($table)->where('id',$request->$request->update_id)->update([
+                DB::table($table)->where('id',$request->update_id)->update([
+                    //有ID
                     'username'=>$request->username,
                     'private_key'=>$request->private_key,
                     'game_url'=>$request->game_url,
@@ -79,7 +84,8 @@ class defer extends Model
                break;
             
             case 'report':
-                DB::table($table)->where('id',$request->$request->update_id)->update([
+                DB::table($table)->where('id',$request->update_id)->update([
+                    //有ID
                     'token'=>$request->token,
                     'gid'=>$request->gid,
                     'in'=>$request->in,
@@ -92,13 +98,14 @@ class defer extends Model
                 ]);
                 break;
 
-            case 'serverconfig':
-                DB::table($table)->where('id',$request->$request->update_id)->update([
-                    'gid'=>$request->gid,
+            case 'server_config':
+                DB::table($table)->where('gid',$request->gid)->update([
+                    //沒ID
+                    // 'gid'=>$request->gid,
                     'name'=>$request->name,
                     'profile'=>$request->profile,
                     'value'=>$request->value,
-                    'updated_at'=>$request->updated_at,
+                    // 'updated_at'=>$request->updated_at,
                 ]);
                 break;                                                
             
@@ -136,7 +143,7 @@ class defer extends Model
         // ]);
 
         // //game_info
-        // DB::table($table)->where('id',$request->$request->update_id)->update([
+        // DB::table($table)->where('id',$request->update_id)->update([
         //     'info_id'=>$request->info_id,
         //     'name' =>$request->name,
         //     'name_cn' =>$request->name_cn,
@@ -152,7 +159,7 @@ class defer extends Model
         // ]);
 
         // //report
-        // DB::table($table)->where('id',$request->$request->update_id)->update([
+        // DB::table($table)->where('id',$request->update_id)->update([
         //     'token'=>$request->token,
         //     'gid'=>$request->gid,
         //     'in'=>$request->in,
@@ -165,7 +172,7 @@ class defer extends Model
         // ]);
 
         // //serverconfig
-        // DB::table($table)->where('id',$request->$request->update_id)->update([
+        // DB::table($table)->where('id',$request->update_id)->update([
         //     'gid'=>$request->gid,
         //     'name'=>$request->name,
         //     'profile'=>$request->profile,
@@ -185,7 +192,8 @@ class defer extends Model
         
         switch ($table) {
             case 'player':
-                DB::table($table)->where('id',$request->update_id)->insert([
+                DB::table($table)->insert([
+                    //有ID
                     'provider_id'=>$request->provider_id,
                     'name'=>$request->name,
                     'uniq_id'=>$request->uniq_id,
@@ -193,7 +201,8 @@ class defer extends Model
                 ]);
                 break;
             case 'player_save':
-                DB::table($table)->where('id',$request->update_id)->insert([
+                DB::table($table)->insert([
+                    //沒ID
                     'gid'=>$request->gid,
                     'token'=>$request->token,
                     'name'=>$request->name,
@@ -203,7 +212,8 @@ class defer extends Model
                 ]);
                 break;
             case 'game':
-                DB::table($table)->where('id',$request->update_id)->insert([
+                DB::table($table)->insert([
+                    //有ID
                     'gid' =>$request->gid,
                     'info_id'=>$request->info_id,
                     'provider_id'=>$request->provider_id,
@@ -213,7 +223,8 @@ class defer extends Model
                 ]);
                 break;                                
             case 'game_info':
-                DB::table($table)->where('id',$request->$request->update_id)->insert([
+                DB::table($table)->insert([
+                    //沒ID
                     'info_id'=>$request->info_id,
                     'name' =>$request->name,
                     'name_cn' =>$request->name_cn,
@@ -230,7 +241,8 @@ class defer extends Model
                 break;
 
             case 'provider':
-                DB::table($table)->where('id',$request->$request->update_id)->insert([
+                DB::table($table)->insert([
+                    //有ID
                     'username'=>$request->username,
                     'private_key'=>$request->private_key,
                     'game_url'=>$request->game_url,
@@ -242,7 +254,8 @@ class defer extends Model
                 break;
 
             case 'report':
-                DB::table($table)->where('id',$request->$request->update_id)->insert([
+                DB::table($table)->insert([
+                    //有ID
                     'token'=>$request->token,
                     'gid'=>$request->gid,
                     'in'=>$request->in,
@@ -254,8 +267,9 @@ class defer extends Model
                     'created_at' =>$request->created_at,
                 ]);
                 break;
-            case 'serverconfig':
-                DB::table($table)->where('id',$request->$request->update_id)->insert([
+            case 'server_config':
+                DB::table($table)->insert([
+                    //沒ID
                     'gid'=>$request->gid,
                     'name'=>$request->name,
                     'profile'=>$request->profile,
@@ -311,7 +325,8 @@ class defer extends Model
 
             return response()->json([
                 'status' => 200,
-                'msg' => 'success'
+                'msg' => 'success',
+                'request'=>$request->all(),
             ]);
 
 
@@ -319,6 +334,9 @@ class defer extends Model
             return response()->json([
                 'status' => $e->getcode(),
                 'msg' => $e->getMessage(),
+                'request'=>$request->all(),
+                'table'=>$table,
+                'true?'=>$create,
             ]);
         };
     }

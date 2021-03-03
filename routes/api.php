@@ -49,9 +49,9 @@ Route::namespace('MAXdis')->group(function(){
 	Route::any('gameinfo/c','Apiindex@gameinfocreate');
 	Route::any('gameinfo/u','Apiindex@gameinfoupdate');
 
-	Route::any('providerid','Apiindex@providerid');
-	Route::any('providerid/c','Apiindex@provideridcreate');
-	Route::any('providerid/u','Apiindex@provideridupdate');
+	Route::any('provider','Apiindex@provider');
+	Route::any('provider/c','Apiindex@providercreate');
+	Route::any('provider/u','Apiindex@providerupdate');
 
 	Route::any('report','Apiindex@report');
 	Route::any('report/c','Apiindex@reportcreate');
