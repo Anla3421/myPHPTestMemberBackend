@@ -13,62 +13,99 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
  */
+Route::namespace('ApiManager')->group(function(){
+	Route::any('login', 'LoginController@login');
+	Route::any('logout', 'LoginController@logout');
+	Route::any('apitokencheck', 'LoginController@apitokencheck');
 
-Route::namespace ('Api')->group(function () {
-	Route::any('login', 'ApiController@login');
-	Route::any('logout', 'ApiController@logout');
-	Route::any('apitokencheck', 'ApiController@apitokencheck');
+	Route::any('ano/login', 'LoginTestController@login');
 
-	Route::any('ano/login', 'AnotherController@login');
+	Route::any('sidebar','IndexController@sidebar');
 
-	// Route::any('index', 'Apiindex@index');
-	// Route::any('winlose', 'Apiindex@winlose');
-	// Route::any('bethistory', 'Apiindex@bethistory');
-	// Route::any('allreport', 'Apiindex@allreport');
-	// Route::any('loginat', 'Apiindex@loginat');
-	// Route::any('actionlog', 'Apiindex@actionlog');
+	Route::any('playersave','IndexController@playersave');
+	Route::any('playersave/c','IndexController@playersavecreate');
+	Route::any('playersave/u','IndexController@playersaveupdate');
 
-	// Route::any('sidebar', 'Apiarray@sidebar');
+	Route::any('game','IndexController@game');
+	Route::any('game/c','IndexController@gamecreate');
+	Route::any('game/u','IndexController@gameupdate');
+	
+	Route::any('gameinfo','IndexController@gameinfo');
+	Route::any('gameinfo/c','IndexController@gameinfocreate');
+	Route::any('gameinfo/u','IndexController@gameinfoupdate');
 
-	Route::any('newarray', 'Apiarray@newarray');
+	Route::any('provider','IndexController@provider');
+	Route::any('provider/c','IndexController@providercreate');
+	Route::any('provider/u','IndexController@providerupdate');
+
+	Route::any('report','IndexController@report');
+	Route::any('report/c','IndexController@reportcreate');
+
+	Route::any('reportdtl','IndexController@reportdtl');
+
+	Route::any('serverconfig','IndexController@serverconfig');
+	Route::any('serverconfig/u','IndexController@serverconfigupdate');
+	
+	Route::any('player','IndexController@player');
+	Route::post('player/c','IndexController@playercreate');
+	Route::post('player/u','IndexController@playerupdate');
 
 });
 
-Route::namespace('MAXdis')->group(function(){
-	Route::any('sidebar','Apiindex@sidebar');
 
-	Route::any('playersave','Apiindex@playersave');
-	Route::any('playersave/c','Apiindex@playersavecreate');
-	Route::any('playersave/u','Apiindex@playersaveupdate');
 
-	Route::any('game','Apiindex@game');
-	Route::any('game/c','Apiindex@gamecreate');
-	Route::any('game/u','Apiindex@gameupdate');
+// Route::namespace ('Api')->group(function () {
+// 	Route::any('login', 'ApiController@login');
+// 	Route::any('logout', 'ApiController@logout');
+// 	Route::any('apitokencheck', 'ApiController@apitokencheck');
+
+// 	Route::any('ano/login', 'AnotherController@login');
+
+// 	// Route::any('index', 'Apiindex@index');
+// 	// Route::any('winlose', 'Apiindex@winlose');
+// 	// Route::any('bethistory', 'Apiindex@bethistory');
+// 	// Route::any('allreport', 'Apiindex@allreport');
+// 	// Route::any('loginat', 'Apiindex@loginat');
+// 	// Route::any('actionlog', 'Apiindex@actionlog');
+
+// 	// Route::any('sidebar', 'Apiarray@sidebar');
+
+// 	Route::any('newarray', 'Apiarray@newarray');
+
+// });
+
+// Route::namespace('MAXdis')->group(function(){
+// 	Route::any('sidebar','Apiindex@sidebar');
+
+// 	Route::any('playersave','Apiindex@playersave');
+// 	Route::any('playersave/c','Apiindex@playersavecreate');
+// 	Route::any('playersave/u','Apiindex@playersaveupdate');
+
+// 	Route::any('game','Apiindex@game');
+// 	Route::any('game/c','Apiindex@gamecreate');
+// 	Route::any('game/u','Apiindex@gameupdate');
 	
-	Route::any('gameinfo','Apiindex@gameinfo');
-	Route::any('gameinfo/c','Apiindex@gameinfocreate');
-	Route::any('gameinfo/u','Apiindex@gameinfoupdate');
+// 	Route::any('gameinfo','Apiindex@gameinfo');
+// 	Route::any('gameinfo/c','Apiindex@gameinfocreate');
+// 	Route::any('gameinfo/u','Apiindex@gameinfoupdate');
 
-	Route::any('provider','Apiindex@provider');
-	Route::any('provider/c','Apiindex@providercreate');
-	Route::any('provider/u','Apiindex@providerupdate');
+// 	Route::any('provider','Apiindex@provider');
+// 	Route::any('provider/c','Apiindex@providercreate');
+// 	Route::any('provider/u','Apiindex@providerupdate');
 
-	Route::any('report','Apiindex@report');
-	Route::any('report/c','Apiindex@reportcreate');
+// 	Route::any('report','Apiindex@report');
+// 	Route::any('report/c','Apiindex@reportcreate');
 
-	Route::any('reportdtl','Apiindex@reportdtl');
+// 	Route::any('reportdtl','Apiindex@reportdtl');
 
-	Route::any('serverconfig','Apiindex@serverconfig');
-	Route::any('serverconfig/u','Apiindex@serverconfigupdate');
+// 	Route::any('serverconfig','Apiindex@serverconfig');
+// 	Route::any('serverconfig/u','Apiindex@serverconfigupdate');
 	
-	Route::any('player','Apiindex@player');
-	Route::post('player/c','Apiindex@playercreate');
-	Route::post('player/u','Apiindex@playerupdate');
-
-
+// 	Route::any('player','Apiindex@player');
+// 	Route::post('player/c','Apiindex@playercreate');
+// 	Route::post('player/u','Apiindex@playerupdate');
 	
-	// Route::any('account/u','Apiindex@accountupdate');
-});
+// });
 
 
 // Route::post('login', 'ApiController@login');
