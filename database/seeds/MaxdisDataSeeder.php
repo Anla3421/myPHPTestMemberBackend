@@ -48,10 +48,10 @@ class MaxdisDataSeeder extends Seeder
         ]);
         DB::table('game_info')->insert([
             'info_id'=>'1',
-            'name' =>'123',
-            'name_cn' =>'456',
-            'name_en' =>'789',
-            'name_jp' =>'666',
+            'name' =>'維尼推車車',
+            'name_cn' =>'维尼推车车',
+            'name_en' =>'Winnie the Pooh',
+            'name_jp' =>'くまのプーさん',
             'server_host'=>'127.0.0.1',
             'server_path'=>'555',
             'server_port'=>8000,
@@ -62,10 +62,10 @@ class MaxdisDataSeeder extends Seeder
         ]);
         DB::table('game_info')->insert([
             'info_id'=>'2',
-            'name' =>'321',
-            'name_cn' =>'654',
-            'name_en' =>'987',
-            'name_jp' =>'777',
+            'name' =>'他的手可以穿過我的88',
+            'name_cn' =>'他的手可以穿过我的88',
+            'name_en' =>'His hand can pass through my 88',
+            'name_jp' =>'彼の手は私の88を通過することができます',
             'server_host'=>'192.168.0.50',
             'server_path'=>'666',
             'server_port'=>8080,
