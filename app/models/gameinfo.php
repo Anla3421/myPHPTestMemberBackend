@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class gameinfo extends Model
 {
     protected $guard=[];
-    protected $table='gameinfo';
+    protected $table='game_info';
 }

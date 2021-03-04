@@ -7,6 +7,7 @@ use App\models\mainmenu;
 use App\models\player;
 use App\models\report;
 use App\models\users;
+use App\models\game;
 use App\tools\defer;
 use ArrayObject;
 use DB;
@@ -170,12 +171,19 @@ class IndexController extends Controller {
 				throw new Exception("can not find your token at db", 999);
 			}
 
-			$game = DB::table('game')->get();
+			// $game = DB::table('game')->get();
 
+            $game = game::all();
+            foreach ($game as $key){
+                $key->gameWithGameinfo;
+
+            }
+            print "<pre>";
+            print_r($key);            
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
-					'game' => $game,
+					'game' => $key,
 				],
 			]);
 
@@ -317,22 +325,26 @@ class IndexController extends Controller {
 			}
 
 			$reports = report::all();
-
-			foreach ($reports as $key => $value) {
-				$data[$key] = $value;
-				$data[$key]['dtl'] = $value->reportdtl;
-				unset($data[$key]['reportdtl']);
-			}
+            // print_r($reports);
+			// foreach ($reports as $key => $value) {
+			// 	$data[$key] = $value;
+			// 	$data[$key]['dtl'] = $value->reportdtl;
+			// 	unset($data[$key]['reportdtl']);
+			// }
 
 			// foreach ($reports as $report) {
 			// $data[] = $report;
 			// $data[][] = $report->reportdtl;
 			// }
-
+            
+            foreach ($reports as $report) {
+                $report->reportdtl;
+            }
+            
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
-					'report' => $data,
+					'report' => $reports,
 				],
 			]);
 
