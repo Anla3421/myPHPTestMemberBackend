@@ -5,6 +5,7 @@ namespace App\tools;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\models\users;
+use App\models\player;
 use Exception;
 use DB;
 
@@ -13,13 +14,15 @@ class defer extends Model
     protected function verifyupdate($request,$table){
         switch ($table) {
             case 'player':
-                DB::table($table)->where('id',$request->update_id)->update([
-                    //有ID
-                    'provider_id'=>$request->provider_id,
-                    'name'=>$request->name,
-                    'uniq_id'=>$request->uniq_id,
-                    'last_at'=>$request->last_at,
-                ]);
+                // DB::table($table)->where('id',$request->update_id)->update([
+                //     //有ID
+                //     'provider_id'=>$request->provider_id,
+                //     'name'=>$request->name,
+                //     'uniq_id'=>$request->uniq_id,
+                //     'last_at'=>$request->last_at,
+                // ]);
+                $player = new player;
+                $player -> playerupdate($request);
                 break;
 
             case 'player_save':
@@ -112,13 +115,15 @@ class defer extends Model
     protected function verifycreate($request,$table){   
         switch ($table) {
             case 'player':
-                DB::table($table)->insert([
-                    //有ID
-                    'provider_id'=>$request->provider_id,
-                    'name'=>$request->name,
-                    'uniq_id'=>$request->uniq_id,
-                    'last_at'=>$request->last_at,
-                ]);
+                // DB::table($table)->insert([
+                //     //有ID
+                //     'provider_id'=>$request->provider_id,
+                //     'name'=>$request->name,
+                //     'uniq_id'=>$request->uniq_id,
+                //     'last_at'=>$request->last_at,
+                // ]);
+                $player = new player;
+                $player -> playerupdate($request);
                 break;
             case 'player_save':
                 DB::table($table)->insert([
@@ -145,7 +150,7 @@ class defer extends Model
             case 'game_info':
                 DB::table($table)->insert([
                     //沒ID
-                    'info_id'=>$request->info_id,
+                    // 'info_id'=>$request->info_id,
                     'name' =>$request->name,
                     'name_cn' =>$request->name_cn,
                     'name_en' =>$request->name_en,
@@ -232,25 +237,26 @@ class defer extends Model
             if ($create){
                 $this->verifycreate($request,$table);
             }else{
-                if(!$request->has('update_id') && !$request->has('info_id') && !$request->has('gid')){
-                throw new Exception("Forbidden!", 403);
-                }
+                // if(!$request->has('update_id') && !$request->has('info_id') && !$request->has('gid')){
+                // throw new Exception("Forbidden!", 403);
+                // }
                 $this->verifyupdate($request,$table);
             }
             return response()->json([
                 'status' => 200,
                 'msg' => 'success',
                 'request'=>$request->all(),
+
             ]);
 
 
         } catch (Exception $e) {
-            if (strpos($e->getMessage(),'SQLSTATE') !== false){
-                return response()->json([
-                    'status' => 400,
-                    'msg' => "Bad Request!!!",
-                ]);
-            }
+            // if (strpos($e->getMessage(),'SQLSTATE') !== false){
+            //     return response()->json([
+            //         'status' => 400,
+            //         'msg' => "Bad Request!!!",
+            //     ]);
+            // }
             return response()->json([
                 'status' => $e->getcode(),
                 'msg' => $e->getMessage(),

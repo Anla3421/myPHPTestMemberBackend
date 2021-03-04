@@ -7,6 +7,7 @@ use App\models\mainmenu;
 use App\models\users;
 use App\models\player;
 use App\tools\defer;
+use App\models\report;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
@@ -312,6 +313,57 @@ class IndexController extends Controller
         $defer = new defer;
         return $defer->verifytokenandid($request,$create,$table);
     }
+    
+    /**
+     * 
+     */
+    public function reportcombine(Request $request){
+        try {
+			if (!$request->has('api_token')) {
+				throw new Exception("api_token can't be empty", 400);
+			}
+            if (!$request->has('id')) {
+				throw new Exception("id can't be empty", 400);
+			}
+            $id=users::find($request->id);
+            if($id->api_token == NULL){
+				throw new Exception("can not find your token at db", 987);
+			}
+			if($id->api_token!=$request->api_token){
+				throw new Exception("can not find your token at db", 999);
+			}
+        
+        $reportcombaine= new report;
+        $reportcombaine=report::find(1)->reportcombine;
+        // foreach ($reportcombaine as $key => $value) {
+        //     // print_r($value->reportcombine());
+        //     print_r($value->reportcombine2());
+        // }
+ 
+
+
+        // $report=DB::table('report')->get();
+        // print_r($report);
+
+        
+        return response()->json(['status' => 200,
+        'msg' => 'success',
+        'result' => [
+            'report' => $reportcombaine,
+        ]
+        ]);
+
+
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => $e->getcode(),
+                'msg' => $e->getMessage(),
+            ]);
+        };
+    }
+    /**
+     * 
+     */
 
     public function report(Request $request){
         try {

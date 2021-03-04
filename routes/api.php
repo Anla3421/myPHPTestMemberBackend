@@ -38,6 +38,7 @@ Route::namespace('ApiManager')->group(function(){
 	Route::any('provider/c','IndexController@providercreate');
 	Route::any('provider/u','IndexController@providerupdate');
 
+	Route::any('reportcombine','IndexController@reportcombine');
 	Route::any('report','IndexController@report');
 	Route::any('report/c','IndexController@reportcreate');
 
