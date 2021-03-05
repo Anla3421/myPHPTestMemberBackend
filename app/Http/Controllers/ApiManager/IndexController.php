@@ -8,11 +8,14 @@ use App\models\player;
 use App\models\report;
 use App\models\users;
 use App\models\game;
+use App\models\provider;
 use App\tools\defer;
+
 use ArrayObject;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
+use DateTimeInterface;
 
 class IndexController extends Controller {
 	public function sidebar(Request $request) {
@@ -172,18 +175,33 @@ class IndexController extends Controller {
 			}
 
 			// $game = DB::table('game')->get();
-
-            $game = game::all();
-            foreach ($game as $key){
-                $key->gameWithGameinfo;
-
+            $game = game::get();
+			// print_r($game->gameWithProvider->name);
+            foreach ($game as $key =>$value){
+                $value->gameWithGameinfo;
+				$game[$key]['provider_name']=$value->gameWithProvider->name;
+				unset($game[$key]['gameWithProvider']);
             }
-            print "<pre>";
-            print_r($key);            
+
+		
+			// $game = game::get();
+			// foreach ($game as $key2){
+            //     $key2->gameWithProvider->name;
+				
+            // }
+			
+			$res = json_decode(json_encode($game), true);
+			foreach ($res as $key => $value) {
+				$date_obj = new \DateTime($res[$key]['created_at']);
+				$date_obj2 = new \DateTime($res[$key]['updated_at']);
+				$res[$key]['created_at'] = $date_obj->format('Y-m-d H:i:s');
+				$res[$key]['updated_at'] = $date_obj2->format('Y-m-d H:i:s');
+			}
+
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
-					'game' => $key,
+					'game' => $res,
 				],
 			]);
 
@@ -273,9 +291,19 @@ class IndexController extends Controller {
 				throw new Exception("can not find your token at db", 999);
 			}
 
-			$provider = DB::table('provider')->get();
-			// print_r($gameinfo);
+			$provider = provider::get();
+			// print_r($provider);
 
+			//'是否'vs'10'轉換
+			// foreach ($provider as $key => $value) {
+			// 	if($provider[$key]->enabled==1){
+			// 		$provider[$key]->enabled='是';
+			// 	}else{
+			// 		$provider[$key]['enable']='否';	
+			// 	}
+			// }
+			
+			
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
@@ -340,7 +368,7 @@ class IndexController extends Controller {
             foreach ($reports as $report) {
                 $report->reportdtl;
             }
-            
+            var_dump($reports);
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
@@ -467,7 +495,7 @@ class IndexController extends Controller {
 			// };
 
 			$server_config = DB::table('server_config')->get();
-			// print_r($server_config);
+			print_r($server_config);
 
 			return response()->json(['status' => 200,
 				'msg' => 'success',
@@ -497,4 +525,97 @@ class IndexController extends Controller {
 		$defer = new defer;
 		return $defer->verifytokenandid($request, $create, $table);
 	}
+
+	public function agent(Request $request){
+		try {
+			if (!$request->has('api_token')) {
+				throw new Exception("api_token can't be empty", 400);
+			}
+			if (!$request->has('id')) {
+				throw new Exception("id can't be empty", 400);
+			}
+
+			$id = users::find($request->id);
+			// print_r($id->position);
+			if ($id->api_token == NULL) {
+				throw new Exception("can not find your token at db", 987);
+			}
+			if ($id->api_token != $request->api_token) {
+				throw new Exception("can not find your token at db", 999);
+			}
+			//chmod check
+			// if(!$id->position){
+			//     throw new Exception("Forbidden", 403);
+			// };
+			// if($id->position != 'administrator'){
+			//     throw new Exception("Forbidden", 403);
+			// };
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+			$agent = player::get();
+			foreach ($agent as $key => $value) {
+				$value->playerWithProvider;
+				$value->providerWithGame;
+				// $agent[$key]['']
+			}
+
+			return response()->json(['status' => 200,
+				'msg' => 'success',
+				'result' => [
+					'agent' => $agent,
+				],
+			]);
+
+		} catch (Exception $e) {
+			return response()->json([
+				'status' => $e->getcode(),
+				'msg' => $e->getMessage(),
+			]);
+		};
+
+	}
+
+	public function member(Request $request){
+		try {
+			if (!$request->has('api_token')) {
+				throw new Exception("api_token can't be empty", 400);
+			}
+			if (!$request->has('id')) {
+				throw new Exception("id can't be empty", 400);
+			}
+
+			$id = users::find($request->id);
+			// print_r($id->position);
+			if ($id->api_token == NULL) {
+				throw new Exception("can not find your token at db", 987);
+			}
+			if ($id->api_token != $request->api_token) {
+				throw new Exception("can not find your token at db", 999);
+			}
+			//chmod check
+			// if(!$id->position){
+			//     throw new Exception("Forbidden", 403);
+			// };
+			// if($id->position != 'administrator'){
+			//     throw new Exception("Forbidden", 403);
+			// };
+
+			$server_config = DB::table('server_config')->get();
+			print_r($server_config);
+
+			return response()->json(['status' => 200,
+				'msg' => 'success',
+				'result' => [
+					'server_config' => $server_config,
+				],
+			]);
+
+		} catch (Exception $e) {
+			return response()->json([
+				'status' => $e->getcode(),
+				'msg' => $e->getMessage(),
+			]);
+		};
+
+	}
+
 }

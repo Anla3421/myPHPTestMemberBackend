@@ -31,8 +31,8 @@ class MaxdisDataSeeder extends Seeder
         DB::table('game')->insert([
             'id'=>'1',
             'gid' =>'1',
-            'info_id'=>'123',
-            'provider_id'=>'123',
+            'info_id'=>'1',
+            'provider_id'=>'1',
             'status'=>'1',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
@@ -40,8 +40,8 @@ class MaxdisDataSeeder extends Seeder
         DB::table('game')->insert([
             'id'=>'2',
             'gid' =>'2',
-            'info_id'=>'321',
-            'provider_id'=>'321',
+            'info_id'=>'2',
+            'provider_id'=>'2',
             'status'=>'0',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
@@ -76,20 +76,22 @@ class MaxdisDataSeeder extends Seeder
         ]);
         DB::table('provider')->insert([
             'id'=>'1',
-            'username' =>'kkkkk',
+            'username' =>'provider1 parameter',
             'private_key'=>'54562',
             'game_url'=>'192.168.1.111',
-            'name'=>'321',
+            'name'=>'provider1',
+            'currency'=>'5',
             'enabled'=>'1',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('provider')->insert([
             'id'=>'2',
-            'username' =>'lllll',
-            'private_key'=>'54562',
+            'username' =>'provider2 parameter',
+            'private_key'=>'65432',
             'game_url'=>'192.168.1.111',
-            'name'=>'999',
+            'name'=>'provider2',
+            'currency'=>'1',
             'enabled'=>'0',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
@@ -167,6 +169,92 @@ class MaxdisDataSeeder extends Seeder
             'name'=>'fqewfra',
             'uniq_id'=>'499',
             'last_at'=>date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('currency_initial')->insert([
+            'cid'=>'1',
+            'game_currency'=>'golbalcoin',
+            'type'=>'G',
+            'created_at'=>date('Y-m-d H:i:s',),
+        ]);
+        DB::table('currency_initial')->insert([
+            'cid'=>'2',
+            'game_currency'=>'大撒幣',
+            'type'=>'V',
+            'created_at'=>date('Y-m-d H:i:s',),
+        ]);
+        DB::table('currency_initial')->insert([
+            'cid'=>'3',
+            'game_currency'=>'天竺鼠幣',
+            'type'=>'V',
+            'created_at'=>date('Y-m-d H:i:s',),
+        ]);
+        DB::table('currency_initial')->insert([
+            'cid'=>'4',
+            'game_currency'=>'沒梗幣',
+            'type'=>'V',
+            'created_at'=>date('Y-m-d H:i:s',),
+        ]);
+        DB::table('currency_initial')->insert([
+            'cid'=>'5',
+            'game_currency'=>'NTD',
+            'type'=>'R',
+            'created_at'=>date('Y-m-d H:i:s',),
+        ]);
+        DB::table('currency_exchange_rate')->insert([
+            'id'=>'1',
+            'cid'=>'1',
+            'changeby'=>'5',
+            'exchange_rate'=>'2',
+            'updated_at'=>date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('currency_exchange_rate')->insert([
+            'id'=>'2',
+            'cid'=>'2',
+            'changeby'=>'1',
+            'exchange_rate'=>'5',
+            'updated_at'=>date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('currency_exchange_rate')->insert([
+            'id'=>'3',
+            'cid'=>'3',
+            'changeby'=>'1',
+            'exchange_rate'=>'10',
+            'updated_at'=>date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('currency_exchange_rate')->insert([
+            'id'=>'4',
+            'cid'=>'4',
+            'changeby'=>'1',
+            'exchange_rate'=>'20',
+            'updated_at'=>date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('currency_exchange_rate')->insert([
+            'id'=>'5',
+            'cid'=>'5',
+            'changeby'=>'5',
+            'exchange_rate'=>'1.5',
+            'updated_at'=>date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('currency_exchange_rate')->insert([
+            'id'=>'6',
+            'cid'=>'1',
+            'changeby'=>'2',
+            'exchange_rate'=>'4',
+            'updated_at'=>date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('currency_exchange_rate')->insert([
+            'id'=>'7',
+            'cid'=>'1',
+            'changeby'=>'3',
+            'exchange_rate'=>'8',
+            'updated_at'=>date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('currency_exchange_rate')->insert([
+            'id'=>'8',
+            'cid'=>'1',
+            'changeby'=>'4',
+            'exchange_rate'=>'16',
+            'updated_at'=>date('Y-m-d H:i:s',$newtime),
         ]);
     }
 }

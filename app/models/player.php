@@ -35,4 +35,9 @@ class player extends Model
         player::create($data);
     }
 
+    public function playerWithProvider(){
+        return $this->hasOne('App\models\provider', 'id', 'provider_id');
+        
+    }
+
 }

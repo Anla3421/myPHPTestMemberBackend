@@ -12,5 +12,7 @@ class game extends Model
     public function gameWithGameinfo(){
         return $this->hasOne('App\models\gameinfo','info_id','id');
     }
-        
+    public function gameWithProvider(){
+        return $this->hasOne('App\models\provider','id','provider_id');
+    }
 }

@@ -15,6 +15,7 @@ class CreateProviderTable extends Migration
 		$table->string('private_key',64);
 		$table->string('game_url',150);
 		$table->string('name',20);
+        $table->integer('currency');
 		$table->tinyInteger('enabled',);
         $table->timestamp('created_at')->useCurrent();
         $table->timestamp('updated_at')->useCurrent();
