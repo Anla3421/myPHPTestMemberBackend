@@ -554,8 +554,8 @@ class IndexController extends Controller {
 			$agent = player::get();
 			foreach ($agent as $key => $value) {
 				$value->playerWithProvider;
-				$value->providerWithGame;
-				// $agent[$key]['']
+				// $value->gameWithProvider;
+				// $agent[$key]['providerWithGame']=$value->providerWithGame;
 			}
 
 			return response()->json(['status' => 200,

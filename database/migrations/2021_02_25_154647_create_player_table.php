@@ -12,11 +12,11 @@ class CreatePlayerTable extends Migration
 
 		// $table->increments('id')->unsigned();
         // $table->increments('id');
-        $table->increments('id')->unsigned();
-		$table->integer('provider_id',)->unsigned()->unique();
-		$table->string('name',64)->unique();
-		$table->string('uniq_id',64)->unique();
-		$table->timestamp('last_at');
+        $table->increments('id')->unsigned()->comment('');
+		$table->integer('provider_id',)->unsigned()->unique()->comment('所屬遊戲商 provider.id');
+		$table->string('name',64)->unique()->comment('名稱');
+		$table->string('uniq_id',64)->unique()->comment('使用者唯一id');
+		$table->timestamp('last_at')->comment('最後登入時間');
         // $table->timestamps();
         // $table->primary(['id','provider_id']);
         

@@ -159,14 +159,14 @@ class MaxdisDataSeeder extends Seeder
         DB::table('player')->insert([
             'id'=>'1',
             'provider_id'=>'2',
-            'name'=>'fdsddf',
+            'name'=>'playername1',
             'uniq_id'=>'444',
             'last_at'=>date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('player')->insert([
             'id'=>'2',
             'provider_id'=>'3',
-            'name'=>'fqewfra',
+            'name'=>'playername2',
             'uniq_id'=>'499',
             'last_at'=>date('Y-m-d H:i:s',$newtime),
         ]);

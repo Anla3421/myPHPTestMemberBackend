@@ -14,11 +14,11 @@ class CreateCurrencyExchangeRate extends Migration
     public function up()
     {
         Schema::create('currency_exchange_rate', function (Blueprint $table) {
-            $table->id();
-            $table->integer('cid');
-            $table->integer('changeby');
-            $table->integer('exchange_rate');
-            $table->timestamp('updated_at')->useCurrent();
+            $table->id()->comment('');
+            $table->integer('cid')->comment('欲轉換之貨幣');
+            $table->integer('changeby')->comment('被轉換之貨幣');
+            $table->integer('exchange_rate')->comment('轉換比率');
+            $table->timestamp('updated_at')->useCurrent()->comment('更新時間');
         });
     }
 
