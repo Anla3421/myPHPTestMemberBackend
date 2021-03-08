@@ -3,20 +3,16 @@
 namespace App\Http\Controllers\ApiManager;
 
 use App\Http\Controllers\Controller;
+use App\models\game;
 use App\models\mainmenu;
 use App\models\player;
+use App\models\provider;
 use App\models\report;
 use App\models\users;
-use App\models\game;
-use App\models\provider;
-use App\models\currencyinitial;
 use App\tools\defer;
-
-use ArrayObject;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
-use DateTimeInterface;
 
 class IndexController extends Controller {
 	public function sidebar(Request $request) {
@@ -29,23 +25,30 @@ class IndexController extends Controller {
 				throw new Exception("api_token can't be empty", 987);
 			}
 
-			$mainmenu = mainmenu::get();
+			$mainmenu = mainmenu::all()->toArray();
 			foreach ($mainmenu as $key => $value) {
-				if ($value->mainpage == 0) {
-					$submain[$key] = $value;
+				if ($value['mainpage'] != 0) {
+					$main[] = $value;
 				} else {
-					$main[$key] = $value;
-					$main[$key]["submain"] = new ArrayObject();
+					$submain[] = $value;
 				}
 			}
-			foreach ($main as $mainkey => $mainvalue) {
-				foreach ($submain as $subkey => $subvalue) {
-					if ($mainvalue['mainpage'] == $subvalue['subid']) {
-						$main[$mainkey]["submain"]->append($subvalue);
-					}
 
+			foreach ($main as $key => $value) {
+				foreach ($submain as $keys => $values) {
+					if ($value['mainpage'] == $values['subid']) {
+						$main[$key]['submain'][] = $values;
+					}
 				}
 			}
+
+			// foreach ($main as $mainkey => $mainvalue) {
+			// 	foreach ($submain as $subkey => $subvalue) {
+			// 		if ($mainvalue['mainpage'] == $subvalue['subid']) {
+			// 			$main[$mainkey]["submain"]->append($subvalue);
+			// 		}
+			// 	}
+			// }
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
@@ -176,21 +179,20 @@ class IndexController extends Controller {
 			}
 
 			// $game = DB::table('game')->get();
-            $game = game::get();
+			$game = game::get();
 			// print_r($game->gameWithProvider->name);
-            foreach ($game as $key =>$value){
-                $value->gameWithGameinfo;
-				$game[$key]['provider_name']=$value->gameWithProvider->name;
+			foreach ($game as $key => $value) {
+				$value->gameWithGameinfo;
+				$game[$key]['provider_name'] = $value->gameWithProvider->name;
 				unset($game[$key]['gameWithProvider']);
-            }
+			}
 
-		
 			// $game = game::get();
 			// foreach ($game as $key2){
-            //     $key2->gameWithProvider->name;
-				
-            // }
-			
+			//     $key2->gameWithProvider->name;
+
+			// }
+
 			$res = json_decode(json_encode($game), true);
 			foreach ($res as $key => $value) {
 				$date_obj = new \DateTime($res[$key]['created_at']);
@@ -300,11 +302,10 @@ class IndexController extends Controller {
 			// 	if($provider[$key]->enabled==1){
 			// 		$provider[$key]->enabled='是';
 			// 	}else{
-			// 		$provider[$key]['enable']='否';	
+			// 		$provider[$key]['enable']='否';
 			// 	}
 			// }
-			
-			
+
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
@@ -354,7 +355,7 @@ class IndexController extends Controller {
 			}
 
 			$reports = report::all();
-            // print_r($reports);
+			// print_r($reports);
 			// foreach ($reports as $key => $value) {
 			// 	$data[$key] = $value;
 			// 	$data[$key]['dtl'] = $value->reportdtl;
@@ -365,11 +366,11 @@ class IndexController extends Controller {
 			// $data[] = $report;
 			// $data[][] = $report->reportdtl;
 			// }
-            
-            foreach ($reports as $report) {
-                $report->reportdtl;
-            }
-            var_dump($reports);
+
+			foreach ($reports as $report) {
+				$report->reportdtl;
+			}
+			var_dump($reports);
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
@@ -527,7 +528,7 @@ class IndexController extends Controller {
 		return $defer->verifytokenandid($request, $create, $table);
 	}
 
-	public function agent(Request $request){
+	public function agent(Request $request) {
 		try {
 			if (!$request->has('api_token')) {
 				throw new Exception("api_token can't be empty", 400);
@@ -551,13 +552,13 @@ class IndexController extends Controller {
 			// if($id->position != 'administrator'){
 			//     throw new Exception("Forbidden", 403);
 			// };
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////////////////////////////////////////////////////////
 			$agent = player::get();
 			foreach ($agent as $key => $value) {
 				// $value->playerWithProvider->providerWithCurrency;
-				$agent[$key]['provider_name']=$value->playerWithProvider->name;
-				$agent[$key]['currency']=$value->playerWithProvider->providerWithCurrency->game_currency;
-				$agent[$key]['agent_name']=$value->playWithAgent->agent_name;
+				$agent[$key]['provider_name'] = $value->playerWithProvider->name;
+				$agent[$key]['currency'] = $value->playerWithProvider->providerWithCurrency->game_currency;
+				$agent[$key]['agent_name'] = $value->playWithAgent->agent_name;
 				// unset($agent[$key]['playerWithProvider']);
 				// unset($agent[$key]['providerWithCurrency']);
 				// $value->gameWithProvider;
@@ -580,7 +581,7 @@ class IndexController extends Controller {
 
 	}
 
-	public function member(Request $request){
+	public function member(Request $request) {
 		try {
 			if (!$request->has('api_token')) {
 				throw new Exception("api_token can't be empty", 400);
