@@ -275,6 +275,16 @@ class MaxdisDataSeeder extends Seeder
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s',$newtime),
         ]);
+        DB::table('agent')->insert([
+            'id'=>'2',
+            'agent_name'=>'Agent8787',
+            'products'=>'2',
+            'members'=>'99',
+            'remark'=>'我知道發生了什麼事',
+            'status'=>'0',
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s',$newtime),
+        ]);
 
     }
 }

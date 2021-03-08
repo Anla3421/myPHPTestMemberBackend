@@ -9,10 +9,12 @@ use App\models\player;
 use App\models\provider;
 use App\models\report;
 use App\models\users;
+use App\models\agent;
 use App\tools\defer;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
+use ArrayObject;
 
 class IndexController extends Controller {
 	public function sidebar(Request $request) {
@@ -42,13 +44,27 @@ class IndexController extends Controller {
 				}
 			}
 
-			// foreach ($main as $mainkey => $mainvalue) {
-			// 	foreach ($submain as $subkey => $subvalue) {
-			// 		if ($mainvalue['mainpage'] == $subvalue['subid']) {
-			// 			$main[$mainkey]["submain"]->append($subvalue);
-			// 		}
+			// $mainmenu = mainmenu::get();
+			// foreach ($mainmenu as $key => $value) {
+			// 	if ($value->mainpage == 0) {
+			// 		$submain[] = $value;
+			// 	} else {
+			// 		$main[] = $value;
+			// 		$main[]["submain"] = new ArrayObject();
 			// 	}
 			// }
+			// print_r($main);
+			// exit;
+			// foreach ($main as $mainkey => $mainvalue) {
+				// foreach ($submain as $subkey => $subvalue) {
+				// 	if ($mainvalue['mainpage'] == $subvalue['subid']) {
+						// $main[$mainkey]["submain"]->append($subvalue);
+						
+						
+					// }
+				// }
+			// }
+
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
@@ -489,12 +505,12 @@ class IndexController extends Controller {
 				throw new Exception("can not find your token at db", 999);
 			}
 			//chmod check
-			// if(!$id->position){
-			//     throw new Exception("Forbidden", 403);
-			// };
-			// if($id->position != 'administrator'){
-			//     throw new Exception("Forbidden", 403);
-			// };
+			if(!$id->position){
+			    throw new Exception("Forbidden", 403);
+			};
+			if($id->position != 'administrator'){
+			    throw new Exception("Forbidden", 403);
+			};
 
 			$server_config = DB::table('server_config')->get();
 			print_r($server_config);
@@ -545,24 +561,20 @@ class IndexController extends Controller {
 			if ($id->api_token != $request->api_token) {
 				throw new Exception("can not find your token at db", 999);
 			}
-			//chmod check
-			// if(!$id->position){
-			//     throw new Exception("Forbidden", 403);
-			// };
-			// if($id->position != 'administrator'){
-			//     throw new Exception("Forbidden", 403);
-			// };
+			// chmod check
+			if(!$id->position){
+			    throw new Exception("Forbidden", 403);
+			};
+			if($id->position != 'administrator'){
+			    throw new Exception("Forbidden", 403);
+			};
 			///////////////////////////////////////////////////////////////////////////////////////////////////////////
-			$agent = player::get();
+			$agent = agent::get();
 			foreach ($agent as $key => $value) {
 				// $value->playerWithProvider->providerWithCurrency;
-				$agent[$key]['provider_name'] = $value->playerWithProvider->name;
-				$agent[$key]['currency'] = $value->playerWithProvider->providerWithCurrency->game_currency;
-				$agent[$key]['agent_name'] = $value->playWithAgent->agent_name;
-				// unset($agent[$key]['playerWithProvider']);
-				// unset($agent[$key]['providerWithCurrency']);
-				// $value->gameWithProvider;
-				// $agent[$key]['providerWithGame']=$value->providerWithGame;
+				$agent[$key]['products'] = $value->agentWithProvider->name;
+				$agent[$key]['currency'] = $value->agentWithProvider->providerWithCurrency->game_currency;
+				unset($agent[$key]['agentWithProvider']);
 			}
 
 			return response()->json(['status' => 200,

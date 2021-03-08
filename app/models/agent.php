@@ -9,5 +9,7 @@ class agent extends Model
     protected $guard=[];
     protected $table='agent';
 
-    
+    public function agentWithProvider(){
+        return $this->hasOne('App\models\provider','id','products');
+    }
 }
