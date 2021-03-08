@@ -14,6 +14,7 @@ class CreatePlayerTable extends Migration
         // $table->increments('id');
         $table->increments('id')->unsigned()->comment('');
 		$table->integer('provider_id',)->unsigned()->unique()->comment('所屬遊戲商 provider.id');
+        $table->integer('agent_id')->unsigned()->unique()->comment('所屬之 Agent_id add');
 		$table->string('name',64)->unique()->comment('名稱');
 		$table->string('uniq_id',64)->unique()->comment('使用者唯一id');
 		$table->timestamp('last_at')->comment('最後登入時間');

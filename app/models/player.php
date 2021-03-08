@@ -39,5 +39,7 @@ class player extends Model
         return $this->hasOne('App\models\provider', 'id', 'provider_id');
         
     }
-
+    public function playerWithAgent(){
+        return $this->hasOne('App\models\agent', 'id', 'agent_id');
+    }
 }

@@ -9,6 +9,7 @@ use App\models\report;
 use App\models\users;
 use App\models\game;
 use App\models\provider;
+use App\models\currencyinitial;
 use App\tools\defer;
 
 use ArrayObject;
@@ -553,7 +554,12 @@ class IndexController extends Controller {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 			$agent = player::get();
 			foreach ($agent as $key => $value) {
-				$value->playerWithProvider;
+				// $value->playerWithProvider->providerWithCurrency;
+				$agent[$key]['provider_name']=$value->playerWithProvider->name;
+				$agent[$key]['currency']=$value->playerWithProvider->providerWithCurrency->game_currency;
+				$agent[$key]['agent_name']=$value->playWithAgent->agent_name;
+				// unset($agent[$key]['playerWithProvider']);
+				// unset($agent[$key]['providerWithCurrency']);
 				// $value->gameWithProvider;
 				// $agent[$key]['providerWithGame']=$value->providerWithGame;
 			}

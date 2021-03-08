@@ -14,18 +14,18 @@ class MaxdisDataSeeder extends Seeder
         $newtime=time()+(random_int(1,24)*random_int(1,60)*random_int(1,60)*random_int(1,7)); //小時,分,秒,天
         DB::table('player_save')->insert([
             'gid' =>'1',
-            'token'=>'99999',
+            'token'=>'12345',
             'name'=>'tim',
-            'profile'=>'1',
-            'value'=>'fadsad',
+            'profile'=>'pName1',
+            'value'=>'玩家1',
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('player_save')->insert([
             'gid' =>'2',
-            'token'=>'65999',
+            'token'=>'54321',
             'name'=>'Sam',
-            'profile'=>'44444',
-            'value'=>'faddfdsf',
+            'profile'=>'4name 2',
+            'value'=>'就是個玩家2',
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('game')->insert([
@@ -158,16 +158,18 @@ class MaxdisDataSeeder extends Seeder
         ]);
         DB::table('player')->insert([
             'id'=>'1',
-            'provider_id'=>'2',
+            'provider_id'=>'1',
+            'agent_id'=>'1',
             'name'=>'playername1',
-            'uniq_id'=>'444',
+            'uniq_id'=>'12345',
             'last_at'=>date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('player')->insert([
             'id'=>'2',
-            'provider_id'=>'3',
+            'provider_id'=>'2',
+            'agent_id'=>'2',
             'name'=>'playername2',
-            'uniq_id'=>'499',
+            'uniq_id'=>'54321',
             'last_at'=>date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('currency_initial')->insert([
@@ -256,5 +258,23 @@ class MaxdisDataSeeder extends Seeder
             'exchange_rate'=>'16',
             'updated_at'=>date('Y-m-d H:i:s',$newtime),
         ]);
+        DB::table('server_save')->insert([
+            'gid'=>'1',
+            'name'=>'name!',
+            'profile'=>'設定檔',
+            'value'=>'不知道要設什麼的參數值',
+            'updated_at'=>date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('agent')->insert([
+            'id'=>'1',
+            'agent_name'=>'Agent9487',
+            'products'=>'1',
+            'members'=>'0',
+            'remark'=>'不知道發生了什麼事',
+            'status'=>'1',
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s',$newtime),
+        ]);
+
     }
 }
