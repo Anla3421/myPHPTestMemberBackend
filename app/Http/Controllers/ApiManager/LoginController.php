@@ -67,6 +67,13 @@ class LoginController extends Controller
             if ($request->sign != md5($request->name . $request->unixtime . $this->salt . $request->password)) {
 				throw new Exception("you  sign  is wrong, please check again", 403);
             }
+			// print_r($user->pluck('status')[0]);
+			// var_dump($user->pluck('status')[0] == 'deactivated');
+			// exit;
+			if ($user->pluck('status')[0] == 'deactivated'){
+				throw new Exception("your account has been deactivated", 948787);
+			}
+
 			if (Auth::attempt(['name' => $request->name, 'password' => $request->password])) {
                 $random=Str::random(32);
                 DB::table('users')->where('name', $request->name)->update(array('api_token'=>$random));
@@ -94,8 +101,8 @@ class LoginController extends Controller
 			// var_dump($result);
 			// var_dump($result->result);
 			// exit;
-			$loginlog = new loginlog;
-			$loginlog -> loginlog($request,$result);
+			// $loginlog = new loginlog;
+			// $loginlog -> loginlog($request,$result,$dbuser,$random);
 
 
             return response()->json(['status' => 200,
@@ -130,22 +137,28 @@ class LoginController extends Controller
 			]);
 
 		} catch (Exception $e) {
-			$result = new ArrayObject();
-			$result->result='Fail';
-			$result->continue_fail=1;
-			// $result = [
-			// 	'result'=>'Fail',
-			// 	'continue_fail'=>1,
-			// ];
-			// $result = new ArrayObject($result);
-			$loginlog = new loginlog;
-			$loginlog -> loginlog($request,$result);
-			return response()->json([
-				'status' => $e->getcode(),
-				'msg' => $e->getMessage(),
-			]);
+			switch ($e->getcode()) {
+				case '948787':
+					return response()->json([
+						'status' => $e->getcode(),
+						'msg' => $e->getMessage(),
+					]);
+					break;
+				
+				default:
+					$result = new ArrayObject();
+					$result->result='Fail';
+					$result->continue_fail=1;
+					// $result = [
+					// 	'result'=>'Fail',
+					// 	'continue_fail'=>1,
+					// ];
+					// $result = new ArrayObject($result);
+					$loginlog = new loginlog;
+					return $loginlog -> loginlog($request,$result,$e);		
+					break;
+			}
 		};
-
 	}
 
 	public function apitokencheck(Request $request){

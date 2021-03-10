@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\models\users;
 use App\models\player;
+use App\models\game;
 use Exception;
 use DB;
 
@@ -105,7 +106,12 @@ class defer extends Model
                     'value'=>$request->value,
                     'updated_at'=>date('Y-m-d H:i:s'),
                 ]);
-                break;                                                
+                break;
+
+            case 'gamenew':
+                $gamenew = new game;
+                $gamenew -> gamenewupdate($request);
+                break;                                             
             
             default:
                 throw new Exception("Bad Request", 400);
@@ -124,7 +130,7 @@ class defer extends Model
                 //     'last_at'=>$request->last_at,
                 // ]);
                 $player = new player;
-                $player -> playerupdate($request);
+                $player -> playercreate($request);
                 break;
             case 'player_save':
                 DB::table($table)->insert([
@@ -205,7 +211,10 @@ class defer extends Model
                 ]);
                 break;                                                
                 
-                
+            case 'gamenew':
+                $gamenew = new game;
+                $gamenew -> gamenewcreate($request);
+                break;  
             
             default:
                 throw new Exception("Bad Request", 400);

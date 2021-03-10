@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('level');
             $table->enum('position',['user','administrator']);
             $table->string('remember_check')->nullable();
+            $table->enum('status',['activated','deactivated'])->default('activated');
             $table->string('cellphone')->nullable();
             $table->rememberToken(); //Adds a nullable remember_token VARCHAR(100) equivalent column.
             $table->string('api_token',80)->unique()->nullable();

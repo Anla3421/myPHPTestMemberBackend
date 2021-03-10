@@ -55,6 +55,10 @@ Route::namespace('ApiManager')->group(function(){
 
 	Route::any('member','IndexController@member');
 
+	Route::any('gamenew','IndexController@gamenew');
+	Route::any('gamenew/c','IndexController@gamenewcreate');
+	Route::any('gamenew/u','IndexController@gamenewupdate');
+
 });
 
 

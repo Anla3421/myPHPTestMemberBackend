@@ -301,6 +301,18 @@ class MaxdisDataSeeder extends Seeder
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s',$newtime),
         ]);
-
+        DB::table('provider_list')->insert([
+            'id'=>'1',
+            'provider'=>'$ony',
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('provider_list')->insert([
+            'id'=>'2',
+            'provider'=>'Microhard',
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s',$newtime),
+        ]);
+        
     }
 }

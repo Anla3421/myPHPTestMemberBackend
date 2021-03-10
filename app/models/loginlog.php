@@ -4,6 +4,7 @@ namespace App\models;
 
 use Illuminate\Database\Eloquent\Model;
 use Agent;
+use Exception;
 
 class loginlog extends Model
 {
@@ -16,7 +17,7 @@ class loginlog extends Model
     // public $timestamps = false;
     protected $table='login_log';
 
-    public function loginlog($Request,$result){
+    public function loginlog($Request,$result,$dbuser){
         // print_r($Request->getClientIp());
         // print_r(Agent::getUserAgent());
         // print_r(loginlog::where('account',$Request->name)->pluck('times')->take(-2));
@@ -46,13 +47,33 @@ class loginlog extends Model
             // 'updated_at'=> $Request->updated_at,
             
         ]);
-        
+        // var_dump($result->continue_fail == 1);
         if ($result->continue_fail == 1){
             // print_r($DBname->pluck('continue_fail')->take(-3)->avg());
-            if ($DBname->pluck('continue_fail')->take(-3)->contains(0)){
-                //鎖帳號
+            // var_dump($DBname->pluck('continue_fail')->take(-3)->contains(0));
+            if ($DBname->pluck('continue_fail')->count() > 2 && !$DBname->pluck('continue_fail')->take(-3)->contains(0)){
+                users::where('name',$Request->name)->update([
+                    'status'=>'deactivated',
+                ]);
+                return response()->json([
+                    'status' => '878787',
+                    'msg' => 'login continue fail 3 times, you account will be deactivated, please call your provider to activate',
+                ]);
             }
+        }else{
+            throw new Exception("success", 200);
         }
-        
+        return response()->json([
+            // 'status' => $e->getcode(),
+            // 'msg' => $e->getMessage(),
+            'result' => [
+                'id' => $dbuser->id,
+                'gender' => $dbuser->gender,
+                'chmod' => $dbuser->position,
+                'level' => $dbuser->level,
+                'cellphone' =>$dbuser->cellphone,
+                'api_token'=>$random,
+            ],
+        ]);
     }
 }
