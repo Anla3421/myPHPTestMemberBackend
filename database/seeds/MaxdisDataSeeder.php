@@ -285,6 +285,22 @@ class MaxdisDataSeeder extends Seeder
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s',$newtime),
         ]);
+        DB::table('login_log')->insert([
+            'id'=>'1',
+            'account'=>'Agent8787',
+            'ip'=>'127.0.0.1',
+            'agent'=>'GuzzleHttp/6.5.5 curl/7.70.0 PHP/7.4.13',
+            'devicetype'=>'robot',
+            'platform'=>'false',
+            'platformVersion'=>'false',
+            'browser'=>'false',
+            // 'browserVersion'=>'false',
+            'times'=>'1',
+            'Result'=>'1',
+            'continue_fail'=>'0',
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s',$newtime),
+        ]);
 
     }
 }

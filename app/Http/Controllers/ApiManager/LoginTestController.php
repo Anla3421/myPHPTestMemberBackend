@@ -36,8 +36,8 @@ class LoginTestController extends Controller
 
 
     public function login(Request $request){
-        $name='123';
-        $password='123';
+        $name='admin';
+        $password='adm';
         $unixtime=time();
         $res=$this->Client->request('post',$this->apiurl,['json'=>[
             'name'=>$name,

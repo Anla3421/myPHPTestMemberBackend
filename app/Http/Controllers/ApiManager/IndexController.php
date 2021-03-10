@@ -9,12 +9,14 @@ use App\models\player;
 use App\models\provider;
 use App\models\report;
 use App\models\users;
-use App\models\agent;
+use App\models\agents;
 use App\tools\defer;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
 use ArrayObject;
+use Agent;
+
 
 class IndexController extends Controller {
 	public function sidebar(Request $request) {
@@ -264,11 +266,21 @@ class IndexController extends Controller {
 
 			$gameinfo = DB::table('game_info')->get();
 			// print_r($gameinfo);
+			$clientIP=$request->getClientIp();
+
+			// if (!empty($_SERVER["HTTP_CLIENT_IP"])) {
+            //     $ip = $_SERVER["HTTP_CLIENT_IP"];
+            // } else if (!empty($_SERVER["HTTP_X_FORWARDED_FOR"])) {
+            //     $ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+            // } else {
+            //     $ip = $_SERVER["REMOTE_ADDR"];
+            // }
 
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
 					'game_info' => $gameinfo,
+					'clientIP' => $clientIP,
 				],
 			]);
 
@@ -513,12 +525,38 @@ class IndexController extends Controller {
 			};
 
 			$server_config = DB::table('server_config')->get();
-			print_r($server_config);
+			// print_r($server_config);
+
+			$agent = Agent::getUserAgent();
+			$devicetype = Agent::deviceType();
+			$platform = Agent::platform();
+			$platformVersion = Agent::Version($platform);
+			$browser = Agent::Browser();
+			$browserVersion = Agent::Version($browser);
+			$clientIP = $request->getClientIp();
+			// $Browser = $agent->browser();
+			// $bVersion = $agent->version($browser);
+
+			// $platform = $agent->platform();
+			// $pVersion = $agent->version($platform);
+			// print_r($agent);
+			// print_r($browser);
+			// print_r($platform);
+			// print_r($clientIP);
 
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
 					'server_config' => $server_config,
+					'agent' => [
+						'agent'=>$agent,
+						'devicetype'=>$devicetype,
+						'platform'=>$platform,
+						'platformVersion'=>$platformVersion,
+						'browser'=>$browser,
+						'browserVersion'=>$browserVersion,
+						'IP'=>$clientIP,	
+					],
 				],
 			]);
 
@@ -569,18 +607,35 @@ class IndexController extends Controller {
 			    throw new Exception("Forbidden", 403);
 			};
 			///////////////////////////////////////////////////////////////////////////////////////////////////////////
-			$agent = agent::get();
-			foreach ($agent as $key => $value) {
+			$agents = agents::get();
+			foreach ($agents as $key => $value) {
 				// $value->playerWithProvider->providerWithCurrency;
-				$agent[$key]['products'] = $value->agentWithProvider->name;
-				$agent[$key]['currency'] = $value->agentWithProvider->providerWithCurrency->game_currency;
-				unset($agent[$key]['agentWithProvider']);
+				$agents[$key]['products'] = $value->agentWithProvider->name;
+				$agents[$key]['currency'] = $value->agentWithProvider->providerWithCurrency->game_currency;
+				unset($agents[$key]['agentWithProvider']);
 			}
+
+			$agent = Agent::getUserAgent();
+			$clientIP=$request->getClientIps();
+			// $Browser = $agent->browser();
+			// $bVersion = $agent->version($browser);
+
+			// $platform = $agent->platform();
+			// $pVersion = $agent->version($platform);
+
 
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
-					'agent' => $agent,
+					'agents' => $agents,
+					'agent' => [
+						'agent'=>$agent,
+						// 'B'=>$Browser,
+						// 'BV'=>$bVersion,
+						// 'P'=>$platform,
+						// 'PV'=>$pVersion,
+					],
+					'clientIP' => $clientIP,
 				],
 			]);
 

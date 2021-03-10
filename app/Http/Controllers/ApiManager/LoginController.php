@@ -9,6 +9,10 @@ use Auth;
 use Exception;
 use DB;
 use Illuminate\Support\Str;
+use Agent;
+use App\models\loginlog;
+use ArrayObject;
+use Illuminate\Support\Collection;
 
 class LoginController extends Controller
 {
@@ -72,6 +76,27 @@ class LoginController extends Controller
 					throw new Exception("you may typo your password, please check again", 403);
 				}
 			};
+			// $agent = Agent::getUserAgent();
+			// $devicetype = Agent::deviceType();
+			// $platform = Agent::platform();
+			// $platformVersion = Agent::Version($platform);
+			// $browser = Agent::Browser();
+			// $browserVersion = Agent::Version($browser);
+			//array(), ArrayObject::STD_PROP_LIST
+			$result = new ArrayObject();
+			$result->result='Success';
+			$result->continue_fail=0;
+			// $result = new ArrayObject([
+			// 	'result' =>'Success',
+			// 	'fail'=>0,
+			// ],ArrayObject::STD_PROP_LIST);
+			// $result = new ArrayObject($result);
+			// var_dump($result);
+			// var_dump($result->result);
+			// exit;
+			$loginlog = new loginlog;
+			$loginlog -> loginlog($request,$result);
+
 
             return response()->json(['status' => 200,
 				'msg' => 'success',
@@ -85,6 +110,16 @@ class LoginController extends Controller
 					'level' => $dbuser->level,
                     'cellphone' =>$dbuser->cellphone,
 					'api_token'=>$random,
+
+					// 'agent' => [
+					// 	'agent'=>$agent,
+					// 	'devicetype'=>$devicetype,
+					// 	'platform'=>$platform,
+					// 	'platformVersion'=>$platformVersion,
+					// 	'browser'=>$browser,
+					// 	'browserVersion'=>$browserVersion,
+					// 	'IP'=>$clientIP,	
+					// ],
                     
 					// 'api_token'=>$dbuser->api_token,
 					// 'sait'=>$this->salt,
@@ -95,6 +130,16 @@ class LoginController extends Controller
 			]);
 
 		} catch (Exception $e) {
+			$result = new ArrayObject();
+			$result->result='Fail';
+			$result->continue_fail=1;
+			// $result = [
+			// 	'result'=>'Fail',
+			// 	'continue_fail'=>1,
+			// ];
+			// $result = new ArrayObject($result);
+			$loginlog = new loginlog;
+			$loginlog -> loginlog($request,$result);
 			return response()->json([
 				'status' => $e->getcode(),
 				'msg' => $e->getMessage(),

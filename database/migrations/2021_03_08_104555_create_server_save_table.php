@@ -14,7 +14,8 @@ class CreateServerSaveTable extends Migration
     public function up()
     {
         Schema::create('server_save', function (Blueprint $table) {
-            $table->integer('gid')->unsigned()->comment('遊戲ID');
+            // $table->integer('gid')->unsigned()->comment('遊戲ID');
+            $table->string('gid',6)->comment('遊戲ID');
             $table->string('name',20)->comment('參數名');
             $table->string('profile',10)->comment('設定檔名');
             $table->primary(['gid','name','profile']);

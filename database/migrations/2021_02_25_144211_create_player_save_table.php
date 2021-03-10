@@ -10,7 +10,8 @@ class CreatePlayerSaveTable extends Migration
     {
         Schema::create('player_save', function (Blueprint $table) {
 
-		$table->integer('gid')->comment('遊戲ID');
+		// $table->integer('gid')->comment('遊戲ID');
+        $table->string('gid',6)->comment('遊戲ID');
 		$table->string('token',50)->comment('玩家token');
 		$table->string('name',20)->comment('存檔名稱');
 		$table->string('profile',10)->comment('設定檔名');

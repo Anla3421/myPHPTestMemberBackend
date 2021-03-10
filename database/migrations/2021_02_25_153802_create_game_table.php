@@ -11,7 +11,8 @@ class CreateGameTable extends Migration
         Schema::create('game', function (Blueprint $table) {
 
 		$table->increments('id')->unsigned();
-		$table->integer('gid')->unique()->unsigned()->comment('遊戲ID');
+		// $table->integer('gid')->unique()->unsigned()->comment('遊戲ID');
+        $table->string('gid',6)->unique()->comment('遊戲ID');
 		$table->integer('info_id')->unsigned()->comment('遊戲資訊ID game_info.id');
 		$table->integer('provider_id')->unsigned()->comment('所屬遊戲商 provider.id');
 		$table->tinyInteger('status')->comment('狀態(0:下架,1:開放)');

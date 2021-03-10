@@ -74,9 +74,10 @@ class defer extends Model
                     'private_key'=>$request->private_key,
                     'game_url'=>$request->game_url,
                     'name'=>$request->name,
+                    'currency'=>$request->currency,
                     'enabled'=>$request->enabled,
-                    'created_at' => $request->created_at,
-                    'updated_at' => $request->updated_at,
+                    // 'created_at' => $request->created_at,
+                    // 'updated_at' => $request->updated_at,
                 ]);
                break;
             
@@ -172,6 +173,7 @@ class defer extends Model
                     'private_key'=>$request->private_key,
                     'game_url'=>$request->game_url,
                     'name'=>$request->name,
+                    'currency'=>$request->currency,
                     'enabled'=>$request->enabled,
                     'created_at' => $request->created_at,
                     'updated_at' => $request->updated_at,

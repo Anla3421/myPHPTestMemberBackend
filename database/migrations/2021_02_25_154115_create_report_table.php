@@ -12,7 +12,8 @@ class CreateReportTable extends Migration
 
 		$table->increments('id')->comment('貨物流水號');
 		$table->string('token',64)->comment('貨物人員編號');
-		$table->integer('gid',)->comment('出貨所在地ID');
+		// $table->integer('gid',)->comment('出貨所在地ID');
+		$table->string('gid',6)->comment('出貨所在地ID');
 		$table->decimal('in',20,3)->comment('進貨量');
 		$table->decimal('out',20,3)->unsigned()->comment('出貨量');
 		$table->decimal('wage',10,3)->unsigned()->comment('工資');

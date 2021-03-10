@@ -60,13 +60,13 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('users')->insert([
             'uid' =>Str::random(5),
-            'name' => '99999',
+            'name' => 'ulimate',
             'password' => Hash::make('99999'),
             // 'password' => '99999', //for test
             'gender' =>'male',
             'level' => 3,
-            'api_token'=>Str::random(32),
-            'position' => 'user',
+            'api_token'=>'idontneedthis',
+            'position' => 'administrator',
             'remember_check' =>'ok',
             'remember_token' =>'NULL',
             'cellphone' => '0987987987',
