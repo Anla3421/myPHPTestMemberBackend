@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class provider extends Model
 {
-    protected $guard=[];
+    protected $guarded = [];
     protected $table='provider';
 
     public function providerWithGame(){

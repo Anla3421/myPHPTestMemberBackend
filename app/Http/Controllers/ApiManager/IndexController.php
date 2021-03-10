@@ -10,6 +10,7 @@ use App\models\provider;
 use App\models\report;
 use App\models\users;
 use App\models\agents;
+use App\models\providerlist;
 use App\tools\defer;
 use DB;
 use Exception;
@@ -201,7 +202,12 @@ class IndexController extends Controller {
 			// print_r($game->gameWithProvider->name);
 			foreach ($game as $key => $value) {
 				$value->gameWithGameinfo;
-				$game[$key]['provider_name'] = $value->gameWithProvider->name;
+				if (isset($value->gameWithProvider->name)){
+					$game[$key]['provider_name'] = $value->gameWithProvider->name;
+				}else{
+					$game[$key]['provider_name'] = 'no search result';
+				}
+				
 				unset($game[$key]['gameWithProvider']);
 			}
 
@@ -211,18 +217,18 @@ class IndexController extends Controller {
 
 			// }
 
-			$res = json_decode(json_encode($game), true);
-			foreach ($res as $key => $value) {
-				$date_obj = new \DateTime($res[$key]['created_at']);
-				$date_obj2 = new \DateTime($res[$key]['updated_at']);
-				$res[$key]['created_at'] = $date_obj->format('Y-m-d H:i:s');
-				$res[$key]['updated_at'] = $date_obj2->format('Y-m-d H:i:s');
-			}
+			// $res = json_decode(json_encode($game), true);
+			// foreach ($res as $key => $value) {
+			// 	$date_obj = new \DateTime($res[$key]['created_at']);
+			// 	$date_obj2 = new \DateTime($res[$key]['updated_at']);
+			// 	$res[$key]['created_at'] = $date_obj->format('Y-m-d H:i:s');
+			// 	$res[$key]['updated_at'] = $date_obj2->format('Y-m-d H:i:s');
+			// }
 
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
-					'game' => $res,
+					'game' => $game,
 				],
 			]);
 
@@ -736,10 +742,13 @@ class IndexController extends Controller {
 				$res[$key]['updated_at'] = $date_obj2->format('Y-m-d H:i:s');
 			}
 
+			$providerlist=DB::table('provider_list')->get();
+
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
 					'gamenew' => $res,
+					'providerlist'=>$providerlist,
 				],
 			]);
 

@@ -5,7 +5,7 @@ namespace App\models;
 use Illuminate\Database\Eloquent\Model;
 
 class report extends Model {
-	protected $guard = [];
+	protected $guarded = [];
 	protected $table = 'report';
 
 	public function reportcombine() {

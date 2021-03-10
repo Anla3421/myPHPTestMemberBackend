@@ -240,6 +240,18 @@ class MaxdisSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
+        DB::table('mainmenu')->insert([
+            'id' =>'20',
+            'table'=>'遊戲總表',
+            'url'=>'/game_detail',
+            'mainpage'=>'0',
+            'icon1'=>'fas fa-server',
+            'icon2'=>'server',
+            'icon3'=>'',
+            'subid'=>'5',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
         
     }
 

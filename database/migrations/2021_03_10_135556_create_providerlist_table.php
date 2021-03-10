@@ -17,7 +17,7 @@ class CreateProviderlistTable extends Migration
             $table->id();
             // $table->integer('cid')->incrument();
             $table->string('provider')->comment('廠商名稱');
-            $table->timestamps()->useCurrent();
+            $table->timestamps();
         });
     }
 

@@ -8,12 +8,12 @@ use Exception;
 
 class loginlog extends Model
 {
-    protected $guard=[];
-    protected $fillable = [
-        'account','name', 'password','remember_check','remember_token','gender','cellphone', 'email',
-        'level','position','ip','agent','devicetype','platform','platformVersion','browser',
-        'browserVersion','times','result','continue_fail',
-    ];
+    protected $guarded = [];
+    // protected $fillable = [
+    //     'account','name', 'password','remember_check','remember_token','gender','cellphone', 'email',
+    //     'level','position','ip','agent','devicetype','platform','platformVersion','browser',
+    //     'browserVersion','times','result','continue_fail',
+    // ];
     // public $timestamps = false;
     protected $table='login_log';
 

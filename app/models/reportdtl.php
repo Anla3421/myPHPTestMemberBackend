@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class reportdtl extends Model
 {
-    protected $guard = [];
+    protected $guarded = [];
     protected $table = 'report_dtl';
 }

@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class currencyinitial extends Model
 {
-    protected $guard=[];
-    protected $table='currency_initial';
+    protected $guarded = [];
+    protected $table = 'currency_initial';
 }
