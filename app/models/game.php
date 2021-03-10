@@ -56,4 +56,5 @@ class game extends Model {
 		game::create($data);
 		gameinfo::create($data2);
 	}
+
 }

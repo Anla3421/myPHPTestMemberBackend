@@ -11,4 +11,5 @@ class agents extends Model {
 	public function agentWithProvider() {
 		return $this->hasOne('App\models\provider', 'id', 'products');
 	}
+
 }

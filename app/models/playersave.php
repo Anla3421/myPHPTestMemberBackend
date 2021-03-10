@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class playersave extends Model
 {
-    protected $guard = [];
+    protected $guarded = [];
     protected $table = 'player_save';
 
 

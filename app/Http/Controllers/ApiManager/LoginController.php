@@ -90,21 +90,13 @@ class LoginController extends Controller
 			// $browser = Agent::Browser();
 			// $browserVersion = Agent::Version($browser);
 			//array(), ArrayObject::STD_PROP_LIST
-			$result = new ArrayObject();
-			$result->result='Success';
-			$result->continue_fail=0;
-			// $result = new ArrayObject([
-			// 	'result' =>'Success',
-			// 	'fail'=>0,
-			// ],ArrayObject::STD_PROP_LIST);
-			// $result = new ArrayObject($result);
-			// var_dump($result);
-			// var_dump($result->result);
-			// exit;
-			// $loginlog = new loginlog;
-			// $loginlog -> loginlog($request,$result,$dbuser,$random);
 
-
+				$result = new ArrayObject();
+				$result->result='Success';
+				$result->continue_fail=0;
+				$loginlog = new loginlog;
+				$loginlog -> loginlog($request,$result,$dbuser,$random);
+			
             return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
@@ -136,6 +128,9 @@ class LoginController extends Controller
 
 			]);
 
+			
+
+			
 		} catch (Exception $e) {
 			switch ($e->getcode()) {
 				case '948787':
@@ -160,7 +155,7 @@ class LoginController extends Controller
 			}
 		};
 	}
-
+	
 	public function apitokencheck(Request $request){
 		// ini_set('display_errors', "ON");
 		// $request->api_token='y3jJNKzQa8r4BHPHIY3M7AlY9McCNWkg';0
