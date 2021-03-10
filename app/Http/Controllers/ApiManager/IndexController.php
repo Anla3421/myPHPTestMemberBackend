@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers\ApiManager;
 
+use Agent;
 use App\Http\Controllers\Controller;
+use App\models\agents;
 use App\models\game;
 use App\models\mainmenu;
 use App\models\player;
 use App\models\provider;
 use App\models\report;
 use App\models\users;
-use App\models\agents;
 use App\tools\defer;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
-use ArrayObject;
-use Agent;
-
 
 class IndexController extends Controller {
 	public function sidebar(Request $request) {
@@ -58,13 +56,12 @@ class IndexController extends Controller {
 			// print_r($main);
 			// exit;
 			// foreach ($main as $mainkey => $mainvalue) {
-				// foreach ($submain as $subkey => $subvalue) {
-				// 	if ($mainvalue['mainpage'] == $subvalue['subid']) {
-						// $main[$mainkey]["submain"]->append($subvalue);
-						
-						
-					// }
-				// }
+			// foreach ($submain as $subkey => $subvalue) {
+			// 	if ($mainvalue['mainpage'] == $subvalue['subid']) {
+			// $main[$mainkey]["submain"]->append($subvalue);
+
+			// }
+			// }
 			// }
 
 			return response()->json(['status' => 200,
@@ -198,10 +195,17 @@ class IndexController extends Controller {
 
 			// $game = DB::table('game')->get();
 			$game = game::get();
+
 			// print_r($game->gameWithProvider->name);
 			foreach ($game as $key => $value) {
 				$value->gameWithGameinfo;
-				$game[$key]['provider_name'] = $value->gameWithProvider->name;
+				if (isset($value->gameWithProvider->name)) {
+
+					$game[$key]['provider_name'] = $value->gameWithProvider->name;
+				} else {
+					$game[$key]['provider_name'] = 'no serach provider';
+				}
+
 				unset($game[$key]['gameWithProvider']);
 			}
 
@@ -266,15 +270,15 @@ class IndexController extends Controller {
 
 			$gameinfo = DB::table('game_info')->get();
 			// print_r($gameinfo);
-			$clientIP=$request->getClientIp();
+			$clientIP = $request->getClientIp();
 
 			// if (!empty($_SERVER["HTTP_CLIENT_IP"])) {
-            //     $ip = $_SERVER["HTTP_CLIENT_IP"];
-            // } else if (!empty($_SERVER["HTTP_X_FORWARDED_FOR"])) {
-            //     $ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
-            // } else {
-            //     $ip = $_SERVER["REMOTE_ADDR"];
-            // }
+			//     $ip = $_SERVER["HTTP_CLIENT_IP"];
+			// } else if (!empty($_SERVER["HTTP_X_FORWARDED_FOR"])) {
+			//     $ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+			// } else {
+			//     $ip = $_SERVER["REMOTE_ADDR"];
+			// }
 
 			return response()->json(['status' => 200,
 				'msg' => 'success',
@@ -517,11 +521,11 @@ class IndexController extends Controller {
 				throw new Exception("can not find your token at db", 999);
 			}
 			//chmod check
-			if(!$id->position){
-			    throw new Exception("Forbidden", 403);
+			if (!$id->position) {
+				throw new Exception("Forbidden", 403);
 			};
-			if($id->position != 'administrator'){
-			    throw new Exception("Forbidden", 403);
+			if ($id->position != 'administrator') {
+				throw new Exception("Forbidden", 403);
 			};
 
 			$server_config = DB::table('server_config')->get();
@@ -549,13 +553,13 @@ class IndexController extends Controller {
 				'result' => [
 					'server_config' => $server_config,
 					'agent' => [
-						'agent'=>$agent,
-						'devicetype'=>$devicetype,
-						'platform'=>$platform,
-						'platformVersion'=>$platformVersion,
-						'browser'=>$browser,
-						'browserVersion'=>$browserVersion,
-						'IP'=>$clientIP,	
+						'agent' => $agent,
+						'devicetype' => $devicetype,
+						'platform' => $platform,
+						'platformVersion' => $platformVersion,
+						'browser' => $browser,
+						'browserVersion' => $browserVersion,
+						'IP' => $clientIP,
 					],
 				],
 			]);
@@ -600,11 +604,11 @@ class IndexController extends Controller {
 				throw new Exception("can not find your token at db", 999);
 			}
 			// chmod check
-			if(!$id->position){
-			    throw new Exception("Forbidden", 403);
+			if (!$id->position) {
+				throw new Exception("Forbidden", 403);
 			};
-			if($id->position != 'administrator'){
-			    throw new Exception("Forbidden", 403);
+			if ($id->position != 'administrator') {
+				throw new Exception("Forbidden", 403);
 			};
 			///////////////////////////////////////////////////////////////////////////////////////////////////////////
 			$agents = agents::get();
@@ -616,20 +620,19 @@ class IndexController extends Controller {
 			}
 
 			$agent = Agent::getUserAgent();
-			$clientIP=$request->getClientIps();
+			$clientIP = $request->getClientIps();
 			// $Browser = $agent->browser();
 			// $bVersion = $agent->version($browser);
 
 			// $platform = $agent->platform();
 			// $pVersion = $agent->version($platform);
 
-
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
 					'agents' => $agents,
 					'agent' => [
-						'agent'=>$agent,
+						'agent' => $agent,
 						// 'B'=>$Browser,
 						// 'BV'=>$bVersion,
 						// 'P'=>$platform,
@@ -765,5 +768,4 @@ class IndexController extends Controller {
 		return $defer->verifytokenandid($request, $create, $table);
 	}
 
-	
 }
