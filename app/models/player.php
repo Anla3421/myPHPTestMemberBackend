@@ -3,6 +3,8 @@
 namespace App\models;
 
 use Illuminate\Database\Eloquent\Model;
+use ActionLog;
+use Route;
 
 class player extends Model
 {
@@ -21,6 +23,10 @@ class player extends Model
         ];
 
         player::where('id',$request->update_id)->update($data);
+        // ActionLog::pushAfter('player', player::where('id', $request->get('id'))->get());
+
+        // error_reporting(0);
+        // ActionLog::save(Route::getCurrentRoute()->action['parent'],0,'remark text',null,$request->get('id'));
     }
     
     public function playercreate($request){
@@ -37,7 +43,9 @@ class player extends Model
 
     public function playerWithProvider(){
         return $this->hasOne('App\models\provider', 'id', 'provider_id');
-        
+    }
+    public function playerWithProviderlist(){
+        return $this->hasOne('App\models\providerlist', 'id', 'provider_id');
     }
     public function playerWithAgent(){
         return $this->hasOne('App\models\agent', 'id', 'agent_id');

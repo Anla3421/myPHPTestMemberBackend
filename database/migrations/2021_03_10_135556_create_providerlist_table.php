@@ -13,6 +13,7 @@ class CreateProviderlistTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('provider_list');
         Schema::create('provider_list', function (Blueprint $table) {
             $table->id();
             // $table->integer('cid')->incrument();

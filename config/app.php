@@ -118,7 +118,7 @@ return [
     | This key is used by the Illuminate encrypter service and should be set
     | to a random, 32 character string, otherwise these encrypted strings
     | will not be safe. Please do this before deploying an application!
-    |
+    |Virtualorz\ActionLog\ActionLogServiceProvider::class
     */
 
     'key' => env('APP_KEY'),
@@ -166,6 +166,7 @@ return [
 
         Collective\Html\HtmlServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
+        Virtualorz\ActionLog\ActionLogServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -235,6 +236,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        'ActionLog' => Virtualorz\ActionLog\Facades\ActionLog::class,
     ],
 
 ];

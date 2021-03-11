@@ -15,4 +15,7 @@ class provider extends Model
     public function providerWithCurrency(){
         return $this->hasOne('App\models\currencyinitial','cid','currency');
     }
+    public function providerWithProviderlist(){
+        return $this->hasOne('App\models\providerlist','id','name');
+    }
 }

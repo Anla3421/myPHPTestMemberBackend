@@ -9,10 +9,14 @@ use App\models\player;
 use App\models\game;
 use Exception;
 use DB;
+use ActionLog;
 
 class defer extends Model
 {
     protected function verifyupdate($request,$table){
+    // ActionLog::pushBefore('player', player::where('id', $request->get('id'))->get());
+
+
         switch ($table) {
             case 'player':
                 // DB::table($table)->where('id',$request->update_id)->update([
@@ -117,6 +121,9 @@ class defer extends Model
                 throw new Exception("Bad Request", 400);
                 break;
         }
+// ActionLog::pushAfter('system_permission', system_permission::where('member_id', $request->get('id'))->get());
+
+// ActionLog::save(Route::getCurrentRoute()->action['parent'],0,'remark text',null,$request->get('id'));
     }
 
     protected function verifycreate($request,$table){   
@@ -244,7 +251,7 @@ class defer extends Model
                 throw new Exception("Forbidden", 403);
             }
 
-            
+
             if ($create){
                 $this->verifycreate($request,$table);
             }else{
@@ -253,6 +260,7 @@ class defer extends Model
                 // }
                 $this->verifyupdate($request,$table);
             }
+
             return response()->json([
                 'status' => 200,
                 'msg' => 'success',

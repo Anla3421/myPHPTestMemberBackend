@@ -51,7 +51,7 @@ Route::namespace('ApiManager')->group(function(){
 	Route::post('player/c','IndexController@playercreate');
 	Route::post('player/u','IndexController@playerupdate');
 
-	Route::any('agent','IndexController@agent');
+	Route::middleware('ActionLogMiddleware')->any('agent','IndexController@agent');
 
 	Route::any('member','IndexController@member');
 

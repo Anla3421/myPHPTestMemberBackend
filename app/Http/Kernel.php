@@ -74,5 +74,8 @@ class Kernel extends HttpKernel
         // For test (offline)
         'before' => \App\Http\Middleware\BeforeMiddleware::class,
         'after' => \App\Http\Middleware\AfterMiddleware::class,
+        
+        'ActionLogMiddleware' => \App\Http\Middleware\ActionLogMiddleware::class,
+        
     ];
 }

@@ -23,7 +23,7 @@ class game extends Model
         $data = [
             //有ID
             'gid' =>$request->gid,
-            'info_id'=>$request->info_id,
+            // 'info_id'=>$request->info_id,
             'provider_id'=>$request->provider_id,
             'status'=>$request->status,
         ];
@@ -44,7 +44,7 @@ class game extends Model
         // print_r($request->);
         // exit;
         game::where('id',$request->update_id)->update($data);
-        gameinfo::where('info_id',$request->update_id)->update($data2);
+        gameinfo::where('info_id',$request->info_id)->update($data2);
     }
     
     public function gamenewcreate($request){

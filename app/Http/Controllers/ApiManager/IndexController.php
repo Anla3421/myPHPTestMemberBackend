@@ -145,13 +145,21 @@ class IndexController extends Controller {
 				throw new Exception("can not find your token at db", 999);
 			}
 
-			$player = DB::table('player')->get();
-			// print_r($player);
+			$player = player::get();
+			foreach ($player as $key => $value) {
+				$value->playerWithAgent;
+				$value->playerWithProviderlist;
+
+			}
+			$providerlist = DB::table('provider_list')->get();
+			$agent = DB::table('agent')->get();
 
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
 					'player' => $player,
+					'providerlist' => $providerlist,
+					'agent'=>$agent,
 				],
 			]);
 
@@ -208,7 +216,7 @@ class IndexController extends Controller {
 
 				unset($game[$key]['gameWithProvider']);
 			}
-
+			
 			// $game = game::get();
 			// foreach ($game as $key2){
 			//     $key2->gameWithProvider->name;
@@ -521,12 +529,12 @@ class IndexController extends Controller {
 				throw new Exception("can not find your token at db", 999);
 			}
 			//chmod check
-			if (!$id->position) {
-				throw new Exception("Forbidden", 403);
-			};
-			if ($id->position != 'administrator') {
-				throw new Exception("Forbidden", 403);
-			};
+			// if (!$id->position) {
+			// 	throw new Exception("Forbidden", 403);
+			// };
+			// if ($id->position != 'administrator') {
+			// 	throw new Exception("Forbidden", 403);
+			// };
 
 			$server_config = DB::table('server_config')->get();
 			// print_r($server_config);
@@ -723,7 +731,8 @@ class IndexController extends Controller {
 			$game = game::get();
 			foreach ($game as $key => $value) {
 				$value->gameWithGameinfo;
-				$value->gameWithProvider;
+				$value->gameWithProvider->providerWithProviderlist;
+				$value->gameWithProvider->providerWithCurrency;
 				// // $value->playerWithProvider->providerWithCurrency;
 				// $agents[$key]['products'] = $value->agentWithProvider->name;
 				// $agents[$key]['currency'] = $value->agentWithProvider->providerWithCurrency->game_currency;
@@ -771,4 +780,10 @@ class IndexController extends Controller {
 		return $defer->verifytokenandid($request, $create, $table);
 	}
 
+	public function actionlogtest(Request $request){
+		
+		ActionLog::save(Route::getCurrentRoute()->action['parent'],2,'remark text',$system_permission);
+		// {!! $RESULT_HTML !!} ;
+
+	}
 }
