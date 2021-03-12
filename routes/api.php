@@ -51,14 +51,16 @@ Route::namespace('ApiManager')->group(function(){
 	Route::post('player/c','IndexController@playercreate');
 	Route::post('player/u','IndexController@playerupdate');
 
-	Route::middleware('ActionLogMiddleware')->any('agent','IndexController@agent');
+	Route::any('agent','IndexController@agent');
 
-	Route::any('member','IndexController@member');
+	Route::middleware('ActionLogBefore')->any('member','IndexController@member');
+	// Route::middleware('ActionLogAfter')->any('member','IndexController@member');
 
 	Route::any('gamenew','IndexController@gamenew');
 	Route::any('gamenew/c','IndexController@gamenewcreate');
 	Route::any('gamenew/u','IndexController@gamenewupdate');
 
+	Route::any('loginlog', 'IndexController@loginlog');
 });
 
 

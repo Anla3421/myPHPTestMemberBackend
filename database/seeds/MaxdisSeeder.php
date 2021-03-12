@@ -13,53 +13,53 @@ class MaxdisSeeder extends Seeder
     {
         $newtime=time()+(random_int(1,24)*random_int(1,60)*random_int(1,60)*random_int(1,7)); //小時,分,秒,天
         DB::table('mainmenu')->insert([
-            'id' =>'1',
-            'table'=>'帳戶管理',
-            'url'=>'',
-            'mainpage'=>'1',
-            'icon1'=>'fas fa-user',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'0',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('mainmenu')->insert([
-            'id' =>'2',
-            'table'=>'設定管理',
-            'url'=>'',
-            'mainpage'=>'2',
-            'icon1'=>'fas fa-cog',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'0',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('mainmenu')->insert([
-            'id' =>'3',
-            'table'=>'報表管理',
-            'url'=>'',
-            'mainpage'=>'3',
-            'icon1'=>'fas fa-file-csv',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'0',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
-        DB::table('mainmenu')->insert([
-            'id' =>'4',
-            'table'=>'操作紀錄',
-            'url'=>'',
-            'mainpage'=>'4',
-            'icon1'=>'fas fa-clipboard-check',
-            'icon2'=>'',
-            'icon3'=>'',
-            'subid'=>'0',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s',$newtime),
-        ]);
+			'id' => '1',
+			'table' => '帳戶管理',
+			'url' => '',
+			'mainpage' => '1',
+			'icon1' => 'fas fa-user',
+			'icon2' => '',
+			'icon3' => 'el-icon-s-custom',
+			'subid' => '0',
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s', $newtime),
+		]);
+		DB::table('mainmenu')->insert([
+			'id' => '2',
+			'table' => '設定管理',
+			'url' => '',
+			'mainpage' => '2',
+			'icon1' => 'fas fa-cog',
+			'icon2' => '',
+			'icon3' => 'el-icon-setting',
+			'subid' => '0',
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s', $newtime),
+		]);
+		DB::table('mainmenu')->insert([
+			'id' => '3',
+			'table' => '報表管理',
+			'url' => '',
+			'mainpage' => '3',
+			'icon1' => 'fas fa-file-csv',
+			'icon2' => '',
+			'icon3' => 'el-icon-s-marketing',
+			'subid' => '0',
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s', $newtime),
+		]);
+		DB::table('mainmenu')->insert([
+			'id' => '4',
+			'table' => '操作紀錄',
+			'url' => '',
+			'mainpage' => '4',
+			'icon1' => 'fas fa-clipboard-check',
+			'icon2' => '',
+			'icon3' => 'el-icon-files',
+			'subid' => '0',
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s', $newtime),
+		]);
         DB::table('mainmenu')->insert([
             'id' =>'5',
             'table'=>'代理商管理',
@@ -199,7 +199,7 @@ class MaxdisSeeder extends Seeder
             'mainpage'=>'5',
             'icon1'=>'fas fa-cogs',
             'icon2'=>'',
-            'icon3'=>'',
+            'icon3'=>'el-icon-s-check',
             'subid'=>'0',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
@@ -252,7 +252,18 @@ class MaxdisSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
-        
+        DB::table('mainmenu')->insert([
+            'id' =>'21',
+            'table'=>'供應商管理',
+            'url'=>'/provider',
+            'mainpage'=>'0',
+            'icon1'=>'fas fa-server',
+            'icon2'=>'server',
+            'icon3'=>'',
+            'subid'=>'1',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
     }
 
 }

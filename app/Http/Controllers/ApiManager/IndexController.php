@@ -148,17 +148,17 @@ class IndexController extends Controller {
 			$player = player::get();
 			foreach ($player as $key => $value) {
 				$value->playerWithAgent;
-				$value->playerWithProviderlist;
-
+				// $value->playerWithProviderlist;
+				$value->playerWithProvider;
 			}
-			$providerlist = DB::table('provider_list')->get();
 			$agent = DB::table('agent')->get();
+			$provider = DB::table('provider')->get();
 
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
 					'player' => $player,
-					'providerlist' => $providerlist,
+					'provider' => $provider,
 					'agent'=>$agent,
 				],
 			]);
@@ -335,7 +335,21 @@ class IndexController extends Controller {
 			}
 
 			$provider = provider::get();
-			// print_r($provider);
+			foreach ($provider as $key => $value) {
+				$value->providerWithCurrency;
+				// $value->providerWithProviderlist;
+			}
+
+			$currencyinitial = DB::table('currency_initial')->get();
+			// $providerlist = DB::table('provider_list')->get();
+
+			$res = json_decode(json_encode($provider), true);
+			foreach ($res as $key => $value) {
+				$date_obj = new \DateTime($res[$key]['created_at']);
+				$date_obj2 = new \DateTime($res[$key]['updated_at']);
+				$res[$key]['created_at'] = $date_obj->format('Y-m-d H:i:s');
+				$res[$key]['updated_at'] = $date_obj2->format('Y-m-d H:i:s');
+			}
 
 			//'是否'vs'10'轉換
 			// foreach ($provider as $key => $value) {
@@ -349,7 +363,9 @@ class IndexController extends Controller {
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
-					'provider' => $provider,
+					'provider' => $res,
+					'currency' => $currencyinitial,
+					// 'provider' => $provider,
 				],
 			]);
 
@@ -618,35 +634,23 @@ class IndexController extends Controller {
 			if ($id->position != 'administrator') {
 				throw new Exception("Forbidden", 403);
 			};
-			///////////////////////////////////////////////////////////////////////////////////////////////////////////
 			$agents = agents::get();
 			foreach ($agents as $key => $value) {
 				// $value->playerWithProvider->providerWithCurrency;
-				$agents[$key]['products'] = $value->agentWithProvider->name;
-				$agents[$key]['currency'] = $value->agentWithProvider->providerWithCurrency->game_currency;
-				unset($agents[$key]['agentWithProvider']);
+				$value->agentWithProvider->name;
+				$value->agentWithProvider->providerWithCurrency->game_currency;
+				// $agents[$key]['products'] = $value->agentWithProvider->name;
+				// $agents[$key]['currency'] = $value->agentWithProvider->providerWithCurrency->game_currency;
+				// unset($agents[$key]['agentWithProvider']);
 			}
 
-			$agent = Agent::getUserAgent();
-			$clientIP = $request->getClientIps();
-			// $Browser = $agent->browser();
-			// $bVersion = $agent->version($browser);
-
-			// $platform = $agent->platform();
-			// $pVersion = $agent->version($platform);
-
+			$currencyinitial = DB::table('currency_initial')->get();
+			
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
 					'agents' => $agents,
-					'agent' => [
-						'agent' => $agent,
-						// 'B'=>$Browser,
-						// 'BV'=>$bVersion,
-						// 'P'=>$platform,
-						// 'PV'=>$pVersion,
-					],
-					'clientIP' => $clientIP,
+					'currencyinitial' => $currencyinitial,
 				],
 			]);
 
@@ -685,7 +689,7 @@ class IndexController extends Controller {
 			// };
 
 			$server_config = DB::table('server_config')->get();
-			print_r($server_config);
+			// print_r($server_config);
 
 			return response()->json(['status' => 200,
 				'msg' => 'success',
@@ -731,14 +735,17 @@ class IndexController extends Controller {
 			$game = game::get();
 			foreach ($game as $key => $value) {
 				$value->gameWithGameinfo;
-				$value->gameWithProvider->providerWithProviderlist;
+				// $value->gameWithProvider->providerWithProviderlist;
+				$value->gameWithProvider;
 				$value->gameWithProvider->providerWithCurrency;
-				// // $value->playerWithProvider->providerWithCurrency;
+
+				// $value->playerWithProvider->providerWithCurrency;
 				// $agents[$key]['products'] = $value->agentWithProvider->name;
 				// $agents[$key]['currency'] = $value->agentWithProvider->providerWithCurrency->game_currency;
 				// unset($agents[$key]['agentWithProvider']);
 			}
 			// print_r($game);
+			$provider=DB::table('provider')->get();
 
 			$res = json_decode(json_encode($game), true);
 			foreach ($res as $key => $value) {
@@ -748,13 +755,11 @@ class IndexController extends Controller {
 				$res[$key]['updated_at'] = $date_obj2->format('Y-m-d H:i:s');
 			}
 
-			$providerlist = DB::table('provider_list')->get();
-
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
 					'gamenew' => $res,
-					'providerlist' => $providerlist,
+					'provider' => $provider,
 				],
 			]);
 
@@ -780,10 +785,55 @@ class IndexController extends Controller {
 		return $defer->verifytokenandid($request, $create, $table);
 	}
 
-	public function actionlogtest(Request $request){
-		
-		ActionLog::save(Route::getCurrentRoute()->action['parent'],2,'remark text',$system_permission);
-		// {!! $RESULT_HTML !!} ;
+	public function loginlog(Request $request){
+		try {
+			if (!$request->has('api_token')) {
+				throw new Exception("api_token can't be empty", 400);
+			}
+			if (!$request->has('id')) {
+				throw new Exception("id can't be empty", 400);
+			}
 
+			$id = users::find($request->id);
+			// print_r($id->position);
+			if ($id->api_token == NULL) {
+				throw new Exception("can not find your token at db", 987);
+			}
+			if ($id->api_token != $request->api_token) {
+				throw new Exception("can not find your token at db", 999);
+			}
+			//chmod check
+			// if(!$id->position){
+			//     throw new Exception("Forbidden", 403);
+			// };
+			// if($id->position != 'administrator'){
+			//     throw new Exception("Forbidden", 403);
+			// };
+
+			// $loginlog = loginlog::get();
+
+			$loginlog = DB::table('login_log')->get();
+
+			return response()->json(['status' => 200,
+				'msg' => 'success',
+				'result' => [
+					'loginlog' => $loginlog,
+					// 'provider' => $provider,
+				],
+			]);
+
+		} catch (Exception $e) {
+			return response()->json([
+				'status' => $e->getcode(),
+				'msg' => $e->getMessage(),
+			]);
+		};
 	}
+
+	// public function actionlogtest(Request $request){
+		
+	// 	ActionLog::save(Route::getCurrentRoute()->action['parent'],2,'remark text',$system_permission);
+	// 	// {!! $RESULT_HTML !!} ;
+
+	// }
 }

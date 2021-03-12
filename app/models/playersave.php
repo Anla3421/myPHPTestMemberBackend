@@ -10,7 +10,7 @@ class playersave extends Model
     protected $table = 'player_save';
 
 
-    public function playerupdate($request){
+    public function playersaveupdate($request){
         $data = [
             //沒ID
             // 'gid'=>$request->gid,
@@ -21,10 +21,10 @@ class playersave extends Model
             'updated_at'=>$request->updated_at,
         ];
 
-        player::where('id',$request->update_id)->update($data);
+        playersave::where('id',$request->update_id)->update($data);
     }
     
-    public function playercreate($request){
+    public function playersavecreate($request){
         $data = [
             //沒ID
             'gid'=>$request->gid,
@@ -35,7 +35,7 @@ class playersave extends Model
             'updated_at'=>$request->updated_at,
         ];
 
-        player::create($data);
+        playersave::create($data);
     }
 
 }

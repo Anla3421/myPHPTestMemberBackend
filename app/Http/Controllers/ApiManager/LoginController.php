@@ -140,18 +140,26 @@ class LoginController extends Controller
 
 	public function logout(Request $request){
 		// Auth::loginUsingId(2);
-		DB::table('users')->where('id', $request->id)->update(['api_token'=>NULL]);
-		$api_token=DB::table('users')->where('id', $request->id)->pluck('api_token');
-		Auth::logout();
-		return response()->json([
-			'status'=>200,
-			'msg'=>'logout suceess',
-			'result'=>[
-				// 'name'=>$request->name,
-				'api_token'=>$api_token[0],
-				// 'loginstatus'=>Auth::check(),
-			],
+		if($request->id != NULL){
+			DB::table('users')->where('id', $request->id)->update(['api_token'=>NULL]);
+			$api_token=DB::table('users')->where('id', $request->id)->pluck('api_token');
+			Auth::logout();
+			return response()->json([
+				'status'=>200,
+				'msg'=>'logout suceess',
+				'result'=>[
+					// 'name'=>$request->name,
+					'api_token'=>$api_token[0],
+					// 'loginstatus'=>Auth::check(),
+				],
 
-		]);
+			]);
+		}else{
+			return response()->json([
+				'status' => 404,
+				'msg' => "id can't be empty",
+			]);
+		}
+		
 	}
 }

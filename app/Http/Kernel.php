@@ -76,6 +76,7 @@ class Kernel extends HttpKernel
         'after' => \App\Http\Middleware\AfterMiddleware::class,
         
         'ActionLogMiddleware' => \App\Http\Middleware\ActionLogMiddleware::class,
-        
+        'ActionLogBefore' => \App\Http\Middleware\ActionLogBefore::class,
+        'ActionLogAfter' => \App\Http\Middleware\ActionLogAfter::class,
     ];
 }

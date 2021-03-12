@@ -31,15 +31,17 @@ class defer extends Model
                 break;
 
             case 'player_save':
-                DB::table($table)->where('gid',$request->gid)->update([
-                    //沒ID
-                    // 'gid'=>$request->gid,
-                    'token'=>$request->token,
-                    'name'=>$request->name,
-                    'profile'=>$request->profile,
-                    'value'=>$request->value,
-                    'updated_at'=>$request->updated_at,
-                ]);
+                // DB::table($table)->where('gid',$request->gid)->update([
+                //     //沒ID
+                //     // 'gid'=>$request->gid,
+                //     'token'=>$request->token,
+                //     'name'=>$request->name,
+                //     'profile'=>$request->profile,
+                //     'value'=>$request->value,
+                //     'updated_at'=>$request->updated_at,
+                // ]);
+                $playersave = new playersave;
+                $playersave -> playersaveupdate($request);
                 break;
 
             case 'game':
@@ -73,17 +75,17 @@ class defer extends Model
                 break;
 
             case 'provider':
-                DB::table($table)->where('id',$request->update_id)->update([
-                    //有ID
-                    'username'=>$request->username,
-                    'private_key'=>$request->private_key,
-                    'game_url'=>$request->game_url,
-                    'name'=>$request->name,
-                    'currency'=>$request->currency,
-                    'enabled'=>$request->enabled,
-                    // 'created_at' => $request->created_at,
-                    // 'updated_at' => $request->updated_at,
-                ]);
+                // DB::table($table)->where('id',$request->update_id)->update([
+                //     //有ID
+                //     'username'=>$request->username,
+                //     'private_key'=>$request->private_key,
+                //     'game_url'=>$request->game_url,
+                //     'name'=>$request->name,
+                //     'currency'=>$request->currency,
+                //     'enabled'=>$request->enabled,
+                // ]);
+                $providersave = new providersave;
+                $providersave -> providerupdate($request);
                break;
             
             case 'report':
@@ -139,17 +141,21 @@ class defer extends Model
                 $player = new player;
                 $player -> playercreate($request);
                 break;
+
             case 'player_save':
-                DB::table($table)->insert([
-                    //沒ID
-                    'gid'=>$request->gid,
-                    'token'=>$request->token,
-                    'name'=>$request->name,
-                    'profile'=>$request->profile,
-                    'value'=>$request->value,
-                    'updated_at'=>$request->updated_at,
-                ]);
+                // DB::table($table)->insert([
+                //     //沒ID
+                //     'gid'=>$request->gid,
+                //     'token'=>$request->token,
+                //     'name'=>$request->name,
+                //     'profile'=>$request->profile,
+                //     'value'=>$request->value,
+                //     'updated_at'=>$request->updated_at,
+                // ]);
+                $playersave = new playersave;
+                $playersave -> playersavecreate($request);
                 break;
+
             case 'game':
                 DB::table($table)->insert([
                     //有ID
@@ -180,17 +186,19 @@ class defer extends Model
                 break;
 
             case 'provider':
-                DB::table($table)->insert([
-                    //有ID
-                    'username'=>$request->username,
-                    'private_key'=>$request->private_key,
-                    'game_url'=>$request->game_url,
-                    'name'=>$request->name,
-                    'currency'=>$request->currency,
-                    'enabled'=>$request->enabled,
-                    'created_at' => $request->created_at,
-                    'updated_at' => $request->updated_at,
-                ]);
+                // DB::table($table)->insert([
+                //     //有ID
+                //     'username'=>$request->username,
+                //     'private_key'=>$request->private_key,
+                //     'game_url'=>$request->game_url,
+                //     'name'=>$request->name,
+                //     'currency'=>$request->currency,
+                //     'enabled'=>$request->enabled,
+                //     'created_at' => $request->created_at,
+                //     'updated_at' => $request->updated_at,
+                // ]);
+                $providersave = new providersave;
+                $providersave -> providercreate($request);
                 break;
 
             case 'report':
