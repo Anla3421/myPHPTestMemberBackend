@@ -8,7 +8,7 @@ class playersave extends Model
 {
     protected $guarded = [];
     protected $table = 'player_save';
-
+    // public $timestamps = false;
 
     public function playersaveupdate($request){
         $data = [
@@ -18,10 +18,10 @@ class playersave extends Model
             'name'=>$request->name,
             'profile'=>$request->profile,
             'value'=>$request->value,
-            'updated_at'=>$request->updated_at,
+            // 'updated_at'=>$request->updated_at,
         ];
 
-        playersave::where('id',$request->update_id)->update($data);
+        playersave::where('gid',$request->update_id)->update($data);
     }
     
     public function playersavecreate($request){
@@ -32,7 +32,7 @@ class playersave extends Model
             'name'=>$request->name,
             'profile'=>$request->profile,
             'value'=>$request->value,
-            'updated_at'=>$request->updated_at,
+            // 'updated_at'=>$request->updated_at,
         ];
 
         playersave::create($data);

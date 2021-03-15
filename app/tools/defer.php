@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\models\users;
 use App\models\player;
 use App\models\game;
+use App\models\playersave;
+use App\models\provider;
+use App\models\agent;
+
 use Exception;
 use DB;
 use ActionLog;
@@ -84,8 +88,8 @@ class defer extends Model
                 //     'currency'=>$request->currency,
                 //     'enabled'=>$request->enabled,
                 // ]);
-                $providersave = new providersave;
-                $providersave -> providerupdate($request);
+                $provider = new provider;
+                $provider -> providerupdate($request);
                break;
             
             case 'report':
@@ -117,7 +121,12 @@ class defer extends Model
             case 'gamenew':
                 $gamenew = new game;
                 $gamenew -> gamenewupdate($request);
-                break;                                             
+                break;
+                
+            case 'agent':
+                $agent = new agent;
+                $agent -> agentupdate($request);
+                break;
             
             default:
                 throw new Exception("Bad Request", 400);
@@ -197,8 +206,8 @@ class defer extends Model
                 //     'created_at' => $request->created_at,
                 //     'updated_at' => $request->updated_at,
                 // ]);
-                $providersave = new providersave;
-                $providersave -> providercreate($request);
+                $provider = new provider;
+                $provider -> providercreate($request);
                 break;
 
             case 'report':
@@ -231,6 +240,12 @@ class defer extends Model
                 $gamenew -> gamenewcreate($request);
                 break;  
             
+            case 'agent':
+                $agent = new agent;
+                $agent -> agentcreate($request);
+                break;  
+            
+
             default:
                 throw new Exception("Bad Request", 400);
                 break;

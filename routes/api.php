@@ -23,24 +23,24 @@ Route::namespace('ApiManager')->group(function(){
 	Route::any('sidebar','IndexController@sidebar');
 
 	Route::any('playersave','IndexController@playersave');
-	Route::any('playersave/c','IndexController@playersavecreate');
+	Route::any('playersave/c','IndexController@playersavecreate')->name('playersavecreate');
 	Route::any('playersave/u','IndexController@playersaveupdate');
 
 	Route::any('game','IndexController@game');
-	Route::any('game/c','IndexController@gamecreate');
+	Route::any('game/c','IndexController@gamecreate')->name('gamecreate');
 	Route::any('game/u','IndexController@gameupdate');
 	
 	Route::any('gameinfo','IndexController@gameinfo');
-	Route::any('gameinfo/c','IndexController@gameinfocreate');
+	Route::any('gameinfo/c','IndexController@gameinfocreate')->name('gameinfocreate');
 	Route::any('gameinfo/u','IndexController@gameinfoupdate');
 
 	Route::any('provider','IndexController@provider');
-	Route::any('provider/c','IndexController@providercreate');
+	Route::any('provider/c','IndexController@providercreate')->name('providercreate');
 	Route::any('provider/u','IndexController@providerupdate');
 
 	Route::any('reportcombine','IndexController@reportcombine');
 	Route::any('report','IndexController@report');
-	Route::any('report/c','IndexController@reportcreate');
+	Route::any('report/c','IndexController@reportcreate')->name('reportcreate');
 
 	Route::any('reportdtl','IndexController@reportdtl');
 
@@ -48,19 +48,25 @@ Route::namespace('ApiManager')->group(function(){
 	Route::any('serverconfig/u','IndexController@serverconfigupdate');
 	
 	Route::any('player','IndexController@player');
-	Route::post('player/c','IndexController@playercreate');
+	Route::post('player/c','IndexController@playercreate')->name('playercreate');
 	Route::post('player/u','IndexController@playerupdate');
 
 	Route::any('agent','IndexController@agent');
+	Route::any('agent/c','IndexController@agentcreate')->name('playercreate');
+	Route::any('agent/u','IndexController@agentupdate');
 
-	Route::middleware('ActionLogBefore')->any('member','IndexController@member');
 	// Route::middleware('ActionLogAfter')->any('member','IndexController@member');
+	Route::any('member','IndexController@member');
 
 	Route::any('gamenew','IndexController@gamenew');
-	Route::any('gamenew/c','IndexController@gamenewcreate');
+	Route::any('gamenew/c','IndexController@gamenewcreate')->name('gamenewcreate');
 	Route::any('gamenew/u','IndexController@gamenewupdate');
 
 	Route::any('loginlog', 'IndexController@loginlog');
+
+	Route::any('actionlog', 'IndexController@actionlog');
+
+	Route::any('wallet', 'IndexController@wallet');
 });
 
 

@@ -11,6 +11,7 @@ use App\models\player;
 use App\models\provider;
 use App\models\report;
 use App\models\users;
+use App\models\actionlog;
 use App\tools\defer;
 use DB;
 use Exception;
@@ -644,13 +645,23 @@ class IndexController extends Controller {
 				// unset($agents[$key]['agentWithProvider']);
 			}
 
+			$res = json_decode(json_encode($agents), true);
+			foreach ($res as $key => $value) {
+				$date_obj = new \DateTime($res[$key]['created_at']);
+				$date_obj2 = new \DateTime($res[$key]['updated_at']);
+				$res[$key]['created_at'] = $date_obj->format('Y-m-d H:i:s');
+				$res[$key]['updated_at'] = $date_obj2->format('Y-m-d H:i:s');
+			}
+
 			$currencyinitial = DB::table('currency_initial')->get();
+			$provider = DB::table('provider')->get();
 			
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
-					'agents' => $agents,
+					'agents' => $res,
 					'currencyinitial' => $currencyinitial,
+					'provider' => $provider,
 				],
 			]);
 
@@ -661,6 +672,20 @@ class IndexController extends Controller {
 			]);
 		};
 
+	}
+
+	public function agentcreate(Request $request) {
+		$table = 'agent';
+		$create = true;
+		$defer = new defer;
+		return $defer->verifytokenandid($request, $create, $table);
+	}
+
+	public function agentupdate(Request $request) {
+		$table = 'agent';
+		$create = false;
+		$defer = new defer;
+		return $defer->verifytokenandid($request, $create, $table);
 	}
 
 	public function member(Request $request) {
@@ -819,6 +844,134 @@ class IndexController extends Controller {
 				'result' => [
 					'loginlog' => $loginlog,
 					// 'provider' => $provider,
+				],
+			]);
+
+		} catch (Exception $e) {
+			return response()->json([
+				'status' => $e->getcode(),
+				'msg' => $e->getMessage(),
+			]);
+		};
+	}
+
+	public function actionlog(Request $request){
+		try {
+			if (!$request->has('api_token')) {
+				throw new Exception("api_token can't be empty", 400);
+			}
+			if (!$request->has('id')) {
+				throw new Exception("id can't be empty", 400);
+			}
+
+			$id = users::find($request->id);
+			// print_r($id->position);
+			if ($id->api_token == NULL) {
+				throw new Exception("can not find your token at db", 987);
+			}
+			if ($id->api_token != $request->api_token) {
+				throw new Exception("can not find your token at db", 999);
+			}
+			//chmod check
+			// if(!$id->position){
+			//     throw new Exception("Forbidden", 403);
+			// };
+			// if($id->position != 'administrator'){
+			//     throw new Exception("Forbidden", 403);
+			// };
+
+			// $loginlog = loginlog::get();
+
+			// $actionlog = DB::table('action_log')->get();
+			
+			$actionlog = actionlog::get();
+			foreach ($actionlog as $key => $value) {
+				
+				$actionlog[$key]['user'] = $value->actionlogWithUsers->name;
+				unset($actionlog[$key]['actionlogWithUsers']);
+			}
+
+			$res = json_decode(json_encode($actionlog), true);
+			foreach ($res as $key => $value) {
+				$date_obj = new \DateTime($res[$key]['created_at']);
+				$date_obj2 = new \DateTime($res[$key]['updated_at']);
+				$res[$key]['created_at'] = $date_obj->format('Y-m-d H:i:s');
+				$res[$key]['updated_at'] = $date_obj2->format('Y-m-d H:i:s');
+			}
+
+			return response()->json(['status' => 200,
+				'msg' => 'success',
+				'result' => [
+					// 'actionlog' => $actionlog,
+					'actionlog' => $res,
+				],
+			]);
+
+		} catch (Exception $e) {
+			return response()->json([
+				'status' => $e->getcode(),
+				'msg' => $e->getMessage(),
+			]);
+		};
+	}
+
+	public function wallet(Request $request){
+		try {
+			if (!$request->has('api_token')) {
+				throw new Exception("api_token can't be empty", 400);
+			}
+			if (!$request->has('id')) {
+				throw new Exception("id can't be empty", 400);
+			}
+
+			$id = users::find($request->id);
+			// print_r($id->position);
+			if ($id->api_token == NULL) {
+				throw new Exception("can not find your token at db", 987);
+			}
+			if ($id->api_token != $request->api_token) {
+				throw new Exception("can not find your token at db", 999);
+			}
+			//chmod check
+			// if(!$id->position){
+			//     throw new Exception("Forbidden", 403);
+			// };
+			// if($id->position != 'administrator'){
+			//     throw new Exception("Forbidden", 403);
+			// };
+
+			// $loginlog = loginlog::get();
+
+			// $actionlog = DB::table('action_log')->get();
+			
+			$wallet = player::get();
+			foreach ($wallet as $key => $value) {
+				$value->playerWithAgent;
+				$value->playerWithProvider;
+				$value->playerWithCurrencyinitial;
+				// $wallet[$key]['user'] = $value->playerWithPlayersave;
+				// unset($wallet[$key]['actionlogWithUsers']);
+			}
+
+			$currency_initial = DB::table('currency_initial')->get();
+			$provider = DB::table('provider')->get();
+			$agent = DB::table('agent')->get();
+			// $res = json_decode(json_encode($wallet), true);
+			// foreach ($res as $key => $value) {
+			// 	$date_obj = new \DateTime($res[$key]['created_at']);
+			// 	$date_obj2 = new \DateTime($res[$key]['updated_at']);
+			// 	$res[$key]['created_at'] = $date_obj->format('Y-m-d H:i:s');
+			// 	$res[$key]['updated_at'] = $date_obj2->format('Y-m-d H:i:s');
+			// }
+			
+			return response()->json(['status' => 200,
+				'msg' => 'success',
+				'result' => [
+					// 'actionlog' => $actionlog,
+					'wallet' => $wallet,
+					'currency_initial' => $currency_initial,
+					'provider' => $provider,
+					'agent' => $agent,
 				],
 			]);
 

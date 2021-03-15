@@ -17,7 +17,7 @@ class CreateAgentTable extends Migration
             $table->id();
             $table->string('agent_name')->comment('Agent name');
             $table->string('products')->comment('我覺得應該是"廠商"');
-            $table->string('members')->comment('會員人數');
+            $table->string('members')->default('0')->comment('會員人數');
             $table->string('remark')->comment('備註');
             $table->string('status')->comment('狀態(0:下架,1:開放)');
             $table->timestamp('created_at')->useCurrent()->comment('新增時間');

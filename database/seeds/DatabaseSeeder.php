@@ -21,12 +21,10 @@ class DatabaseSeeder extends Seeder
         // $this->call(ShopTableSeeder::class);
         $this->call(MaxdisSeeder::class);
         $this->call(MaxdisDataSeeder::Class);
-        
+
         $newtime=time()+(random_int(1,24)*random_int(1,60)*random_int(1,60)*random_int(1,7)); //小時,分,秒,天
-        
-       /**
-         * User information
-         */
+      
+        //user information
         DB::table('users')->insert([
             // 'name' => Str::random(10),
             'uid' =>Str::random(5),
@@ -62,7 +60,7 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('users')->insert([
             'uid' =>Str::random(5),
-            'name' => 'ulimate',
+            'name' => 'ultimate',
             'password' => Hash::make('99999'),
             // 'password' => '99999', //for test
             'gender' =>'male',
@@ -178,9 +176,8 @@ class DatabaseSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
-
-        
     }
+
 
     //     Schema::create('tasks', function (Blueprint $table) {
     //         $table->bigIncrements('id');

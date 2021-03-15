@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class users extends Model
 {
-    protected $guarded = [];
+    protected $guarded = ["password"];
 	protected $table = "users";
 }

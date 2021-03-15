@@ -52,4 +52,10 @@ class player extends Model
     public function playerWithAgent(){
         return $this->hasOne('App\models\agent', 'id', 'agent_id');
     }
+    public function playerWithPlayersave(){
+        return $this->hasOne('App\models\playersave', 'token', 'uniq_id');
+    }
+    public function playerWithCurrencyinitial(){
+        return $this->hasOne('App\models\currencyinitial', 'cid', 'currency');
+    }
 }

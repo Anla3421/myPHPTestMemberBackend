@@ -15,7 +15,7 @@ class MaxdisDataSeeder extends Seeder
         DB::table('player_save')->insert([
             'gid' =>'1',
             'token'=>'12345',
-            'name'=>'tim',
+            'name'=>'玩家1',
             'profile'=>'pName1',
             'value'=>'玩家1',
             'updated_at' => date('Y-m-d H:i:s',$newtime),
@@ -23,7 +23,7 @@ class MaxdisDataSeeder extends Seeder
         DB::table('player_save')->insert([
             'gid' =>'2',
             'token'=>'54321',
-            'name'=>'Sam',
+            'name'=>'玩家2',
             'profile'=>'4name 2',
             'value'=>'就是個玩家2',
             'updated_at' => date('Y-m-d H:i:s',$newtime),
@@ -160,16 +160,20 @@ class MaxdisDataSeeder extends Seeder
             'id'=>'1',
             'provider_id'=>'1',
             'agent_id'=>'1',
-            'name'=>'playername1',
+            'name'=>'玩家1',
             'uniq_id'=>'12345',
+            'currency'=>'1',
+            'amount'=>'50000',
             'last_at'=>date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('player')->insert([
             'id'=>'2',
             'provider_id'=>'2',
             'agent_id'=>'2',
-            'name'=>'playername2',
+            'name'=>'玩家2',
             'uniq_id'=>'54321',
+            'currency'=>'2',
+            'amount'=>'10000',
             'last_at'=>date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('currency_initial')->insert([
@@ -313,6 +317,26 @@ class MaxdisDataSeeder extends Seeder
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s',$newtime),
         ]);
-        
+        DB::table('action_log')->insert([
+            'id'=>'1',
+            'user' => '3',
+            'url' => 'game',
+            'action' => 'Update',
+            'origin_data' => '{"id":2,"gid":"2","info_id":199,"provider_id":789,"status":1,"created_at":"2021-03-15 11:20:02","updated_at":"2021-03-15 11:20:02"}',
+            'alter_data' => '{"id":"3","api_token":"idontneedthis","update_id":"2","provider_id":"789","name":"1239","gid":"2","info_id":"199","status":"1","currency":"1","uniq_id":"4","agent_id":"7"}',
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('action_log')->insert([
+            'id'=>'2',
+            'user' => '3',
+            'url' => 'game',
+            'action' => 'Read',
+            'origin_data' => NULL,
+            'alter_data' => '{"id":"3","api_token":"idontneedthis","update_id":"2","provider_id":"789","name":"1239","gid":"2","info_id":"199","status":"1","currency":"1","uniq_id":"4","agent_id":"7"}',
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s',$newtime),
+        ]);
+
     }
 }
