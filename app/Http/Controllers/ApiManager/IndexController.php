@@ -411,7 +411,8 @@ class IndexController extends Controller {
 				throw new Exception("can not find your token at db", 999);
 			}
 
-			$reports = report::all();
+			$report = report::all();
+			$game = game::all();
 			// print_r($reports);
 			// foreach ($reports as $key => $value) {
 			// 	$data[$key] = $value;
@@ -424,14 +425,22 @@ class IndexController extends Controller {
 			// $data[][] = $report->reportdtl;
 			// }
 
-			foreach ($reports as $report) {
-				$report->reportdtl;
+			foreach ($report as $key => $value) {
+				$value->reportdtl;
+				$value->reportWithGame;
+				// print_r($value->reportWithGame);
+				// exit;
 			}
-			var_dump($reports);
+			foreach ($game as $key => $value) {
+				$value->gameWithGameinfo;
+			}
+			
+			// var_dump($reports);
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
-					'report' => $reports,
+					'report' => $report,
+					'game' => $game,
 				],
 			]);
 
@@ -947,8 +956,8 @@ class IndexController extends Controller {
 			$wallet = player::get();
 			foreach ($wallet as $key => $value) {
 				$value->playerWithAgent;
-				$value->playerWithProvider;
-				$value->playerWithCurrencyinitial;
+				$value->playerWithProvider->providerWithCurrency;
+				
 				// $wallet[$key]['user'] = $value->playerWithPlayersave;
 				// unset($wallet[$key]['actionlogWithUsers']);
 			}
@@ -956,13 +965,7 @@ class IndexController extends Controller {
 			$currency_initial = DB::table('currency_initial')->get();
 			$provider = DB::table('provider')->get();
 			$agent = DB::table('agent')->get();
-			// $res = json_decode(json_encode($wallet), true);
-			// foreach ($res as $key => $value) {
-			// 	$date_obj = new \DateTime($res[$key]['created_at']);
-			// 	$date_obj2 = new \DateTime($res[$key]['updated_at']);
-			// 	$res[$key]['created_at'] = $date_obj->format('Y-m-d H:i:s');
-			// 	$res[$key]['updated_at'] = $date_obj2->format('Y-m-d H:i:s');
-			// }
+			
 			
 			return response()->json(['status' => 200,
 				'msg' => 'success',

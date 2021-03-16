@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\Support\Facades\log;
 use Str;
 use DB;
+// use Request;
+use Illuminate\Http\Request;
 
 class ActionLogBefore
 {
@@ -21,13 +23,20 @@ class ActionLogBefore
         DB::table('action_log')->insert([
             'user' => $request->id,
             // 'url' => $request->path(),
-            'url' => Str::after(Str::before('api/member/c','/c'),'/'),
+            'url' => Str::after(Str::before($request->path(),'/c'),'/'),
             'origin_data' => NULL,
             'alter_data' => json_encode($request->all()),
             'action' => 'Create',
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
         ]);
+        // if (mysql_affected_rows()){
+        //     echo "insert successfully";
+        // }else{
+        //     echo "failed";
+        // }
+            
+            
     }
 
     public function handle($request, Closure $next)
@@ -47,6 +56,10 @@ class ActionLogBefore
         // var_dump(str::afterlast('api/member/c','/')); //c
         // var_dump(str::afterlast('api/member','/')); //member
         // print_r(str::after(str::after('api/member/c','/'),'/'));
+        
+        // print_r($request->all());
+        // print_r($request->forget('id'));
+        // print_r($request->all());
 
         // 
         $url = Str::afterlast($request->path(),'/');
@@ -103,7 +116,7 @@ class ActionLogBefore
                         DB::table('action_log')->insert([
                             'user' => $request->id,
                             // 'url' => $request->path(),
-                            'url' => Str::after(Str::before('api/member/c','/c'),'/'),
+                            'url' => Str::after(Str::before($request->path(),'/u'),'/'),
                             'origin_data' => json_encode(DB::table('player_save')->where('gid',$request->update_id)->first()),
                             'alter_data' => json_encode($request->all()),
                             'action' => 'Update',
@@ -116,7 +129,7 @@ class ActionLogBefore
                         DB::table('action_log')->insert([
                             'user' => $request->id,
                             // 'url' => $request->path(),
-                            'url' => Str::after(Str::before('api/member/c','/c'),'/'),
+                            'url' => Str::after(Str::before($request->path(),'/u'),'/'),
                             'origin_data' => json_encode(DB::table('game_info')->where('info_id',$request->info_id)->first()),
                             'alter_data' => json_encode($request->all()),
                             'action' => 'Update',
@@ -129,7 +142,7 @@ class ActionLogBefore
                         DB::table('action_log')->insert([
                             'user' => $request->id,
                             // 'url' => $request->path(),
-                            'url' => Str::after(Str::before('api/member/c','/c'),'/'),
+                            'url' => Str::after(Str::before($request->path(),'/u'),'/'),
                             'origin_data' => json_encode(DB::table('game')->where('id',$request->update_id)->first()),
                             'alter_data' => json_encode($request->all()),
                             'action' => 'Update',
@@ -142,7 +155,7 @@ class ActionLogBefore
                         DB::table('action_log')->insert([
                             'user' => $request->id,
                             // 'url' => $request->path(),
-                            'url' => Str::after(Str::before('api/member/c','/c'),'/'),
+                            'url' => Str::after(Str::before($request->path(),'/u'),'/'),
                             'origin_data' => json_encode(DB::table('provider')->where('id',$request->update_id)->first()),
                             'alter_data' => json_encode($request->all()),
                             'action' => 'Update',
@@ -155,7 +168,7 @@ class ActionLogBefore
                         DB::table('action_log')->insert([
                             'user' => $request->id,
                             // 'url' => $request->path(),
-                            'url' => Str::after(Str::before('api/member/c','/c'),'/'),
+                            'url' => Str::after(Str::before($request->path(),'/u'),'/'),
                             'origin_data' => json_encode(DB::table('player')->where('id',$request->update_id)->first()),
                             'alter_data' => json_encode($request->all()),
                             'action' => 'Update',
@@ -168,7 +181,7 @@ class ActionLogBefore
                         DB::table('action_log')->insert([
                             'user' => $request->id,
                             // 'url' => $request->path(),
-                            'url' => Str::after(Str::before('api/member/c','/c'),'/'),
+                            'url' => Str::after(Str::before($request->path(),'/u'),'/'),
                             'origin_data' => json_encode(DB::table('game')->where('id',$request->update_id)->first()).json_encode(DB::table('game')->where('info_id',$request->info_id)->first()),
                             'alter_data' => json_encode($request->all()),
                             'action' => 'Update',
@@ -181,8 +194,21 @@ class ActionLogBefore
                         DB::table('action_log')->insert([
                             'user' => $request->id,
                             // 'url' => $request->path(),
-                            'url' => Str::after(Str::before('api/member/c','/c'),'/'),
+                            'url' => Str::after(Str::before($request->path(),'/u'),'/'),
                             'origin_data' => json_encode(DB::table('agent')->where('id',$request->update_id)->first()),
+                            'alter_data' => json_encode($request->all()),
+                            'action' => 'Update',
+                            'created_at'=>date('Y-m-d H:i:s'),
+                            'updated_at'=>date('Y-m-d H:i:s'),
+                        ]);
+                        break;
+                    
+                    case 'serverconfig':
+                        DB::table('action_log')->insert([
+                            'user' => $request->id,
+                            // 'url' => $request->path(),
+                            'url' => Str::after(Str::before($request->path(),'/u'),'/'),
+                            'origin_data' => json_encode(DB::table('server_config')->where('gid',$request->update_id)->first()),
                             'alter_data' => json_encode($request->all()),
                             'action' => 'Update',
                             'created_at'=>date('Y-m-d H:i:s'),

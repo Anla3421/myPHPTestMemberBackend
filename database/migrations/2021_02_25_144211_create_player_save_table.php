@@ -16,7 +16,8 @@ class CreatePlayerSaveTable extends Migration
 		$table->string('name',20)->comment('存檔名稱');
 		$table->string('profile',10)->comment('設定檔名');
 		$table->string('value',300)->nullable()->default('NULL')->comment('存檔內容');
-		$table->timestamp('updated_at')->comment('建立時間');
+		// $table->timestamp('updated_at')->comment('建立時間');
+        $table->timestamps();
         $table->primary(['gid','token','name','profile']);
 
         });
