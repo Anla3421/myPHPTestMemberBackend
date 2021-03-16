@@ -411,8 +411,8 @@ class IndexController extends Controller {
 				throw new Exception("can not find your token at db", 999);
 			}
 
-			$report = report::all();
-			$game = game::all();
+			$report = report::get();
+			$game = game::get();
 			// print_r($reports);
 			// foreach ($reports as $key => $value) {
 			// 	$data[$key] = $value;
@@ -425,15 +425,23 @@ class IndexController extends Controller {
 			// $data[][] = $report->reportdtl;
 			// }
 
+			// $agents = agents::get();
+			// foreach ($agents as $key => $value) {
+			// 	// $value->playerWithProvider->providerWithCurrency;
+			// 	$value->agentWithProvider->name;
+			// 	$value->agentWithProvider->providerWithCurrency->game_currency;
+			// 	// $agents[$key]['products'] = $value->agentWithProvider->name;
+			// 	// $agents[$key]['currency'] = $value->agentWithProvider->providerWithCurrency->game_currency;
+			// 	// unset($agents[$key]['agentWithProvider']);
+			// }
+
 			foreach ($report as $key => $value) {
-				$value->reportdtl;
-				$value->reportWithGame;
-				// print_r($value->reportWithGame);
-				// exit;
+				// $value->reportdtl;
+				$value->reportWithGame->gameWithGameinfo;
+				$value->reportWithPlayer->playerWithAgent->agentWithProvider->providerWithCurrency;
+				// $value->reportWithPlayer->playerWithProvider;
 			}
-			foreach ($game as $key => $value) {
-				$value->gameWithGameinfo;
-			}
+
 			
 			// var_dump($reports);
 			return response()->json(['status' => 200,
@@ -648,7 +656,7 @@ class IndexController extends Controller {
 			foreach ($agents as $key => $value) {
 				// $value->playerWithProvider->providerWithCurrency;
 				$value->agentWithProvider->name;
-				$value->agentWithProvider->providerWithCurrency->game_currency;
+				$value->agentWithProvider->providerWithCurrency;
 				// $agents[$key]['products'] = $value->agentWithProvider->name;
 				// $agents[$key]['currency'] = $value->agentWithProvider->providerWithCurrency->game_currency;
 				// unset($agents[$key]['agentWithProvider']);

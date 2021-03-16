@@ -13,11 +13,13 @@ class report extends Model {
 	}
 	
 	public function reportWithGame() {
-		return $this->hasMany('App\models\game', 'gid', 'gid'); 
+		return $this->hasone('App\models\game', 'gid', 'gid'); 
 	}
 
 	public function reportdtl() {
 		return $this->hasOne('App\models\reportdtl', 'id', 'id');
 	}
-
+	public function reportWithPlayer() {
+		return $this->hasOne('App\models\player', 'uniq_id', 'token');
+	}
 }

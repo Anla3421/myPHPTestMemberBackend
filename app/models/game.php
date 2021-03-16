@@ -73,9 +73,6 @@ class game extends Model
             'status'=>$request->status,
 
         ];
-
-
-
         game::create($data);
 
     }

@@ -98,7 +98,7 @@ class MaxdisDataSeeder extends Seeder
         ]);
         DB::table('report')->insert([
             'id'=>'1',
-            'token'=>'654879',
+            'token'=>'12345',
             'gid'=>'1',
             'in'=>'123.333',
             'out'=>'321.666',
@@ -110,7 +110,7 @@ class MaxdisDataSeeder extends Seeder
         ]);
         DB::table('report')->insert([
             'id'=>'2',
-            'token'=>'roeutsds',
+            'token'=>'54321',
             'gid'=>'2',
             'in'=>'999.333',
             'out'=>'321.777',
