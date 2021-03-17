@@ -13,9 +13,11 @@ use App\models\report;
 use App\models\users;
 use App\models\actionlog;
 use App\tools\defer;
+use App\tools\timeformat;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
+
 
 class IndexController extends Controller {
 	public function sidebar(Request $request) {
@@ -427,7 +429,7 @@ class IndexController extends Controller {
 
 			// $agents = agents::get();
 			// foreach ($agents as $key => $value) {
-			// 	// $value->playerWithProvider->providerWithCurrency;
+			// 	// $valgotkue->playerWithProvider->providerWithCurrency;
 			// 	$value->agentWithProvider->name;
 			// 	$value->agentWithProvider->providerWithCurrency->game_currency;
 			// 	// $agents[$key]['products'] = $value->agentWithProvider->name;
@@ -436,12 +438,15 @@ class IndexController extends Controller {
 			// }
 
 			foreach ($report as $key => $value) {
-				// $value->reportdtl;
+				$value->reportWithReportdtl;
 				$value->reportWithGame->gameWithGameinfo;
-				$value->reportWithPlayer->playerWithAgent->agentWithProvider->providerWithCurrency;
-				// $value->reportWithPlayer->playerWithProvider;
+				// $value->reportWithPlayer->playerWithAgent->agentWithProvider->providerWithCurrency;
+				$value->reportWithCurrency;
+				$value->reportWithPlayer->playerWithProvider;
 			}
-
+			foreach ($game as $key => $value) {
+				$value->gameWithGameinfo;
+			}
 			
 			// var_dump($reports);
 			return response()->json(['status' => 200,
@@ -459,9 +464,20 @@ class IndexController extends Controller {
 			]);
 		};
 	}
-	/**
-	 *
-	 */
+
+	public function reportcombinecreate(Request $request) {
+		$table = 'reportcombine';
+		$create = true;
+		$defer = new defer;
+		return $defer->verifytokenandid($request, $create, $table);
+	}
+
+	public function reportcombineupdate(Request $request) {
+		$table = 'reportcombine';
+		$create = false;
+		$defer = new defer;
+		return $defer->verifytokenandid($request, $create, $table);
+	}
 
 	public function report(Request $request) {
 		try {
@@ -482,12 +498,14 @@ class IndexController extends Controller {
 			$report = DB::table('report')->get();
 			// print_r($report);
 
-			return response()->json(['status' => 200,
-				'msg' => 'success',
-				'result' => [
-					'report' => $report,
-				],
-			]);
+			$res=response()->json(['status' => 200,
+			'msg' => 'success',
+			'result' => [
+				'report' => $report,
+			],
+				]);
+			print_r($res);
+			return $res;
 
 		} catch (Exception $e) {
 			return response()->json([
@@ -661,6 +679,10 @@ class IndexController extends Controller {
 				// $agents[$key]['currency'] = $value->agentWithProvider->providerWithCurrency->game_currency;
 				// unset($agents[$key]['agentWithProvider']);
 			}
+
+			// $needtochange = $agent;
+			// $res = new timeformat;
+			// $res->timeformat($needtochange);
 
 			$res = json_decode(json_encode($agents), true);
 			foreach ($res as $key => $value) {
@@ -992,6 +1014,13 @@ class IndexController extends Controller {
 				'msg' => $e->getMessage(),
 			]);
 		};
+	}
+
+	public function walletcreate(Request $request) {
+		$table = 'wallet';
+		$create = true;
+		$defer = new defer;
+		return $defer->verifytokenandid($request, $create, $table);
 	}
 
 	// public function actionlogtest(Request $request){

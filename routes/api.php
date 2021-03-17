@@ -39,6 +39,9 @@ Route::namespace('ApiManager')->group(function(){
 	Route::any('provider/u','IndexController@providerupdate');
 
 	Route::any('reportcombine','IndexController@reportcombine');
+	Route::any('reportcombine/c','IndexController@reportcombinecreate');
+	Route::any('reportcombine/u','IndexController@reportcombineupdate');
+
 	Route::any('report','IndexController@report');
 	Route::any('report/c','IndexController@reportcreate')->name('reportcreate');
 
@@ -67,6 +70,7 @@ Route::namespace('ApiManager')->group(function(){
 	Route::any('actionlog', 'IndexController@actionlog');
 
 	Route::any('wallet', 'IndexController@wallet');
+	Route::any('wallet/c', 'IndexController@walletcreate');
 });
 
 

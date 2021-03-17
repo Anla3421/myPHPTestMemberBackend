@@ -15,7 +15,7 @@ class CreateProviderTable extends Migration
 		$table->string('private_key',64)->comment('用來 hash 的 private key');
 		$table->string('game_url',150)->comment('用來開啟遊戲的網址');
 		$table->string('name',20)->comment('provider 名稱');
-        $table->integer('currency')->comment('貨幣add');
+        // $table->integer('currency')->comment('貨幣add');
 		$table->tinyInteger('enabled',)->comment('是否啟用');
         $table->timestamp('created_at')->useCurrent()->comment('建立時間');
         $table->timestamp('updated_at')->useCurrent()->comment('更新時間');

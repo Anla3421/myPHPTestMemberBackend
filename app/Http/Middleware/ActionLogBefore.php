@@ -25,7 +25,8 @@ class ActionLogBefore
             // 'url' => $request->path(),
             'url' => Str::after(Str::before($request->path(),'/c'),'/'),
             'origin_data' => NULL,
-            'alter_data' => json_encode($request->all()),
+            // 'alter_data' => json_encode($request->except(['id','api_token'])),
+            'alter_data' => json_encode($request->except(['id','api_token'])),
             'action' => 'Create',
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
@@ -57,8 +58,7 @@ class ActionLogBefore
         // var_dump(str::afterlast('api/member','/')); //member
         // print_r(str::after(str::after('api/member/c','/'),'/'));
         
-        // print_r($request->all());
-        // print_r($request->forget('id'));
+        // print_r($request->except(['id','api_token']));
         // print_r($request->all());
 
         // 
@@ -104,7 +104,7 @@ class ActionLogBefore
                         //     'user' => $request->id,
                         //     'url' => $request->path(),
                         //     'origin_data' => NULL,
-                        //     'alter_data' => json_encode($request->all()),
+                        //     'alter_data' => json_encode($request->except(['id','api_token'])),
                         //     'action' => 'Read',
                         // ]);
                         break;
@@ -118,7 +118,7 @@ class ActionLogBefore
                             // 'url' => $request->path(),
                             'url' => Str::after(Str::before($request->path(),'/u'),'/'),
                             'origin_data' => json_encode(DB::table('player_save')->where('gid',$request->update_id)->first()),
-                            'alter_data' => json_encode($request->all()),
+                            'alter_data' => json_encode($request->except(['id','api_token'])),
                             'action' => 'Update',
                             'created_at'=>date('Y-m-d H:i:s'),
                             'updated_at'=>date('Y-m-d H:i:s'),
@@ -131,7 +131,7 @@ class ActionLogBefore
                             // 'url' => $request->path(),
                             'url' => Str::after(Str::before($request->path(),'/u'),'/'),
                             'origin_data' => json_encode(DB::table('game_info')->where('info_id',$request->info_id)->first()),
-                            'alter_data' => json_encode($request->all()),
+                            'alter_data' => json_encode($request->except(['id','api_token'])),
                             'action' => 'Update',
                             'created_at'=>date('Y-m-d H:i:s'),
                             'updated_at'=>date('Y-m-d H:i:s'),
@@ -144,7 +144,7 @@ class ActionLogBefore
                             // 'url' => $request->path(),
                             'url' => Str::after(Str::before($request->path(),'/u'),'/'),
                             'origin_data' => json_encode(DB::table('game')->where('id',$request->update_id)->first()),
-                            'alter_data' => json_encode($request->all()),
+                            'alter_data' => json_encode($request->except(['id','api_token'])),
                             'action' => 'Update',
                             'created_at'=>date('Y-m-d H:i:s'),
                             'updated_at'=>date('Y-m-d H:i:s'),
@@ -157,7 +157,7 @@ class ActionLogBefore
                             // 'url' => $request->path(),
                             'url' => Str::after(Str::before($request->path(),'/u'),'/'),
                             'origin_data' => json_encode(DB::table('provider')->where('id',$request->update_id)->first()),
-                            'alter_data' => json_encode($request->all()),
+                            'alter_data' => json_encode($request->except(['id','api_token'])),
                             'action' => 'Update',
                             'created_at'=>date('Y-m-d H:i:s'),
                             'updated_at'=>date('Y-m-d H:i:s'),
@@ -170,7 +170,7 @@ class ActionLogBefore
                             // 'url' => $request->path(),
                             'url' => Str::after(Str::before($request->path(),'/u'),'/'),
                             'origin_data' => json_encode(DB::table('player')->where('id',$request->update_id)->first()),
-                            'alter_data' => json_encode($request->all()),
+                            'alter_data' => json_encode($request->except(['id','api_token'])),
                             'action' => 'Update',
                             'created_at'=>date('Y-m-d H:i:s'),
                             'updated_at'=>date('Y-m-d H:i:s'),
@@ -183,7 +183,7 @@ class ActionLogBefore
                             // 'url' => $request->path(),
                             'url' => Str::after(Str::before($request->path(),'/u'),'/'),
                             'origin_data' => json_encode(DB::table('game')->where('id',$request->update_id)->first()).json_encode(DB::table('game')->where('info_id',$request->info_id)->first()),
-                            'alter_data' => json_encode($request->all()),
+                            'alter_data' => json_encode($request->except(['id','api_token'])),
                             'action' => 'Update',
                             'created_at'=>date('Y-m-d H:i:s'),
                             'updated_at'=>date('Y-m-d H:i:s'),
@@ -196,7 +196,7 @@ class ActionLogBefore
                             // 'url' => $request->path(),
                             'url' => Str::after(Str::before($request->path(),'/u'),'/'),
                             'origin_data' => json_encode(DB::table('agent')->where('id',$request->update_id)->first()),
-                            'alter_data' => json_encode($request->all()),
+                            'alter_data' => json_encode($request->except(['id','api_token'])),
                             'action' => 'Update',
                             'created_at'=>date('Y-m-d H:i:s'),
                             'updated_at'=>date('Y-m-d H:i:s'),
@@ -209,13 +209,27 @@ class ActionLogBefore
                             // 'url' => $request->path(),
                             'url' => Str::after(Str::before($request->path(),'/u'),'/'),
                             'origin_data' => json_encode(DB::table('server_config')->where('gid',$request->update_id)->first()),
-                            'alter_data' => json_encode($request->all()),
+                            'alter_data' => json_encode($request->except(['id','api_token'])),
                             'action' => 'Update',
                             'created_at'=>date('Y-m-d H:i:s'),
                             'updated_at'=>date('Y-m-d H:i:s'),
                         ]);
                         break;
-            
+                    
+                    case 'reportcombine':
+                        DB::table('action_log')->insert([
+                            'user' => $request->id,
+                            // 'url' => $request->path(),
+                            'url' => Str::after(Str::before($request->path(),'/u'),'/'),
+                            'origin_data' => json_encode(DB::table('report')->where('id',$request->update_id)->first()).json_encode(DB::table('report_dtl')->where('id',$request->info_id)->first()),
+                            'alter_data' => json_encode($request->except(['id','api_token'])),
+                            'action' => 'Update',
+                            'created_at'=>date('Y-m-d H:i:s'),
+                            'updated_at'=>date('Y-m-d H:i:s'),
+                        ]);
+                        break;
+
+                        
                     default:
                     print_r('default');
                         // DB::table('action_log')->insert([
@@ -239,7 +253,7 @@ class ActionLogBefore
                     // 'url' => $request->path(),
                     'url' => Str::afterlast($request->path(),'/'),
                     'origin_data' => NULL,
-                    'alter_data' => json_encode($request->all()),
+                    'alter_data' => json_encode($request->except(['id','api_token'])),
                     'action' => 'Read',
                     'created_at'=>date('Y-m-d H:i:s'),
                     'updated_at'=>date('Y-m-d H:i:s'),

@@ -21,6 +21,7 @@ class CreateActionLogTable extends Migration
             $table->enum('action',['Read','Update','Create'])->comment('行為');
             $table->longText('origin_data')->nullable()->comment('原始之資料');
             $table->longText('alter_data')->nullable()->comment('變更之資料');
+            // $table->longText('alter_result')->nullable()->comment('變更結果');
             $table->timestamps();
         });
     }

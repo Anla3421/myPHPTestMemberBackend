@@ -80,7 +80,7 @@ class MaxdisDataSeeder extends Seeder
             'private_key'=>'54562',
             'game_url'=>'192.168.1.111',
             'name'=>'全家拿鐵實業',
-            'currency'=>'5',
+            // 'currency'=>'5',
             'enabled'=>'1',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
@@ -91,7 +91,7 @@ class MaxdisDataSeeder extends Seeder
             'private_key'=>'65432',
             'game_url'=>'192.168.1.111',
             'name'=>'天竺鼠車車股份有限公司',
-            'currency'=>'1',
+            // 'currency'=>'1',
             'enabled'=>'0',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
@@ -105,7 +105,7 @@ class MaxdisDataSeeder extends Seeder
             'wage'=>'99999.456',
             'surplus'=>'11.001',
             'goods'=>'0',
-            'profile'=>'0',
+            'profile'=>'3',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('report')->insert([
@@ -117,7 +117,7 @@ class MaxdisDataSeeder extends Seeder
             'wage'=>'985529.456',
             'surplus'=>'1195845.001',
             'goods'=>'0',
-            'profile'=>'0',
+            'profile'=>'1',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('report_dtl')->insert([
@@ -321,7 +321,8 @@ class MaxdisDataSeeder extends Seeder
             'url' => 'game',
             'action' => 'Update',
             'origin_data' => '{"id":2,"gid":"2","info_id":199,"provider_id":789,"status":1,"created_at":"2021-03-15 11:20:02","updated_at":"2021-03-15 11:20:02"}',
-            'alter_data' => '{"id":"3","api_token":"idontneedthis","update_id":"2","provider_id":"789","name":"1239","gid":"2","info_id":"199","status":"1","currency":"1","uniq_id":"4","agent_id":"7"}',
+            'alter_data' => '{"update_id":"2","provider_id":"789","name":"1239","gid":"2","info_id":"199","status":"1","currency":"1","uniq_id":"4","agent_id":"7"}',
+            // 'alter_result' => 'fail',
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s',$newtime),
         ]);
@@ -331,7 +332,8 @@ class MaxdisDataSeeder extends Seeder
             'url' => 'game',
             'action' => 'Read',
             'origin_data' => NULL,
-            'alter_data' => '{"id":"3","api_token":"idontneedthis","update_id":"2","provider_id":"789","name":"1239","gid":"2","info_id":"199","status":"1","currency":"1","uniq_id":"4","agent_id":"7"}',
+            'alter_data' => '{"update_id":"2","provider_id":"789","name":"1239","gid":"2","info_id":"199","status":"1","currency":"1","uniq_id":"4","agent_id":"7"}',
+            // 'alter_result' => 'success',
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s',$newtime),
         ]);

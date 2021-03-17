@@ -32,7 +32,8 @@ class CreateReportTable extends Migration
 		$table->decimal('wage',10,3)->unsigned()->comment('手續費');
 		$table->decimal('surplus',20,3)->default('0.000')->comment('TW');
 		$table->tinyInteger('goods',)->default('0')->comment('指類型，例如一般、JP、紅包');
-		$table->tinyInteger('profile',)->default('0')->comment('總贏得');
+		// $table->tinyInteger('profile',)->default('0')->comment('總贏得');
+		$table->tinyInteger('profile',)->default('1')->comment('幣別');
 		$table->timestamp('created_at')->useCurrent()->comment('時間');
 		// $table->timestamps();
 		// $table->primary('id');
