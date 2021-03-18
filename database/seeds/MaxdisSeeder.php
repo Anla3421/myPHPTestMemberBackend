@@ -122,7 +122,7 @@ class MaxdisSeeder extends Seeder
         ]);
         DB::table('mainmenu')->insert([
             'id' =>'10',
-            'table'=>'Win/Lose',
+            'table'=>'勝負報表',
             'url'=>'/win_lose',
             'mainpage'=>'0',
             'icon1'=>'fas fa-trophy',
@@ -134,7 +134,7 @@ class MaxdisSeeder extends Seeder
         ]);
         DB::table('mainmenu')->insert([
             'id' =>'11',
-            'table'=>'Bet History',
+            'table'=>'下注紀錄',
             'url'=>'/history',
             'mainpage'=>'0',
             'icon1'=>'fas fa-funnel-dollar',
@@ -146,7 +146,7 @@ class MaxdisSeeder extends Seeder
         ]);
         DB::table('mainmenu')->insert([
             'id' =>'12',
-            'table'=>'All Report',
+            'table'=>'總報表',
             'url'=>'/report',
             'mainpage'=>'0',
             'icon1'=>'fas fa-book-open',
@@ -158,7 +158,7 @@ class MaxdisSeeder extends Seeder
         ]);
         DB::table('mainmenu')->insert([
             'id' =>'13',
-            'table'=>'Wallet',
+            'table'=>'錢包',
             'url'=>'/wallet',
             'mainpage'=>'0',
             'icon1'=>'fas fa-wallet',
@@ -170,7 +170,7 @@ class MaxdisSeeder extends Seeder
         ]);
         DB::table('mainmenu')->insert([
             'id' =>'14',
-            'table'=>'使用者登入log',
+            'table'=>'使用者登入紀錄',
             'url'=>'/login_log',
             'mainpage'=>'0',
             'icon1'=>'fas fa-sign-in-alt',
@@ -182,7 +182,7 @@ class MaxdisSeeder extends Seeder
         ]);
         DB::table('mainmenu')->insert([
             'id' =>'15',
-            'table'=>'歷程log',
+            'table'=>'歷程紀錄',
             'url'=>'/course_log',
             'mainpage'=>'0',
             'icon1'=>'fas fa-history',

@@ -18,7 +18,8 @@ class MaxdisDataSeeder extends Seeder
             'name'=>'玩家1',
             'profile'=>'pName1',
             'value'=>'玩家1',
-            // 'updated_at' => date('Y-m-d H:i:s',$newtime),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('player_save')->insert([
             'gid' =>'2',
@@ -26,7 +27,8 @@ class MaxdisDataSeeder extends Seeder
             'name'=>'玩家2',
             'profile'=>'4name 2',
             'value'=>'就是個玩家2',
-            // 'updated_at' => date('Y-m-d H:i:s',$newtime),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('game')->insert([
             'id'=>'1',
@@ -162,6 +164,7 @@ class MaxdisDataSeeder extends Seeder
             'agent_id'=>'1',
             'name'=>'玩家1',
             'uniq_id'=>'12345',
+            'currency'=>'2',
             'amount'=>'50000',
             'last_at'=>date('Y-m-d H:i:s',$newtime),
         ]);
@@ -171,6 +174,7 @@ class MaxdisDataSeeder extends Seeder
             'agent_id'=>'2',
             'name'=>'玩家2',
             'uniq_id'=>'54321',
+            'currency'=>'5',
             'amount'=>'10000',
             'last_at'=>date('Y-m-d H:i:s',$newtime),
         ]);

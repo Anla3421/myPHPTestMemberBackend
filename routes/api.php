@@ -70,7 +70,8 @@ Route::namespace('ApiManager')->group(function(){
 	Route::any('actionlog', 'IndexController@actionlog');
 
 	Route::any('wallet', 'IndexController@wallet');
-	Route::any('wallet/c', 'IndexController@walletcreate');
+	// Route::any('wallet/c', 'IndexController@walletcreate');
+	Route::any('wallet/u', 'IndexController@walletupdate');
 });
 
 

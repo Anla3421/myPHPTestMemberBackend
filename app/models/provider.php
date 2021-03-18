@@ -16,7 +16,7 @@ class provider extends Model
             'private_key'=>$request->private_key,
             'game_url'=>$request->game_url,
             'name'=>$request->name,
-            'currency'=>$request->currency,
+            // 'currency'=>$request->currency,
             'enabled'=>$request->enabled,
         ];
 
@@ -30,7 +30,7 @@ class provider extends Model
             'private_key'=>$request->private_key,
             'game_url'=>$request->game_url,
             'name'=>$request->name,
-            'currency'=>$request->currency,
+            // 'currency'=>$request->currency,
             'enabled'=>$request->enabled,
             // 'created_at' => $request->created_at,
             // 'updated_at' => $request->updated_at,

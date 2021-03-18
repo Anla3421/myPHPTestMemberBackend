@@ -12,8 +12,7 @@ use App\models\provider;
 use App\models\agent;
 use App\models\report;
 use App\models\wallet;
-
-
+use App\models\serverconfig;
 use Exception;
 use DB;
 use ActionLog;
@@ -115,6 +114,11 @@ class defer extends Model
             case 'reportcombine':
                 $reportcombine = new report;
                 $reportcombine -> reportcombineupdate($request);
+                break;
+            
+            case 'wallet':
+                $wallet = new wallet;
+                $wallet -> walletupdate($request);
                 break;
             
             default:

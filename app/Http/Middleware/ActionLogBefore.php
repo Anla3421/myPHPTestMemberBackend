@@ -229,6 +229,18 @@ class ActionLogBefore
                         ]);
                         break;
 
+                    case 'wallet':
+                        DB::table('action_log')->insert([
+                            'user' => $request->id,
+                            // 'url' => $request->path(),
+                            'url' => Str::after(Str::before($request->path(),'/u'),'/'),
+                            'origin_data' => json_encode(DB::table('player')->where('id',$request->update_id)->first()),
+                            'alter_data' => json_encode($request->except(['id','api_token'])),
+                            'action' => 'Update',
+                            'created_at'=>date('Y-m-d H:i:s'),
+                            'updated_at'=>date('Y-m-d H:i:s'),
+                        ]);
+                        break;
                         
                     default:
                     print_r('default');

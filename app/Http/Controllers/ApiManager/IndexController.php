@@ -151,11 +151,13 @@ class IndexController extends Controller {
 			$player = player::get();
 			foreach ($player as $key => $value) {
 				$value->playerWithAgent;
-				// $value->playerWithProviderlist;
+				$value->playerWithReport->reportWithCurrency;
 				$value->playerWithProvider;
+				
 			}
 			$agent = DB::table('agent')->get();
 			$provider = DB::table('provider')->get();
+			// $currency_initial = DB::table('currency_initial')->get();
 
 			return response()->json(['status' => 200,
 				'msg' => 'success',
@@ -163,6 +165,7 @@ class IndexController extends Controller {
 					'player' => $player,
 					'provider' => $provider,
 					'agent'=>$agent,
+					// 'currencyinitial'=>$currency_initial,
 				],
 			]);
 
@@ -338,12 +341,7 @@ class IndexController extends Controller {
 			}
 
 			$provider = provider::get();
-			foreach ($provider as $key => $value) {
-				$value->providerWithCurrency;
-				// $value->providerWithProviderlist;
-			}
 
-			$currencyinitial = DB::table('currency_initial')->get();
 			// $providerlist = DB::table('provider_list')->get();
 
 			$res = json_decode(json_encode($provider), true);
@@ -367,7 +365,6 @@ class IndexController extends Controller {
 				'msg' => 'success',
 				'result' => [
 					'provider' => $res,
-					'currency' => $currencyinitial,
 					// 'provider' => $provider,
 				],
 			]);
@@ -415,6 +412,7 @@ class IndexController extends Controller {
 
 			$report = report::get();
 			$game = game::get();
+			$provider = provider::get();
 			// print_r($reports);
 			// foreach ($reports as $key => $value) {
 			// 	$data[$key] = $value;
@@ -454,6 +452,7 @@ class IndexController extends Controller {
 				'result' => [
 					'report' => $report,
 					'game' => $game,
+					'provider' => $provider,
 				],
 			]);
 
@@ -591,13 +590,14 @@ class IndexController extends Controller {
 			$server_config = DB::table('server_config')->get();
 			// print_r($server_config);
 
-			$agent = Agent::getUserAgent();
-			$devicetype = Agent::deviceType();
-			$platform = Agent::platform();
-			$platformVersion = Agent::Version($platform);
-			$browser = Agent::Browser();
-			$browserVersion = Agent::Version($browser);
-			$clientIP = $request->getClientIp();
+			// $agent = Agent::getUserAgent();
+			// $devicetype = Agent::deviceType();
+			// $platform = Agent::platform();
+			// $platformVersion = Agent::Version($platform);
+			// $browser = Agent::Browser();
+			// $browserVersion = Agent::Version($browser);
+			// $clientIP = $request->getClientIp();
+			
 			// $Browser = $agent->browser();
 			// $bVersion = $agent->version($browser);
 
@@ -612,15 +612,15 @@ class IndexController extends Controller {
 				'msg' => 'success',
 				'result' => [
 					'server_config' => $server_config,
-					'agent' => [
-						'agent' => $agent,
-						'devicetype' => $devicetype,
-						'platform' => $platform,
-						'platformVersion' => $platformVersion,
-						'browser' => $browser,
-						'browserVersion' => $browserVersion,
-						'IP' => $clientIP,
-					],
+					// 'agent' => [
+					// 	'agent' => $agent,
+					// 	'devicetype' => $devicetype,
+					// 	'platform' => $platform,
+					// 	'platformVersion' => $platformVersion,
+					// 	'browser' => $browser,
+					// 	'browserVersion' => $browserVersion,
+					// 	'IP' => $clientIP,
+					// ],
 				],
 			]);
 
@@ -664,17 +664,18 @@ class IndexController extends Controller {
 				throw new Exception("can not find your token at db", 999);
 			}
 			// chmod check
-			if (!$id->position) {
-				throw new Exception("Forbidden", 403);
-			};
-			if ($id->position != 'administrator') {
-				throw new Exception("Forbidden", 403);
-			};
+			// if (!$id->position) {
+			// 	throw new Exception("Forbidden", 403);
+			// };
+			// if ($id->position != 'administrator') {
+			// 	throw new Exception("Forbidden", 403);
+			// };
+
 			$agents = agents::get();
 			foreach ($agents as $key => $value) {
 				// $value->playerWithProvider->providerWithCurrency;
-				$value->agentWithProvider->name;
-				$value->agentWithProvider->providerWithCurrency;
+				$value->agentWithProvider;
+				
 				// $agents[$key]['products'] = $value->agentWithProvider->name;
 				// $agents[$key]['currency'] = $value->agentWithProvider->providerWithCurrency->game_currency;
 				// unset($agents[$key]['agentWithProvider']);
@@ -692,14 +693,12 @@ class IndexController extends Controller {
 				$res[$key]['updated_at'] = $date_obj2->format('Y-m-d H:i:s');
 			}
 
-			$currencyinitial = DB::table('currency_initial')->get();
 			$provider = DB::table('provider')->get();
 			
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
 					'agents' => $res,
-					'currencyinitial' => $currencyinitial,
 					'provider' => $provider,
 				],
 			]);
@@ -799,10 +798,8 @@ class IndexController extends Controller {
 			$game = game::get();
 			foreach ($game as $key => $value) {
 				$value->gameWithGameinfo;
-				// $value->gameWithProvider->providerWithProviderlist;
 				$value->gameWithProvider;
-				$value->gameWithProvider->providerWithCurrency;
-
+				
 				// $value->playerWithProvider->providerWithCurrency;
 				// $agents[$key]['products'] = $value->agentWithProvider->name;
 				// $agents[$key]['currency'] = $value->agentWithProvider->providerWithCurrency->game_currency;
@@ -985,8 +982,10 @@ class IndexController extends Controller {
 			
 			$wallet = player::get();
 			foreach ($wallet as $key => $value) {
+				$value->playerWithCurrency;
 				$value->playerWithAgent;
-				$value->playerWithProvider->providerWithCurrency;
+				$value->playerWithProvider;
+				
 				
 				// $wallet[$key]['user'] = $value->playerWithPlayersave;
 				// unset($wallet[$key]['actionlogWithUsers']);
@@ -1019,6 +1018,13 @@ class IndexController extends Controller {
 	public function walletcreate(Request $request) {
 		$table = 'wallet';
 		$create = true;
+		$defer = new defer;
+		return $defer->verifytokenandid($request, $create, $table);
+	}
+
+	public function walletupdate(Request $request) {
+		$table = 'wallet';
+		$create = false;
 		$defer = new defer;
 		return $defer->verifytokenandid($request, $create, $table);
 	}
