@@ -21,7 +21,7 @@ class playersave extends Model
             // 'updated_at'=>$request->updated_at,
         ];
 
-        playersave::where('gid',$request->update_id)->update($data);
+        playersave::where('gid',$request->gid)->update($data);
     }
     
     public function playersavecreate($request){

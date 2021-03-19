@@ -68,6 +68,7 @@ class loginlog extends Model
             'msg' => 'Success',
             'result' => [
                 'id' => $Request->dbuser->id,
+                'name' => $Request->dbuser->name,
                 'gender' => $Request->dbuser->gender,
                 'chmod' => $Request->dbuser->position,
                 'level' => $Request->dbuser->level,

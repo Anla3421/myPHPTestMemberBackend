@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\Support\Facades\log;
 use DB;
 use Illuminate\Support\Facades\response;
+use App\models\actionlog;
+use Str;
 
 class ActionLogAfter
 {
@@ -25,25 +27,32 @@ class ActionLogAfter
     //     return $response;
     // }
 
-    public function handle($Request, Closure $next)
+    public function handle($request, Closure $next)
     {
-         // $response = $next($request);
-        print_r('我是後中介層');
+        $response = $next($request);
         
-         // var_dump($request->all());
-         // print_r(response::json());
-         // exit;
-         // var_dump($response->all());
-         // if ($response->status() == 200){
-         //     DB::table('action_log')->latest()->update([
-         //         'alter_result' => 'success',
-         //     ]);
-         // }else{
-         //     DB::table('action_log')->latest()->update([
-         //         'alter_result' => 'fail',
-         //     ]);
-         // }
-         // print_r($response->status());
-        return $Response;
+        // print_r($request->all());
+
+        // print_r($request->id);
+        // print_r($request->path());
+        $url = Str::afterlast($request->path(),'/');
+        if(Str::contains($request->path(),'log') or $url == 'apitokencheck' or $url == 'sidebar'){
+
+        }else{
+            if ($response->original['status'] == '200'){
+                actionlog::where('user',$request->id)->get()->last()->update([
+                    'result' => 'success',
+                ]);
+
+            }else{
+                actionlog::where('user',$request->id)->get()->last()->update([
+                    'result' => 'fail',
+                ]);
+            }
+        }
+        
+
+
+        return $response;
     }
 }

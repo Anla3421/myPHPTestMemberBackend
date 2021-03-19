@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiManager;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\models\player;
 
 class SettingController extends Controller
 {

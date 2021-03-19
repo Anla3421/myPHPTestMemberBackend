@@ -46,7 +46,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             
             \App\Http\Middleware\ActionLogBefore::class,
-            // \App\Http\Middleware\ActionLogAfter::class,
+            \App\Http\Middleware\ActionLogAfter::class,
         ],
     ];
 

@@ -121,6 +121,7 @@ class LoginController extends Controller
 				'result' => [
 
 					'id' => $dbuser->id,
+					'name' => $dbuser->name,
 					'gender' => $dbuser->gender,
 					'chmod' => $dbuser->position,
 					'level' => $dbuser->level,
