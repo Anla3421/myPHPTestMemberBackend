@@ -12,7 +12,7 @@ class CreateServerConfigTable extends Migration
 
 		$table->integer('gid',)->comment('遊戲ID');
 		$table->string('name',20)->comment('參數名');
-		$table->string('profile',10)->comment('設定檔名');
+		$table->string('profile',10)->comment('設定檔名/貨幣(?)');
 		$table->string('value',300)->comment('參數值');
 		$table->datetime('updated_at')->useCurrent()->comment('更新時間');
 		$table->primary(['gid','name','profile']);

@@ -4,9 +4,170 @@ namespace App\Http\Controllers\ApiManager;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\models\users;
+use App\models\report;
+use App\models\game;
+use App\models\provider;
+use App\models\player;
+use App\models\reportdtl;
+use App\tools\defer;
+use ArrayObject;
+use Exception;
+use DB;
 
 class ReportController extends Controller
 {
+	public function winlose(Request $request) {
+		try {
+			if (!$request->has('api_token')) {
+				throw new Exception("api_token can't be empty", 400);
+			}
+			if (!$request->has('id')) {
+				throw new Exception("id can't be empty", 400);
+			}
+			$id = users::find($request->id);
+			if ($id->api_token == NULL) {
+				throw new Exception("can not find your token at db", 987);
+			}
+			if ($id->api_token != $request->api_token) {
+				throw new Exception("can not find your token at db", 999);
+			}
+
+			$report = report::get();
+			$game = game::get();
+			$provider = provider::get();
+
+			foreach ($report as $key => $value) {
+				// foreach ($value as $key => $reportWithReportdtl){
+				// 	$value->reportWithReportdtl;
+				// }
+				$value->reportWithGame->gameWithGameinfo;
+				// $value->reportWithPlayer->playerWithAgent->agentWithProvider->providerWithCurrency;
+				$value->reportWithCurrency;
+				$value->reportWithPlayer->playerWithProvider;
+			}
+			foreach ($game as $key => $value) {
+				$value->gameWithGameinfo;
+			}
+			
+			// var_dump($reports);
+			return response()->json(['status' => 200,
+				'msg' => 'success',
+				'result' => [
+					'report' => $report,
+					'game' => $game,
+					'provider' => $provider,
+				],
+			]);
+
+		} catch (Exception $e) {
+			return response()->json([
+				'status' => $e->getcode(),
+				'msg' => $e->getMessage(),
+			]);
+		};
+	}
+
+	public function winlosecreate(Request $request) {
+		$table = 'winlose';
+		$create = true;
+		$defer = new defer;
+		return $defer->verifytokenandid($request, $create, $table);
+	}
+
+	public function winloseupdate(Request $request) {
+		$table = 'winlose';
+		$create = false;
+		$defer = new defer;
+		return $defer->verifytokenandid($request, $create, $table);
+	}
+
+	public function bethistory(Request $request) {
+		try {
+			if (!$request->has('api_token')) {
+				throw new Exception("api_token can't be empty", 400);
+			}
+			if (!$request->has('id')) {
+				throw new Exception("id can't be empty", 400);
+			}
+			$id = users::find($request->id);
+			if ($id->api_token == NULL) {
+				throw new Exception("can not find your token at db", 987);
+			}
+			if ($id->api_token != $request->api_token) {
+				throw new Exception("can not find your token at db", 999);
+			}
+
+			$report = report::all();
+			$reportdtl = reportdtl::get();
+			$game = game::get();
+			$provider = provider::get();
+			$i=1;
+			$j=0;
+			// foreach ($report as $key => $value) {
+			// 	$newreport[] = $value;
+			// 	print($newreport);
+			// }
+
+			// $report[]['我我我'][]=new ArrayObject();
+
+			// foreach ($report as $key => $value) {
+			// 	// $value->reportWithReportdtl;
+			// 	// $value[$key][$key2] = new ArrayObject();
+			// 	foreach ($reportdtl as $key2 => $reportdtl2) {
+			// 		$j++;
+			// 		if ($value['id'] == $reportdtl2['id']){
+			// 			$report[$key]['我我我'] = $reportdtl2;
+			// 			print_r("第".$i."次".'r2第'.$j.$report);
+			// 		}
+			// 		$i++;
+			// 	}
+			// }
+			
+			foreach ($report as $key => $value) {
+				$value->reportWithReportdtl;
+				// $value->reportWithGame->gameWithGameinfo;
+				// $value->reportWithCurrency;
+				// $value->reportWithPlayer->playerWithProvider;
+
+				// $value->reportWithPlayer->playerWithAgent->agentWithProvider->providerWithCurrency;
+			// }
+			// foreach ($game as $key => $value) {
+			// 	$value->gameWithGameinfo;
+			}
+			
+			// var_dump($reports);
+			return response()->json(['status' => 200,
+				'msg' => 'success',
+				'result' => [
+					'report' => $report,
+					// 'game' => $game,
+					// 'provider' => $provider,
+				],
+			]);
+				exit;
+		} catch (Exception $e) {
+			return response()->json([
+				'status' => $e->getcode(),
+				'msg' => $e->getMessage(),
+			]);
+		};
+	}
+
+	public function bethistorycreate(Request $request) {
+		$table = 'bethistory';
+		$create = true;
+		$defer = new defer;
+		return $defer->verifytokenandid($request, $create, $table);
+	}
+
+	public function bethistoryupdate(Request $request) {
+		$table = 'bethistory';
+		$create = false;
+		$defer = new defer;
+		return $defer->verifytokenandid($request, $create, $table);
+	}
+
     public function reportcombine(Request $request) {
 		try {
 			if (!$request->has('api_token')) {

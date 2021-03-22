@@ -22,6 +22,8 @@ class DropShopTable extends Migration
         Schema::dropIfExists('gamelist');
         Schema::dropIfExists('reportold');
         Schema::dropIfExists('log');
+
+        Schema::dropIfExists('provider_list');
     }
 
     /**

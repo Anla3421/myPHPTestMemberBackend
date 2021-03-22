@@ -30,9 +30,9 @@ class wallet extends Model
             // 'provider_id' => $request->provider_id,
             // 'agent_id' => $request->agent_id,
             // 'name' => $request->name,
-            // 'uniq_id' => $request->uniq_id,
-            'currency' => $request->currency,
-            'amount' => $request->amount,
+            // // 'uniq_id' => $request->uniq_id,
+            // 'currency' => $request->currency,
+            // 'amount' => $request->amount,
             'last_at' => date('Y-m-d H:i:s'),
         ];
         player::where('id',$request->update_id)->update($data);
@@ -47,8 +47,8 @@ class wallet extends Model
             'agent_id' => $request->agent_id,
             'name' => $request->name,
             'uniq_id' => $request->uniq_id,
-            'currency' => $request->currency,
-            'amount' => $request->amount,
+            // 'currency' => $request->currency,
+            // 'amount' => $request->amount,
             'last_at' => date('Y-m-d H:i:s'),
         ];
 

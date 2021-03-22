@@ -5,10 +5,10 @@ namespace App\Http\Controllers\ApiManager;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\models\game;
-use App\tools\defer;
 use App\models\users;
-use DB;
+use App\tools\defer;
 use Exception;
+use DB;
 
 class GameController extends Controller
 {

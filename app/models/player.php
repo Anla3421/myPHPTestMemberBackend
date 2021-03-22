@@ -55,9 +55,9 @@ class player extends Model
     public function playerWithPlayersave(){
         return $this->hasOne('App\models\playersave', 'token', 'uniq_id');
     }
-    public function playerWithCurrency(){
-        return $this->hasOne('App\models\currencyinitial', 'cid', 'currency');
-    }
+    // public function playerWithCurrency(){
+    //     return $this->hasOne('App\models\currencyinitial', 'cid', 'currency');
+    // }
     public function playerWithReport() {
 		return $this->hasOne('App\models\report', 'token', 'uniq_id');
 	}

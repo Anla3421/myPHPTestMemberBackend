@@ -16,8 +16,71 @@ class MaxdisDataSeeder extends Seeder
             'gid' =>'1',
             'token'=>'12345',
             'name'=>'玩家1',
-            'profile'=>'pName1',
+            'profile'=>'1',
             'value'=>'玩家1',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('player_save')->insert([
+            'gid' =>'2',
+            'token'=>'12345',
+            'name'=>'玩家1',
+            'profile'=>'2',
+            'value'=>'玩家1',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('player_save')->insert([
+            'gid' =>'3',
+            'token'=>'12345',
+            'name'=>'玩家1',
+            'profile'=>'3',
+            'value'=>'玩家1',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('player_save')->insert([
+            'gid' =>'4',
+            'token'=>'12345',
+            'name'=>'玩家1',
+            'profile'=>'4',
+            'value'=>'玩家1',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('player_save')->insert([
+            'gid' =>'5',
+            'token'=>'12345',
+            'name'=>'玩家1',
+            'profile'=>'5',
+            'value'=>'玩家1',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('player_save')->insert([
+            'gid' =>'5',
+            'token'=>'54321',
+            'name'=>'玩家2',
+            'profile'=>'5',
+            'value'=>'就是個玩家2',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('player_save')->insert([
+            'gid' =>'4',
+            'token'=>'54321',
+            'name'=>'玩家2',
+            'profile'=>'4',
+            'value'=>'就是個玩家2',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('player_save')->insert([
+            'gid' =>'3',
+            'token'=>'54321',
+            'name'=>'玩家2',
+            'profile'=>'3',
+            'value'=>'就是個玩家2',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
@@ -25,7 +88,16 @@ class MaxdisDataSeeder extends Seeder
             'gid' =>'2',
             'token'=>'54321',
             'name'=>'玩家2',
-            'profile'=>'4name 2',
+            'profile'=>'2',
+            'value'=>'就是個玩家2',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('player_save')->insert([
+            'gid' =>'1',
+            'token'=>'54321',
+            'name'=>'玩家2',
+            'profile'=>'1',
             'value'=>'就是個玩家2',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
@@ -43,6 +115,33 @@ class MaxdisDataSeeder extends Seeder
             'id'=>'2',
             'gid' =>'2',
             'info_id'=>'2',
+            'provider_id'=>'1',
+            'status'=>'0',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('game')->insert([
+            'id'=>'3',
+            'gid' =>'3',
+            'info_id'=>'3',
+            'provider_id'=>'2',
+            'status'=>'0',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('game')->insert([
+            'id'=>'4',
+            'gid' =>'4',
+            'info_id'=>'4',
+            'provider_id'=>'2',
+            'status'=>'0',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('game')->insert([
+            'id'=>'5',
+            'gid' =>'5',
+            'info_id'=>'5',
             'provider_id'=>'2',
             'status'=>'0',
             'created_at' => date('Y-m-d H:i:s'),
@@ -73,6 +172,48 @@ class MaxdisDataSeeder extends Seeder
             'server_port'=>8080,
             'server_demo_port'=>8002,
             'client_dir_name'=>'ssssss',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('game_info')->insert([
+            'info_id'=>'3',
+            'name' =>'血源詛咒',
+            'name_cn' =>'血源诅咒',
+            'name_en' =>'Bloodborne',
+            'name_jp' =>'血の呪い',
+            'server_host'=>'192.168.0.50',
+            'server_path'=>'666',
+            'server_port'=>8080,
+            'server_demo_port'=>8002,
+            'client_dir_name'=>'ffffff',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('game_info')->insert([
+            'info_id'=>'4',
+            'name' =>'刺客教條IV：黑旗',
+            'name_cn' =>'刺客教条IV：黑旗',
+            'name_en' =>"Assassin's Creed IV: Black Flag",
+            'name_jp' =>'アサシンクリードIV：ブラックフラッグ',
+            'server_host'=>'192.168.0.50',
+            'server_path'=>'666',
+            'server_port'=>8787,
+            'server_demo_port'=>9487,
+            'client_dir_name'=>'ccccc',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
+        DB::table('game_info')->insert([
+            'info_id'=>'5',
+            'name' =>'蜘蛛人：驚奇再起2',
+            'name_cn' =>'蜘蛛人：惊奇再起2',
+            'name_en' =>'The Amazing Spider-Man 2',
+            'name_jp' =>'スパイダーマン：サプライズ2',
+            'server_host'=>'192.168.0.50',
+            'server_path'=>'666',
+            'server_port'=>8787,
+            'server_demo_port'=>9487,
+            'client_dir_name'=>'aaaaa',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
@@ -107,7 +248,7 @@ class MaxdisDataSeeder extends Seeder
             'wage'=>'99999.456',
             'surplus'=>'11.001',
             'goods'=>'0',
-            'profile'=>'3',
+            'profile'=>'1',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('report')->insert([
@@ -119,7 +260,7 @@ class MaxdisDataSeeder extends Seeder
             'wage'=>'985529.456',
             'surplus'=>'1195845.001',
             'goods'=>'0',
-            'profile'=>'1',
+            'profile'=>'2',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('report_dtl')->insert([
@@ -147,35 +288,35 @@ class MaxdisDataSeeder extends Seeder
         DB::table('server_config')->insert([
             'gid'=>'1',
             'name'=>'arth2',
-            'profile'=>'2',
+            'profile'=>'1',
             'value'=>'95454.333',
             'updated_at'=>date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('server_config')->insert([
             'gid'=>'2',
             'name'=>'arth44',
-            'profile'=>'233',
+            'profile'=>'2',
             'value'=>'9124874.333',
             'updated_at'=>date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('player')->insert([
             'id'=>'1',
             'provider_id'=>'1',
-            'agent_id'=>'1',
+            // 'agent_id'=>'1',
             'name'=>'玩家1',
             'uniq_id'=>'12345',
-            'currency'=>'2',
-            'amount'=>'50000',
+            // 'currency'=>'2',
+            // 'amount'=>'50000',
             'last_at'=>date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('player')->insert([
             'id'=>'2',
             'provider_id'=>'2',
-            'agent_id'=>'2',
+            // 'agent_id'=>'2',
             'name'=>'玩家2',
             'uniq_id'=>'54321',
-            'currency'=>'5',
-            'amount'=>'10000',
+            // 'currency'=>'5',
+            // 'amount'=>'10000',
             'last_at'=>date('Y-m-d H:i:s',$newtime),
         ]);
         DB::table('currency_initial')->insert([

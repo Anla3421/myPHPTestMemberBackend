@@ -98,6 +98,10 @@ class ActionLogBefore
                     case 'agent':
                         $this->insert($request);
                         break;
+
+                    case 'account':
+                        $this->insert($request);
+                        break;
                     
                     default:
                         // DB::table('action_log')->insert([
@@ -235,6 +239,19 @@ class ActionLogBefore
                             // 'url' => $request->path(),
                             'url' => Str::after(Str::before($request->path(),'/u'),'/'),
                             'origin_data' => json_encode(DB::table('player')->where('id',$request->update_id)->first()),
+                            'alter_data' => json_encode($request->except(['id','api_token'])),
+                            'action' => 'Update',
+                            'created_at'=>date('Y-m-d H:i:s'),
+                            'updated_at'=>date('Y-m-d H:i:s'),
+                        ]);
+                        break;
+                    
+                    case 'account':    
+                        DB::table('action_log')->insert([
+                            'user' => $request->id,
+                            // 'url' => $request->path(),
+                            'url' => Str::after(Str::before($request->path(),'/u'),'/'),
+                            'origin_data' => json_encode(DB::table('users')->where('id',$request->update_id)->first()),
                             'alter_data' => json_encode($request->except(['id','api_token'])),
                             'action' => 'Update',
                             'created_at'=>date('Y-m-d H:i:s'),

@@ -4,6 +4,11 @@ namespace App\Http\Controllers\ApiManager;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\models\users;
+use App\models\actionlog;
+use App\tools\defer;
+use Exception;
+use DB;
 
 class OperationController extends Controller
 {

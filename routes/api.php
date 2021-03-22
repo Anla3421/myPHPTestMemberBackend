@@ -26,11 +26,11 @@ Route::namespace('ApiManager')->group(function(){
 	Route::any('sidebar','IndexController@sidebar');
 
 	/**
-	 * 
+	 * 帳戶管理
 	 */
-	Route::any('agent','AccountController@agent');
-	Route::any('agent/c','AccountController@agentcreate')->name('playercreate');
-	Route::any('agent/u','AccountController@agentupdate');
+	// Route::any('agent','AccountController@agent');
+	// Route::any('agent/c','AccountController@agentcreate')->name('playercreate');
+	// Route::any('agent/u','AccountController@agentupdate');
 
 	Route::any('player','AccountController@player');
 	Route::post('player/c','AccountController@playercreate')->name('playercreate');
@@ -41,45 +41,55 @@ Route::namespace('ApiManager')->group(function(){
 	Route::any('provider/u','AccountController@providerupdate');
 
 	/**
-	 * 
+	 * 設定
 	 */
-	Route::any('playersave','GameController@playersave');
-	Route::any('playersave/c','GameController@playersavecreate')->name('playersavecreate');
-	Route::any('playersave/u','GameController@playersaveupdate');
+	Route::any('account','SettingController@account');
+	Route::any('account/c','SettingController@accountcreate');
+	Route::any('account/u','SettingController@accountupdate');
+
+	Route::any('playersave','SettingController@playersave');
+	Route::any('playersave/c','SettingController@playersavecreate')->name('playersavecreate');
+	Route::any('playersave/u','SettingController@playersaveupdate');
 
 	/**
-	 * 
+	 * 報表
 	 */
-	Route::any('reportcombine','ReportController@reportcombine');
-	Route::any('reportcombine/c','ReportController@reportcombinecreate');
-	Route::any('reportcombine/u','ReportController@reportcombineupdate');
+	Route::any('winlose','ReportController@winlose');
+	Route::any('winlose/c','ReportController@winlosecreate');
 
-	Route::any('report','ReportController@report');
-	Route::any('report/c','ReportController@reportcreate')->name('reportcreate');
+	Route::any('bethistory','ReportController@bethistory');
+	Route::any('bethistory/c','ReportController@bethistorycreate');
 
-	Route::any('reportdtl','ReportController@reportdtl');
+	// Route::any('reportcombine','ReportController@reportcombine');
+	// Route::any('reportcombine/c','ReportController@reportcombinecreate');
+	// Route::any('reportcombine/u','ReportController@reportcombineupdate');
 
-	Route::any('wallet', 'ReportController@wallet');
-	// Route::any('wallet/c', 'IndexController@walletcreate');
-	Route::any('wallet/u', 'ReportController@walletupdate');
+	// Route::any('report','ReportController@report');
+	// Route::any('report/c','ReportController@reportcreate')->name('reportcreate');
+
+	// Route::any('reportdtl','ReportController@reportdtl');
+
+	// Route::any('wallet', 'ReportController@wallet');
+	// // Route::any('wallet/c', 'IndexController@walletcreate');
+	// Route::any('wallet/u', 'ReportController@walletupdate');
 
 	/**
-	 * 
+	 * 記錄
 	 */
 	Route::any('actionlog', 'OperationController@actionlog');
 
 	Route::any('loginlog', 'OperationController@loginlog');	
 
 	/**
-	 * 
+	 * 遊戲管理
 	 */
-	Route::any('game','GameController@game');
-	Route::any('game/c','GameController@gamecreate')->name('gamecreate');
-	Route::any('game/u','GameController@gameupdate');
+	// Route::any('game','GameController@game');
+	// Route::any('game/c','GameController@gamecreate')->name('gamecreate');
+	// Route::any('game/u','GameController@gameupdate');
 
-	Route::any('gameinfo','GameController@gameinfo');
-	Route::any('gameinfo/c','GameController@gameinfocreate')->name('gameinfocreate');
-	Route::any('gameinfo/u','GameController@gameinfoupdate');
+	// Route::any('gameinfo','GameController@gameinfo');
+	// Route::any('gameinfo/c','GameController@gameinfocreate')->name('gameinfocreate');
+	// Route::any('gameinfo/u','GameController@gameinfoupdate');
 
 	Route::any('serverconfig','GameController@serverconfig');
 	Route::any('serverconfig/u','GameController@serverconfigupdate');

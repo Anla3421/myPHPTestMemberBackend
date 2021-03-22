@@ -121,6 +121,11 @@ class defer extends Model
                 $wallet -> walletupdate($request);
                 break;
             
+            case 'account':
+                $wallet = new wallet;
+                $wallet -> walletupdate($request);
+                break;
+            
             default:
                 throw new Exception("Bad Request", 400);
                 break;
@@ -168,7 +173,8 @@ class defer extends Model
                     'created_at' => $request->created_at,
                     'updated_at' => $request->updated_at,
                 ]);
-                break;                                
+                break;   
+
             case 'game_info':
                 // DB::table($table)->insert([
                 //     //沒ID
@@ -252,6 +258,11 @@ class defer extends Model
             case 'wallet':
                 $wallet = new wallet;
                 $wallet -> walletcreate($request);
+                break;
+            
+            case 'account':
+                $account = new users;
+                $account -> accountcreate($request);
                 break;
 
             default:

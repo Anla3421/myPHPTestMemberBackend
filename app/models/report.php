@@ -119,16 +119,19 @@ class report extends Model {
 	}
 	
 	public function reportWithGame() {
-		return $this->hasone('App\models\game', 'gid', 'gid'); 
+		return $this->hasOne('App\models\game', 'gid', 'gid'); 
 	}
 
 	public function reportWithReportdtl() {
 		return $this->hasOne('App\models\reportdtl', 'id', 'id');
 	}
+
 	public function reportWithPlayer() {
 		return $this->hasOne('App\models\player', 'uniq_id', 'token');
 	}
+
 	public function reportWithCurrency() {
 		return $this->hasOne('App\models\currencyinitial', 'cid', 'profile');
 	}
+
 }
