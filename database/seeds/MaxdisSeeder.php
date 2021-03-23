@@ -96,18 +96,18 @@ class MaxdisSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
-        // DB::table('mainmenu')->insert([
-        //     'id' =>'8',
-        //     'table'=>'角色設定',
-        //     'url'=>'/role',
-        //     'mainpage'=>'0',
-        //     'icon1'=>'fas fa-user-tag',
-        //     'icon2'=>'user-edit',
-        //     'icon3'=>'',
-        //     'subid'=>'2',
-        //     'created_at' => date('Y-m-d H:i:s'),
-        //     'updated_at' => date('Y-m-d H:i:s',$newtime),
-        // ]);
+        DB::table('mainmenu')->insert([
+            'id' =>'8',
+            'table'=>'角色設定',
+            'url'=>'/role',
+            'mainpage'=>'0',
+            'icon1'=>'fas fa-user-tag',
+            'icon2'=>'user-edit',
+            'icon3'=>'',
+            'subid'=>'2',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s',$newtime),
+        ]);
         // DB::table('mainmenu')->insert([
         //     'id' =>'9',
         //     'table'=>'權限設定',

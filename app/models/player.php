@@ -17,7 +17,6 @@ class player extends Model
         $data = [
             //有ID
             'provider_id' => $request->provider_id,
-            'agent_id' => $request->agent_id,
             'name' => $request->name,
             'uniq_id' => $request->uniq_id,
             'last_at' => date('Y-m-d H:i:s'),
@@ -34,7 +33,6 @@ class player extends Model
         $data = [
             //有ID
             'provider_id' => $request->provider_id,
-            'agent_id' => $request->agent_id,
             'name' => $request->name,
             'uniq_id' => $request->uniq_id,
             'last_at' => date('Y-m-d H:i:s'),

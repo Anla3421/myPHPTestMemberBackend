@@ -276,6 +276,17 @@ class MaxdisDataSeeder extends Seeder
         ]);
         DB::table('report_dtl')->insert([
             'id'=>'2',
+            'seq'=>'1',
+            'tid'=>'1',
+            'in'=>'123.333',
+            'out'=>'321.777',
+            'surplus'=>'456.001',
+            'round'=>'789.44444',
+            'result'=>'11111',
+            'remark'=>'65432',
+        ]);
+        DB::table('report_dtl')->insert([
+            'id'=>'2',
             'seq'=>'2',
             'tid'=>'2',
             'in'=>'95454.333',

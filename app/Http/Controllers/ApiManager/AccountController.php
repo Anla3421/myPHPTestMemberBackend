@@ -114,12 +114,9 @@ class AccountController extends Controller
 
 			$player = player::get();
 			foreach ($player as $key => $value) {
-				$value->playerWithAgent;
-				$value->playerWithReport->reportWithCurrency;
 				$value->playerWithProvider;
 				
 			}
-			$agent = DB::table('agent')->get();
 			$provider = DB::table('provider')->get();
 			// $currency_initial = DB::table('currency_initial')->get();
 
@@ -128,7 +125,6 @@ class AccountController extends Controller
 				'result' => [
 					'player' => $player,
 					'provider' => $provider,
-					'agent'=>$agent,
 					// 'currencyinitial'=>$currency_initial,
 				],
 			]);

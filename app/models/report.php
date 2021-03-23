@@ -123,7 +123,7 @@ class report extends Model {
 	}
 
 	public function reportWithReportdtl() {
-		return $this->hasOne('App\models\reportdtl', 'id', 'id');
+		return $this->hasMany('App\models\reportdtl', 'id', 'id');
 	}
 
 	public function reportWithPlayer() {

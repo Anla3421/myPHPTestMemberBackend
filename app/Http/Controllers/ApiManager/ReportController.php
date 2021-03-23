@@ -39,7 +39,7 @@ class ReportController extends Controller
 
 			foreach ($report as $key => $value) {
 				// foreach ($value as $key => $reportWithReportdtl){
-				// 	$value->reportWithReportdtl;
+					$value->reportWithReportdtl;
 				// }
 				$value->reportWithGame->gameWithGameinfo;
 				// $value->reportWithPlayer->playerWithAgent->agentWithProvider->providerWithCurrency;
@@ -98,42 +98,72 @@ class ReportController extends Controller
 				throw new Exception("can not find your token at db", 999);
 			}
 
-			$report = report::all();
+			// $report = DB::table('report')->get();
+			$report = report::get();
 			$reportdtl = reportdtl::get();
 			$game = game::get();
 			$provider = provider::get();
-			$i=1;
-			$j=0;
+
 			// foreach ($report as $key => $value) {
 			// 	$newreport[] = $value;
-			// 	print($newreport);
+			// 	// print($newreport);
 			// }
 
 			// $report[]['我我我'][]=new ArrayObject();
+
+			// 	echo "<pre>";
+			// 	print_r($reportdtl);
+			// foreach ($report as $key => $value) {
+				
+			// 	$result[$key] = $value;
+			
+			// 		foreach ($reportdtl as $keys => $values) {
+			// 		    if ($value['id']==$values['id']) {
+							
+			// 			 $result[$key]->dtl.array_push($values['seq']);
+			// 			}
+			// 		}
+
+			// }
+
+			// $i=0;
+			// $j=0;
+
+			// print_r($report);
+			// foreach ($report as $key => $value) {
+			// 	$newreport[] = $value;
+			// 	// print_r($newreport);
+			// }
+				
+			// // $report[]['我我我'][]=new ArrayObject();
 
 			// foreach ($report as $key => $value) {
 			// 	// $value->reportWithReportdtl;
 			// 	// $value[$key][$key2] = new ArrayObject();
 			// 	foreach ($reportdtl as $key2 => $reportdtl2) {
+			// 		$i++;
 			// 		$j++;
 			// 		if ($value['id'] == $reportdtl2['id']){
 			// 			$report[$key]['我我我'] = $reportdtl2;
 			// 			print_r("第".$i."次".'r2第'.$j.$report);
+			// 		}else{
+			// 			// print_r("第".$i."次".'r2第'.$j.$report);
 			// 		}
-			// 		$i++;
+					
 			// 	}
 			// }
+			// exit;
 			
 			foreach ($report as $key => $value) {
 				$value->reportWithReportdtl;
-				// $value->reportWithGame->gameWithGameinfo;
-				// $value->reportWithCurrency;
-				// $value->reportWithPlayer->playerWithProvider;
+				$value->reportWithGame->gameWithGameinfo;
+				$value->reportWithCurrency;
+				$value->reportWithPlayer->playerWithProvider;
 
 				// $value->reportWithPlayer->playerWithAgent->agentWithProvider->providerWithCurrency;
-			// }
-			// foreach ($game as $key => $value) {
-			// 	$value->gameWithGameinfo;
+			}
+			foreach ($game as $key => $value) {
+				$value->gameWithGameinfo;
 			}
 			
 			// var_dump($reports);
@@ -141,11 +171,10 @@ class ReportController extends Controller
 				'msg' => 'success',
 				'result' => [
 					'report' => $report,
-					// 'game' => $game,
-					// 'provider' => $provider,
+					'game' => $game,
+					'provider' => $provider,
 				],
 			]);
-				exit;
 		} catch (Exception $e) {
 			return response()->json([
 				'status' => $e->getcode(),
