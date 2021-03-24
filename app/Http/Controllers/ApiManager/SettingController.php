@@ -37,7 +37,7 @@ class SettingController extends Controller
 			$game = game::get();
 
 			foreach ($player_save as $key => $value) {
-				$value->playersaveWithGame;
+				$value->playersaveWithGame->gameWithGameinfo;
 				$value->playersaveWithCurrency;
 			}
 
@@ -46,10 +46,17 @@ class SettingController extends Controller
 			}
 			// print_r($player_save);
 
+			$res = json_decode(json_encode($player_save), true);
+				foreach ($res as $key => $value) {
+					$date_obj = new \DateTime($res[$key]['created_at']);
+					$date_obj2 = new \DateTime($res[$key]['updated_at']);
+					$res[$key]['created_at'] = $date_obj->format('Y-m-d H:i:s');
+					$res[$key]['updated_at'] = $date_obj2->format('Y-m-d H:i:s');
+				}
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
-					'player_save' => $player_save,
+					'player_save' => $res,
 					'currency' => $currency_initial,
 					'game' => $game,
 				],
@@ -97,7 +104,7 @@ class SettingController extends Controller
 			}
 
 			// $users = DB::table('users')->get();
-			$users = users::get();
+			$users = DB::table('users')->get();
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [

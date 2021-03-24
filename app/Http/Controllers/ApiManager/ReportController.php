@@ -10,6 +10,7 @@ use App\models\game;
 use App\models\provider;
 use App\models\player;
 use App\models\reportdtl;
+use App\models\currencyinitial;
 use App\tools\defer;
 use ArrayObject;
 use Exception;
@@ -36,6 +37,7 @@ class ReportController extends Controller
 			$report = report::get();
 			$game = game::get();
 			$provider = provider::get();
+			$currency_initial = currencyinitial::get();
 
 			foreach ($report as $key => $value) {
 				// foreach ($value as $key => $reportWithReportdtl){
@@ -57,6 +59,7 @@ class ReportController extends Controller
 					'report' => $report,
 					'game' => $game,
 					'provider' => $provider,
+					'currency' => $currency_initial,
 				],
 			]);
 
@@ -103,6 +106,7 @@ class ReportController extends Controller
 			$reportdtl = reportdtl::get();
 			$game = game::get();
 			$provider = provider::get();
+			$currency_initial = currencyinitial::get();
 
 			// foreach ($report as $key => $value) {
 			// 	$newreport[] = $value;
@@ -173,6 +177,7 @@ class ReportController extends Controller
 					'report' => $report,
 					'game' => $game,
 					'provider' => $provider,
+					'currency' => $currency_initial,
 				],
 			]);
 		} catch (Exception $e) {

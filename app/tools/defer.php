@@ -122,8 +122,8 @@ class defer extends Model
                 break;
             
             case 'account':
-                $wallet = new wallet;
-                $wallet -> walletupdate($request);
+                $account = new users;
+                $account -> accountupdate($request);
                 break;
             
             default:
