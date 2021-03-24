@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\models\player;
 use App\models\users;
+use App\models\game;
+use App\models\playersave;
 use App\tools\defer;
 use Exception;
 use DB;
@@ -30,13 +32,26 @@ class SettingController extends Controller
 				throw new Exception("can not find your token at db", 999);
 			}
 
-			$player_save = DB::table('player_save')->get();
+			$player_save = playersave::get();
+			$currency_initial = DB::table('currency_initial')->get();
+			$game = game::get();
+
+			foreach ($player_save as $key => $value) {
+				$value->playersaveWithGame;
+				$value->playersaveWithCurrency;
+			}
+
+			foreach ($game as $key => $value) {
+				$value->gameWithGameinfo;
+			}
 			// print_r($player_save);
 
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
 					'player_save' => $player_save,
+					'currency' => $currency_initial,
+					'game' => $game,
 				],
 			]);
 
@@ -87,6 +102,7 @@ class SettingController extends Controller
 				'msg' => 'success',
 				'result' => [
 					'user' => $users
+
 				],
 			]);
 

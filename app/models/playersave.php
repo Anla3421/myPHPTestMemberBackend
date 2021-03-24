@@ -14,14 +14,14 @@ class playersave extends Model
         $data = [
             //沒ID
             // 'gid'=>$request->gid,
-            'token'=>$request->token,
+            // 'token'=>$request->token,
             'name'=>$request->name,
             'profile'=>$request->profile,
             'value'=>$request->value,
             // 'updated_at'=>$request->updated_at,
         ];
 
-        playersave::where('gid',$request->gid)->update($data);
+        playersave::where('gid',$request->gid,'token',$request->token)->update($data);
     }
     
     public function playersavecreate($request){
@@ -34,8 +34,16 @@ class playersave extends Model
             'value'=>$request->value,
             // 'updated_at'=>$request->updated_at,
         ];
+    }
 
-        playersave::create($data);
+    public function playersaveWithGame()
+    {
+        return $this->hasOne('App\Models\game', 'gid', 'gid');
+    }
+
+    public function playersaveWithCurrency()
+    {
+        return $this->hasOne('App\Models\currencyinitial', 'cid', 'profile');
     }
 
 }
