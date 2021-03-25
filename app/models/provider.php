@@ -13,7 +13,7 @@ class provider extends Model
         $data = [
             //有ID
             'username'=>$request->username,
-            'private_key'=>$request->private_key,
+            // 'private_key'=>$request->private_key,
             'game_url'=>$request->game_url,
             'name'=>$request->name,
             // 'currency'=>$request->currency,

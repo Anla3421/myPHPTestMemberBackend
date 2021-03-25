@@ -104,11 +104,20 @@ class SettingController extends Controller
 			}
 
 			// $users = DB::table('users')->get();
-			$users = DB::table('users')->get();
+			$users = users::get();
+
+			$res = json_decode(json_encode($users), true);
+			foreach ($res as $key => $value) {
+				$date_obj = new \DateTime($res[$key]['created_at']);
+				$date_obj2 = new \DateTime($res[$key]['updated_at']);
+				$res[$key]['created_at'] = $date_obj->format('Y-m-d H:i:s');
+				$res[$key]['updated_at'] = $date_obj2->format('Y-m-d H:i:s');
+			};
+
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
-					'user' => $users
+					'user' => $res
 
 				],
 			]);

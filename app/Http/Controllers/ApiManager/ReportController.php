@@ -38,6 +38,7 @@ class ReportController extends Controller
 			$game = game::get();
 			$provider = provider::get();
 			$currency_initial = currencyinitial::get();
+			$player = player::get();
 
 			foreach ($report as $key => $value) {
 				// foreach ($value as $key => $reportWithReportdtl){
@@ -52,6 +53,22 @@ class ReportController extends Controller
 				$value->gameWithGameinfo;
 			}
 			
+			$material = DB::table('report');
+			$material2 = $material;
+			$dailytopsurplus = $material2
+			->wherebetween("created_at", [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')])
+			->selectRaw('token,sum(surplus) as total_surplus')
+			->groupBy('token')
+			->orderBy('total_surplus','desc')
+			->get();
+
+			$dailytoptimes = DB::table('report')
+			->wherebetween("created_at", [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')])
+			->selectRaw('token,count(token) as times')
+			->groupBy('token')
+			->orderBy('times','desc')
+			->get();
+			
 			// var_dump($reports);
 			return response()->json(['status' => 200,
 				'msg' => 'success',
@@ -60,6 +77,10 @@ class ReportController extends Controller
 					'game' => $game,
 					'provider' => $provider,
 					'currency' => $currency_initial,
+					'dailytopsurplus' => $dailytopsurplus,
+					'dailytoptimes' => $dailytoptimes,
+					'player' => $player,
+					
 				],
 			]);
 
