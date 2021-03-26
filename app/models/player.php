@@ -18,7 +18,7 @@ class player extends Model
             //有ID
             'provider_id' => $request->provider_id,
             'name' => $request->name,
-            'uniq_id' => $request->uniq_id,
+            // 'uniq_id' => $request->uniq_id,
             'last_at' => date('Y-m-d H:i:s'),
         ];
 
@@ -31,7 +31,7 @@ class player extends Model
     
     public function playercreate($request){
         $data = [
-            //有ID
+            //有ID 
             'provider_id' => $request->provider_id,
             'name' => $request->name,
             'uniq_id' => $request->uniq_id,

@@ -25,6 +25,9 @@ Route::namespace('ApiManager')->group(function(){
 
 	Route::any('sidebar','IndexController@sidebar');
 
+	Route::any('topthreecurrency','HomepageController@topthreecurrency');
+	
+
 	/**
 	 * 帳戶管理
 	 */
