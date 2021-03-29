@@ -21,6 +21,10 @@ class DatabaseSeeder extends Seeder
         // $this->call(ShopTableSeeder::class);
         $this->call(MaxdisSeeder::class);
         $this->call(MaxdisDataSeeder::Class);
+        $this->call(CNtest::Class);
+        $this->call(ENtest::Class);
+        $this->call(JPtest::Class);
+        $this->call(ALLtest::Class);
 
         $newtime=time()+(random_int(1,24)*random_int(1,60)*random_int(1,60)*random_int(1,7)); //小時,分,秒,天
       

@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 use App\models\agents;
 use App\models\game;
 use App\models\mainmenu;
+use App\models\mainmenucn;
+use App\models\mainmenuen;
+use App\models\mainmenujp;
+use App\models\mainmenuall;
 use App\models\player;
 use App\models\provider;
 use App\models\report;
@@ -30,7 +34,30 @@ class IndexController extends Controller {
 				throw new Exception("api_token can't be empty", 987);
 			}
 
-			$mainmenu = mainmenu::all()->toArray();
+			switch ($request->language) {
+				case 'JP':
+					$mainmenu = mainmenujp::all()->toArray();
+					break;
+
+				case 'EN':
+					$mainmenu = mainmenuen::all()->toArray();
+					break;
+					
+				case 'CN':
+					$mainmenu = mainmenucn::all()->toArray();
+					break;
+
+				case 'ZH':
+					$mainmenu = mainmenu::all()->toArray();
+					break;
+				
+				default:
+					$mainmenu = mainmenuall::all()->toArray();
+					break;
+			}
+			// print_r($mainmenu);
+			// exit;
+			// $mainmenu = mainmenu::all()->toArray();
 			foreach ($mainmenu as $key => $value) {
 				if ($value['mainpage'] != 0) {
 					$main[] = $value;
@@ -46,6 +73,8 @@ class IndexController extends Controller {
 					}
 				}
 			}
+
+			
 
 			// $mainmenu = mainmenu::get();
 			// foreach ($mainmenu as $key => $value) {

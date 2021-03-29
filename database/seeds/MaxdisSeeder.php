@@ -60,18 +60,6 @@ class MaxdisSeeder extends Seeder
 			'created_at' => date('Y-m-d H:i:s'),
 			'updated_at' => date('Y-m-d H:i:s', $newtime),
 		]);
-        // DB::table('mainmenu')->insert([
-        //     'id' =>'5',
-        //     'table'=>'代理商管理',
-        //     'url'=>'/agent',
-        //     'mainpage'=>'0',
-        //     'icon1'=>'fas fa-user-friends',
-        //     'icon2'=>'user-shield',
-        //     'icon3'=>'',
-        //     'subid'=>'1',
-        //     'created_at' => date('Y-m-d H:i:s'),
-        //     'updated_at' => date('Y-m-d H:i:s',$newtime),
-        // ]);
             DB::table('mainmenu')->insert([
             // 'id' =>'6',
             'table'=>'會員管理',
@@ -108,18 +96,6 @@ class MaxdisSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
-        // DB::table('mainmenu')->insert([
-        //     'id' =>'9',
-        //     'table'=>'權限設定',
-        //     'url'=>'/access',
-        //     'mainpage'=>'0',
-        //     'icon1'=>'fas fa-user-shield',
-        //     'icon2'=>'id-card',
-        //     'icon3'=>'',
-        //     'subid'=>'2',
-        //     'created_at' => date('Y-m-d H:i:s'),
-        //     'updated_at' => date('Y-m-d H:i:s',$newtime),
-        // ]);
         DB::table('mainmenu')->insert([
             // 'id' =>'10',
             'table'=>'勝負報表',
@@ -144,30 +120,6 @@ class MaxdisSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
-        // DB::table('mainmenu')->insert([
-        //     'id' =>'12',
-        //     'table'=>'總報表',
-        //     'url'=>'/report',
-        //     'mainpage'=>'0',
-        //     'icon1'=>'fas fa-book-open',
-        //     'icon2'=>'table',
-        //     'icon3'=>'',
-        //     'subid'=>'3',
-        //     'created_at' => date('Y-m-d H:i:s'),
-        //     'updated_at' => date('Y-m-d H:i:s',$newtime),
-        // ]);
-        // DB::table('mainmenu')->insert([
-        //     'id' =>'13',
-        //     'table'=>'錢包',
-        //     'url'=>'/wallet',
-        //     'mainpage'=>'0',
-        //     'icon1'=>'fas fa-wallet',
-        //     'icon2'=>'wallet',
-        //     'icon3'=>'',
-        //     'subid'=>'3',
-        //     'created_at' => date('Y-m-d H:i:s'),
-        //     'updated_at' => date('Y-m-d H:i:s',$newtime),
-        // ]);
         DB::table('mainmenu')->insert([
             // 'id' =>'14',
             'table'=>'使用者登入紀錄',
@@ -204,30 +156,6 @@ class MaxdisSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s',$newtime),
         ]);
-        // DB::table('mainmenu')->insert([
-        //     'id' =>'17',
-        //     'table'=>'遊戲清單',
-        //     'url'=>'/game_list',
-        //     'mainpage'=>'0',
-        //     'icon1'=>'fas fa-list-ul',
-        //     'icon2'=>'gamepad',
-        //     'icon3'=>'',
-        //     'subid'=>'5',
-        //     'created_at' => date('Y-m-d H:i:s'),
-        //     'updated_at' => date('Y-m-d H:i:s',$newtime),
-        // ]);
-        // DB::table('mainmenu')->insert([
-        //     'id' =>'18',
-        //     'table'=>'遊戲資訊',
-        //     'url'=>'/game_info',
-        //     'mainpage'=>'0',
-        //     'icon1'=>'fas fa-info-circle',
-        //     'icon2'=>'scroll',
-        //     'icon3'=>'',
-        //     'subid'=>'5',
-        //     'created_at' => date('Y-m-d H:i:s'),
-        //     'updated_at' => date('Y-m-d H:i:s',$newtime),
-        // ]);
         DB::table('mainmenu')->insert([
             // 'id' =>'19',
             'table'=>'伺服器設定值',

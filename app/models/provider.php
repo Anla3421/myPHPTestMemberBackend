@@ -8,6 +8,7 @@ class provider extends Model
 {
     protected $guarded = [];
     protected $table='provider';
+    protected $hidden = ['private_key']; 
 
     public function providerupdate($request){
         $data = [
