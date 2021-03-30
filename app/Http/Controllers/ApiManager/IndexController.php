@@ -35,19 +35,19 @@ class IndexController extends Controller {
 			}
 
 			switch ($request->language) {
-				case 'JP':
+				case 'ja-jp':
 					$mainmenu = mainmenujp::all()->toArray();
 					break;
 
-				case 'EN':
+				case 'en-us':
 					$mainmenu = mainmenuen::all()->toArray();
 					break;
 					
-				case 'CN':
+				case 'zh-cn':
 					$mainmenu = mainmenucn::all()->toArray();
 					break;
 
-				case 'ZH':
+				case 'zh-tw':
 					$mainmenu = mainmenu::all()->toArray();
 					break;
 				
