@@ -144,4 +144,11 @@ class SettingController extends Controller
 		return $defer->verifytokenandid($request, $create, $table);
 	}
 
+	public function accountPWupdate(Request $request) {
+		$table = 'accountPW';
+		$create = false;
+		$defer = new defer;
+		return $defer->verifytokenandid($request, $create, $table);
+	}
+
 }

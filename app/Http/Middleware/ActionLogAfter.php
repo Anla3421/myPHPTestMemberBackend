@@ -35,26 +35,23 @@ class ActionLogAfter
 
         // // print_r($request->id);
         // // print_r($request->path());
-        // $url = Str::afterlast($request->path(),'/');
-        // if(Str::contains($request->path(),'log') or $url == 'apitokencheck' or $url == 'sidebar'){
+        $url = Str::afterlast($request->path(),'/');
+        if(Str::contains($request->path(),'log') or $url == 'apitokencheck' or $url == 'sidebar'){
 
-        // }else{
-        //     // print_r($response);
-        //     // exit;
-        //     if ($response->original['status'] == '200'){
-        //         actionlog::where('user',$request->id)->get()->last()->update([
-        //             'result' => 'success',
-        //         ]);
+        }else{
+            // print_r($response);
+            // exit;
+            if ($response->original['status'] == '200'){
+                actionlog::where('user',$request->id)->get()->last()->update([
+                    'result' => 'success',
+                ]);
 
-        //     }else{
-        //         actionlog::where('user',$request->id)->get()->last()->update([
-        //             'result' => 'fail',
-        //         ]);
-        //     }
-        // }
-        
-
-
+            }else{
+                actionlog::where('user',$request->id)->get()->last()->update([
+                    'result' => 'fail',
+                ]);
+            }
+        }
         return $response;
     }
 }

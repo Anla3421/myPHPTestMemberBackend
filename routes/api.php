@@ -49,6 +49,8 @@ Route::namespace('ApiManager')->group(function(){
 	Route::any('account','SettingController@account');
 	Route::any('account/c','SettingController@accountcreate');
 	Route::any('account/u','SettingController@accountupdate');
+	Route::any('accountPW/u','SettingController@accountPWupdate');
+	
 
 	Route::any('playersave','SettingController@playersave');
 	Route::any('playersave/c','SettingController@playersavecreate')->name('playersavecreate');

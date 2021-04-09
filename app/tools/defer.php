@@ -126,6 +126,11 @@ class defer extends Model
                 $account -> accountupdate($request);
                 break;
             
+            case 'accountPW':
+                $account = new users;
+                $account -> accountPWupdate($request);
+                break;
+            
             default:
                 throw new Exception("Bad Request", 400);
                 break;

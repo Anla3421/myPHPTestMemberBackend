@@ -4,10 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\log;
+use Illuminate\Http\Request;
 use Str;
 use DB;
-// use Request;
-use Illuminate\Http\Request;
+use App\models\users;
 
 class ActionLogBefore
 {
@@ -252,6 +252,21 @@ class ActionLogBefore
                             // 'url' => $request->path(),
                             'url' => Str::after(Str::before($request->path(),'/u'),'/'),
                             'origin_data' => json_encode(DB::table('users')->where('id',$request->update_id)->first()),
+                            'alter_data' => json_encode($request->except(['id','api_token'])),
+                            'action' => 'Update',
+                            'created_at'=>date('Y-m-d H:i:s'),
+                            'updated_at'=>date('Y-m-d H:i:s'),
+                        ]);
+                        break;
+                    
+                    case 'accountPW':
+                        DB::table('action_log')->insert([
+                            'user' => $request->id,
+                            // 'url' => $request->path(),
+                            'url' => Str::after(Str::before($request->path(),'/u'),'/'),
+                            'origin_data' => json_encode(DB::table('users')->where('id',$request->update_id)->first()),
+                            // 'origin_data' => json_encode(users::where('id',$request->update_id)->exclude('password')->first()),
+                            // except('password')->
                             'alter_data' => json_encode($request->except(['id','api_token'])),
                             'action' => 'Update',
                             'created_at'=>date('Y-m-d H:i:s'),
