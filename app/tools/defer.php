@@ -291,12 +291,12 @@ class defer extends Model
             if($id->api_token!=$request->api_token){
                 throw new Exception("can not find your token at db", 999);
             }
-            if(!$id->position){
-                throw new Exception("Forbidden", 403);
-            }
-            if($id->position != 'administrator'){
-                throw new Exception("Forbidden", 403);
-            }
+            // if(!$id->position){
+            //     throw new Exception("Forbidden", 403);
+            // }
+            // if($id->position != 'administrator'){
+            //     throw new Exception("Forbidden", 403);
+            // }
 
 
             if ($create){

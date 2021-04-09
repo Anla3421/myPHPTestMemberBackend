@@ -86,7 +86,11 @@ class OperationController extends Controller
 
 			// $actionlog = DB::table('action_log')->get();
 			
-			$actionlog = actionlog::all()->take(-50)->sortByDesc('created_at')->flatten();
+			$actionlog = actionlog::get()
+			->wherebetween("created_at", [date($request->starttime.' 00:00:00'), date($request->endtime.' 23:59:59')])
+			->sortByDesc('created_at')->flatten();
+
+			// $actionlog = actionlog::all()->sortByDesc('created_at')->flatten();
 			foreach ($actionlog as $key => $value) {
 				
 				$actionlog[$key]['user'] = $value->actionlogWithUsers->name;
