@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\models\users;
 use App\models\actionlog;
+use App\models\loginlog;
 use App\tools\defer;
 use Exception;
 use DB;
@@ -37,15 +38,23 @@ class OperationController extends Controller
 			//     throw new Exception("Forbidden", 403);
 			// };
 
-			// $loginlog = loginlog::get();
-
-			$loginlog = DB::table('login_log')->get();
+			// $loginlog = DB::table('login_log')->get();
+			$loginlog = loginlog::get()
+			->wherebetween("created_at", [date($request->starttime.' 00:00:00'), date($request->endtime.' 23:59:59')])
+			->sortByDesc('created_at')->flatten();
+			
+			$res = json_decode(json_encode($loginlog), true);
+			foreach ($res as $key => $value) {
+				$date_obj = new \DateTime($res[$key]['created_at']);
+				$date_obj2 = new \DateTime($res[$key]['updated_at']);
+				$res[$key]['created_at'] = $date_obj->format('Y-m-d H:i:s');
+				$res[$key]['updated_at'] = $date_obj2->format('Y-m-d H:i:s');
+			}
 
 			return response()->json(['status' => 200,
 				'msg' => 'success',
 				'result' => [
-					'loginlog' => $loginlog,
-					// 'provider' => $provider,
+					'loginlog' => $res,
 				],
 			]);
 

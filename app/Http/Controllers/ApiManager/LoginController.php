@@ -42,7 +42,7 @@ class LoginController extends Controller
 
             //Validate
 			$user = User::where('name', $request->name);
-			// $password = User::where('password', $request->password);
+			$password = User::where('password', $request->password);
 			// $api_token = User::where('api_token', $request->api_token);
 			$unixtime = $request->unixtime;
 
