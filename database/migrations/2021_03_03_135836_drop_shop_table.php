@@ -13,17 +13,17 @@ class DropShopTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('shop');
-        Schema::dropIfExists('classify');
-        Schema::dropIfExists('keyword');
-        Schema::dropIfExists('photo');
-        Schema::dropIfExists('cash');
-        Schema::dropIfExists('tasks');
-        Schema::dropIfExists('gamelist');
-        Schema::dropIfExists('reportold');
-        Schema::dropIfExists('log');
+        // Schema::dropIfExists('shop');
+        // Schema::dropIfExists('classify');
+        // Schema::dropIfExists('keyword');
+        // Schema::dropIfExists('photo');
+        // Schema::dropIfExists('cash');
+        // Schema::dropIfExists('tasks');
+        // Schema::dropIfExists('gamelist');
+        // Schema::dropIfExists('reportold');
+        // Schema::dropIfExists('log');
 
-        Schema::dropIfExists('provider_list');
+        // Schema::dropIfExists('provider_list');
     }
 
     /**
